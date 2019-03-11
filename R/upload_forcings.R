@@ -4,6 +4,8 @@
 #' @param denominador 
 #' @param param 
 #'
+#'@param precip
+#'
 #' @return
 #' @export
 #'
