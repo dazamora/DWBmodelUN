@@ -48,7 +48,7 @@ UpForcing<-function(path_p="./precip/", path_pet="./pet/", file_type="raster", f
     pet_v <- raster::rasterToPoints(pet)[,-c(1,2)]
     
     # ---- print forcings ----
-    dir.create("./forcings", showWarings=F)
+    dir.create("./forcings", showWarnings=F)
     write.csv(p_v, "./precip.csv")
     write.csv(pet_v, "./pet.csv")
     
