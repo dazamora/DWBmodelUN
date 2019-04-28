@@ -1,7 +1,8 @@
 #' @name 
 #' UpFrocing
 #'
-#' @title Upload Forcings
+#' @title
+#' Upload Forcings
 #'
 #' @description This function loads the precipitation and evapotranspiration estimates that will be used
 #' to run or force the DWB model. It also creates a directory where stores csv files if the original forcing
@@ -26,7 +27,7 @@
 #' meteo <- UpForcing(path_p="./precip/", path_pet="./pet/", file_type="raster", format= "NCDF")
 #' meteo <- UpForcing(path_p="./precip/", path_pet="./pet/", file_type="csv")
 #' 
-UpForcing<-function(path_p="./precip/", path_pet="./pet/", file_type="raster", format= "GTiff"){
+upForcing<-function(path_p="./precip/", path_pet="./pet/", file_type="raster", format= "GTiff"){
   
   if (file_type=="raster"){
     # ---- identify raster format and loading----
