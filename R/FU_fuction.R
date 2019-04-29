@@ -15,6 +15,10 @@
 #'
 #' @return a value or a vector (depending on which kind of data was introduced for numerator and denominator)
 #'
+#' @author Nicolas Duque Gardeazabal <nduqueg@unal.edu.co> 
+#' David Zamora <dazamoraa@unal.edu.co>
+#' Water Resources Engineering Research Group - GIREH
+#'
 #' @examples
 #' PET <- 1000
 #' P <- 2000
