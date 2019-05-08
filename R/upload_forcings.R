@@ -20,9 +20,7 @@
 #' @return a list containing the two Zoos (P and PET)
 #' 
 #' @author David Zamora <dazamoraa@unal.edu.co>
-#' Nicolas Duque Gardeazabal <nduqueg@unal.edu.co> 
-#' Pedro Felipe Arboleda O <pfarboledao@unal.edu.co>
-#' Carolina Vega Viviescas <cvegav@unal.edu.co>
+#' Nicolas Duque Gardeazabal <nduqueg@unal.edu.co>
 #' Water Resources Engineering Research Group - GIREH
 #'
 #' @examples
