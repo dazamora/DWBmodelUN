@@ -22,7 +22,9 @@
 #' @author David Zamora <dazamoraa@unal.edu.co>
 #' Nicolas Duque Gardeazabal <nduqueg@unal.edu.co>
 #' Water Resources Engineering Research Group - GIREH
-#'
+#' 
+#' @export
+#' 
 #' @examples
 #' meteo <- UpForcing(path_p="./precip/", path_pet="./pet/", file_type="raster", format= "NCDF")
 #' meteo <- UpForcing(path_p="./precip/", path_pet="./pet/", file_type="csv")

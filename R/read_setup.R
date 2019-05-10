@@ -20,6 +20,8 @@
 #'
 #' @return a organized dataframe which defines the model setups
 #' 
+#' @export
+#' 
 #' @author Nicolas Duque Gardeazabal <nduqueg@unal.edu.co> 
 #' David Zamora <dazamoraa@unal.edu.co>
 #' Water Resources Engineering Research Group - GIREH

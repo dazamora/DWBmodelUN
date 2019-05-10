@@ -1,11 +1,12 @@
 #' @name 
-#' Build GRU maps 
+#' Build GRU maps
+#'  
 #' @title
 #' Build Grouped Response Units in maps
 #' 
 #' @description This function builds raster maps for each parameter based on a raster file where the location of the
 #' Grouped Response Units (\code{GRUs}) are defined. This raster must have the same resolution as the forcing files
-#' (i.e. for each cell that is planned to be simulated, there must be forcing time series and a cell assigned to a \code{GRU}).
+#' (i.e., for each cell that is planned to be simulated, there must be forcing time series and a cell assigned to a \code{GRU}).
 #' 
 #' @param gruLoc raster file that is comprised by numbers from 1 to the number of total \code{GRUs} that were defined
 #' @param parsValues data frame that has the values of the four parameters of each \code{GRU}. It must have equal number of
@@ -19,6 +20,8 @@
 #' David Zamora <dazamoraa@unal.edu.co>
 #' Water Resources Engineering Research Group - GIREH
 #'
+#' @export
+#' 
 #' @examples
 #' library(raster)
 #' gru_loc <- raster("./cells_GRU/gru2_cober_location.tif")
