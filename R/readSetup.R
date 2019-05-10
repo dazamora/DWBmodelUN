@@ -5,8 +5,8 @@
 #' Read the model setup
 #'
 #' @description This function reads the setup features of the model. These include the dates that define the simulated time period, and also the variables
-#' that will be printed in individual directories. The takes the information from a \code{\emph{.rda}} file, and returns the identified variables in a tailored dataframe.
-#' Optionally, one can insert the string setup in a dataframe and hence used it in this function.
+#' that will be printed in individual directories. It reads the information from a \code{\emph{.rda}} file, and returns the identified variables in a tailored dataframe.
+#' Optionally, one can insert the string setup in a dataframe and hence use it in this function.
 #'
 #' @param Read is a boolean which is used to identify whether the modeller has created its own dataframe in R or
 #' the setup is read from file previously written in the \code{data} directory. An example of the file is contained in the package.
@@ -18,7 +18,7 @@
 #' the final date of simulation, and the final date of calibration. This dates must be in the format year-month-day. If calibration is not
 #' required, those dates are ignored.
 #'
-#' @return a organized dataframe which defines the model setups
+#' @return An organized dataframe which defines the model setups
 #' 
 #' @export
 #' 
