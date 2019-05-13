@@ -19,9 +19,13 @@
 #'
 #' @return a list containing the two Zoos (P and PET)
 #' 
-#' @author David Zamora <dazamoraa@unal.edu.co>
+#' @author
 #' Nicolas Duque Gardeazabal <nduqueg@unal.edu.co>
-#' Water Resources Engineering Research Group - GIREH
+#' Pedro Felipe Arboleda <pfarboledao@unal.edu.co>
+#' David Zamora <dazamoraa@unal.edu.co>
+#' Carolina Vega Viviescas <cvegav@unal.edu.co>
+#' Grupo de Investigación en Ingeniería de los Recursos Hídricos - GIREH
+#' Universidad Nacional de Colombia
 #' 
 #' @export
 #' 
@@ -29,7 +33,7 @@
 #' meteo <- UpForcing(path_p="./precip/", path_pet="./pet/", file_type="raster", format= "NCDF")
 #' meteo <- UpForcing(path_p="./precip/", path_pet="./pet/", file_type="csv")
 #' 
-upForcing<-function(path_p="./precip/", path_pet="./pet/", file_type="raster", format= "GTiff"){
+upForcing <-function(path_p="./precip/", path_pet="./pet/", file_type="raster", format= "GTiff"){
   
   if (file_type=="raster"){
     # ---- identify raster format and loading----
