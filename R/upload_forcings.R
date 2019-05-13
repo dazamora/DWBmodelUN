@@ -16,6 +16,11 @@
 #' the default value is "raster".
 #' @param format Character string that specifies the format file of the Rasters, posible values are "GTiff"
 #' and "NCDF". Default value is "GTiff"
+#' 
+#' @details The character strings that control the location of the forcing files are as default "\emph{./precip/}"
+#' and "\emph{./pet/}" for precipitation and potential evapotranspiration, but can be change to other directories.
+#' However, if one intention is to upload them from NetCDF files, the \bold{strings must be completely changed} to
+#' a complete path that includes the name and extension of the file.
 #'
 #' @return a list containing the two Zoos (P and PET)
 #' 
@@ -52,8 +57,8 @@ upForcing<-function(path_p="./precip/", path_pet="./pet/", file_type="raster", f
     
     # ---- print forcings ----
     dir.create("./forcings", showWarnings=F)
-    write.csv(p_v, "./precip.csv")
-    write.csv(pet_v, "./pet.csv")
+    write.csv(p_v, "./forcings/precip.csv")
+    write.csv(pet_v, "./forcings/pet.csv")
     
   }else {  # load forcings in csv files
     pet_files <- list.files(path_pet)
