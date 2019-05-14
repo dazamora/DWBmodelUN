@@ -29,13 +29,22 @@ This function loads the precipitation and evapotranspiration estimates that will
 to run or force the DWB model. It also creates a directory where stores csv files if the original forcing
 files are in raster format.
 }
+\details{
+The character strings that control the location of the forcing files are as default "\emph{./precip/}"
+and "\emph{./pet/}" for precipitation and potential evapotranspiration, but can be change to other directories.
+However, if one intention is to upload them from NetCDF files, the \bold{strings must be completely changed} to
+a complete path that includes the name and extension of the file.
+}
 \examples{
 meteo <- UpForcing(path_p="./precip/", path_pet="./pet/", file_type="raster", format= "NCDF")
 meteo <- UpForcing(path_p="./precip/", path_pet="./pet/", file_type="csv")
 
 }
 \author{
-David Zamora <dazamoraa@unal.edu.co>
 Nicolas Duque Gardeazabal <nduqueg@unal.edu.co>
-Water Resources Engineering Research Group - GIREH
+Pedro Felipe Arboleda <pfarboledao@unal.edu.co>
+David Zamora <dazamoraa@unal.edu.co>
+Carolina Vega Viviescas <cvegav@unal.edu.co>
+Grupo de Investigación en Ingeniería de los Recursos Hídricos - GIREH
+Universidad Nacional de Colombia
 }
