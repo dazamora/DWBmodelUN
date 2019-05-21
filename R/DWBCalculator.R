@@ -17,7 +17,7 @@
 #' storage that controls the baseflow (\emph{\code{\expression{d}}}). 
 #'
 #' @param p_v matrix comprised by the precipitation records and that has as raws the number of cells that will be simulated and as columns the number of time steps to be simulated
-#' @param etp_v matrix comprised by the potential evapotranspiration records and that has as raws the number of cells that will be simulated and as columns the number of time steps to be simulated
+#' @param pet_v matrix comprised by the potential evapotranspiration records and that has as raws the number of cells that will be simulated and as columns the number of time steps to be simulated
 #' @param g_v vector comprised by the initial values of the ground water storage, it must have as many values as cells defined to simulate
 #' @param s_v vector comprised by the initial values of the soil water storage, it must have as many values as cells defined to simulate
 #' @param alpha1_v vector comprised by the values of the retention efficiency that must be between 0 and 1, it must have as many values as cells defined to simulate
@@ -57,7 +57,7 @@
 #' @examples
 #' 
 #' 
-dwbCalculator <- function(p_v, etp_v, g_v, s_v, alpha1_v, alpha2_v, smax_v, d_v){
+DWBCalculator <- function(p_v, pet_v, g_v, s_v, alpha1_v, alpha2_v, smax_v, d_v){
   
   # total number of cells and time steps to be simulated
   ncells <- NROW(p_v)
@@ -79,14 +79,14 @@ dwbCalculator <- function(p_v, etp_v, g_v, s_v, alpha1_v, alpha2_v, smax_v, d_v)
   
   # Calculation of the variables and fluxes for the first time step
   dummy   <- smax_v - s_v
-  xo[, 1] <- dummy + etp_v[, 1]
+  xo[, 1] <- dummy + pet_v[, 1]
   x[, 1]  <- p_v[, 1] * fun_FU(PET = xo[, 1], P = p_v[, 1], param = alpha1_v)
   qd[, 1] <- p_v[, 1] - x[, 1]
   w[, 1]  <- x[, 1] + s_v
-  yo[, 1] <- etp_v[, 1] + smax_v
+  yo[, 1] <- pet_v[, 1] + smax_v
   y[, 1]  <- w[, 1] * fun_FU(PET = yo[, 1], P = w[, 1], param = alpha2_v)
   r[, 1]  <- w[, 1] - y[, 1]
-  aet[, 1] <- w[, 1] * fun_FU(PET = etp_v[, 1], P = w[, 1], param = alpha2_v)
+  aet[, 1] <- w[, 1] * fun_FU(PET = pet_v[, 1], P = w[, 1], param = alpha2_v)
   s[, 1]  <- y[, 1] - aet[, 1]
   qb[, 1] <- d_v * g_v
   g[, 1]  <- (1 - d_v) * g_v + r[, 1]
@@ -97,14 +97,14 @@ dwbCalculator <- function(p_v, etp_v, g_v, s_v, alpha1_v, alpha2_v, smax_v, d_v)
   for(i in 2:nmonths){
     
     dummy   <- smax_v - s[, (i-1)]
-    xo[, i] <- dummy + etp_v[, i]
+    xo[, i] <- dummy + pet_v[, i]
     x[, i]  <- p_v[, i] * fun_FU(PET = xo[, i], P = p_v[, i], param = alpha1_v)
     qd[, i] <- p_v[, i] - x[, i]
     w[, i]  <- x[, i] + s[, (i-1)]
-    yo[, i] <- etp_v[, i] + smax_v
+    yo[, i] <- pet_v[, i] + smax_v
     y[, i]  <- w[, i] * fun_FU(PET = yo[, i], P = w[, i], param = alpha2_v)
     r[, i]  <- w[, i] - y[, i]
-    aet[, i] <- w[, i] * fun_FU(PET = etp_v[, i], P = w[, i], param = alpha2_v)
+    aet[, i] <- w[, i] * fun_FU(PET = pet_v[, i], P = w[, i], param = alpha2_v)
     s[, i]  <- y[, i] - aet[, i]
     qb[, i] <- d_v * g[, (i-1)]
     g[, i] <- (1-d_v) * g_v + r[, i]

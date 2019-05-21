@@ -27,51 +27,59 @@
 #' @author
 #' Nicolas Duque Gardeazabal <nduqueg@unal.edu.co>
 #' Pedro Felipe Arboleda <pfarboledao@unal.edu.co>
-#' David Zamora <dazamoraa@unal.edu.co>
 #' Carolina Vega Viviescas <cvegav@unal.edu.co>
+#' David Zamora <dazamoraa@unal.edu.co>
 #' Grupo de Investigación en Ingeniería de los Recursos Hídricos - GIREH
 #' Universidad Nacional de Colombia
 #' 
 #' @export
 #' 
 #' @examples
-#' meteo <- UpForcing(path_p="./precip/", path_pet="./pet/", file_type="raster", format= "NCDF")
-#' meteo <- UpForcing(path_p="./precip/", path_pet="./pet/", file_type="csv")
+#' meteo <- UpForcing(path_p = "./precip/", path_pet = "./pet/", file_type = "raster", format = "NCDF")
+#' meteo <- UpForcing(path_p = "./precip/", path_pet = "./pet/", file_type = "csv")
 #' 
-upForcing <-function(path_p="./precip/", path_pet="./pet/", file_type="raster", format= "GTiff"){
+upForcing <- function(path_p = "./precip/", path_pet = "./pet/", file_type = "raster", format = "GTiff"){
+  if (!exists("path_p") | !exists("path_pet")){
+    path_p <- getwd()
+    path_pet <- getwd()
+  } else if (!exists("path_p")){
+    path_p <- getwd()
+  } else if (!exists("path_pet")){
+    path_pet <- getwd()
+  } else {
+    
+  }
+  # Aqui falta generar un error o aviso en caso que la persona tenga archivos de las extensiones requeridas o 
+  # Simplemente no tenga archivos
+  if(list.files(path_pet, pattern = "tiff") | ){
+    print("Not avaliable data of precipitation or evapotranspiration")
+  }
   
-  if (file_type=="raster"){
+  if (file_type == "raster"){
     # ---- identify raster format and loading----
-    if (format=="GTiff"){
-      
+    if (format == "GTiff"){
       pet_files <- list.files(path_pet)
-      pet <- raster::stack(paste(path_pet,pet_files,sep = ""))
-      
+      pet <- raster::stack(paste(path_pet, pet_files, sep = ""))
       p_files <- list.files(path_p)
-      p <- raster::stack(paste(path_p,p_files,sep = ""))
-    }else if(format=="NCDF"){
-      
+      p <- raster::stack(paste(path_p, p_files, sep = ""))
+    } else if(format == "NCDF"){
       pet <- raster::stack(path_pet)
       p <- raster::stack(path_p)
     }
-    
     # ---- transformation to dataframes ----
-    p_v <- raster::rasterToPoints(p)[,-c(1,2)]
-    pet_v <- raster::rasterToPoints(pet)[,-c(1,2)]
-    
+    p_v <- raster::rasterToPoints(p)[ ,-c(1, 2)]
+    pet_v <- raster::rasterToPoints(pet)[ ,-c(1, 2)]
     # ---- print forcings ----
-    dir.create("./forcings", showWarnings=F)
+    dir.create("./forcings", showWarnings = F)
     write.csv(p_v, "./forcings/precip.csv")
     write.csv(pet_v, "./forcings/pet.csv")
-    
-  }else {  # load forcings in csv files
+  } else {  # load forcings in csv files
     pet_files <- list.files(path_pet)
     p_files <- list.files(path_p)
     
     p_v <- read.csv(paste(path_p, p_files,sep = ""))
     pet_v <- read.csv(paste(path_pet, pet_files,sep = ""))
   }
-  
-  meteo <- list(pet <- pet_v, p <- p_v)
+  meteo <- list(PET = pet_v, Prec = p_v)
   return(meteo)
 }
