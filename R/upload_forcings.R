@@ -29,7 +29,7 @@
 #' Pedro Felipe Arboleda <pfarboledao@unal.edu.co>
 #' Carolina Vega Viviescas <cvegav@unal.edu.co>
 #' David Zamora <dazamoraa@unal.edu.co>
-#' Grupo de Investigación en Ingeniería de los Recursos Hídricos - GIREH
+#' Water Resources Engineering Research Group - GIREH
 #' Universidad Nacional de Colombia
 #' 
 #' @export

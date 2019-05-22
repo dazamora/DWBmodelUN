@@ -8,15 +8,16 @@
 #' @export
 #'
 #' @examples
-cellCuencas<-function(raster,cuencas){
+#' 
+cellBasins <- function(raster, basins){
   # crear el raster con el numero de celdas
-  tabla_celdas<-rasterToPoints(raster)[,c(1,2)]
-  tabla_celdas<-cbind(tabla_celdas,seq(from=1,to=nrow(tabla_celdas),by=1))
-  celdas<-rasterFromXYZ(tabla_celdas,crs=crs(raster))
+  cell_table <- rasterToPoints(raster)[ ,c(1,2)]
+  cell_table <- cbind(cell_table, seq(from = 1,to = nrow(cell_table), by = 1))
+  cells <- rasterFromXYZ(cell_table, crs = crs(raster))
   
   # extraer las celdas que se encuentran en cada una de las cuecas
-  cuencas_celdas<-extract(celdas,cuencas,na.rm=T)
-  names(cuencas_celdas)<-cuencas$Codigo
+  cell_basins<-extract(cells, basins, na.rm = T)
+  names(cell_basins) <- basins$cod
   
-  return(list(cuencas_celdas,tabla_celdas))
+  return(list(cellBasins = cell_basins, cellTable = cell_table))
 }
