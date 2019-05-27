@@ -23,10 +23,10 @@
 #' @export
 #' 
 #' @examples
-#' library(raster)
-#' gru_loc <- raster("./cells_GRU/gru2_cober_location.tif")
-#' pars <- read.csv("./param_dwb.csv")
-#' gru_maps <- Build_gru_maps(gru_loc,pars)
+#' # library(raster)
+#' data(GRU)    # GRU <- raster("./directory/gru2_cober_location.tif")
+#' data(param)  # param <- read.csv("./directory/param_dwb.csv")
+#' gru_maps <- Build_gru_maps(GRU,param)
 #' 
 buildGRUmaps <- function(gruLoc, parsValues){
   
