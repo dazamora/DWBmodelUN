@@ -11,7 +11,7 @@
 #' @param Read is a boolean which is used to identify whether the modeller has created its own dataframe in R or
 #' the setup is read from file previously written in the \code{data} directory. An example of the file is contained in the package.
 #' The default value is \emph{TRUE}, meaning that it will read the plain file from the \code{data} directory.
-#' @param ... is an optinal dataframe that contains the character strings which specifies dates and variables to be printed.
+#' @param setup is an optinal dataframe that contains the character strings which specifies dates and variables to be printed.
 #' The first seven rows must be character strings specifying the actions regarding if the modeller requires to print the
 #' simulated variables. The order is: calibration mode, print variables, print total runoff, print soil moisture, print actual ET, print direct runoff,
 #' print baseflow. Those strings must be \emph{YES} or \emph{NO}. The next four rows are: the initial date of simulation, the initial date for calibration,
@@ -35,23 +35,24 @@
 #' d <- "2012-12-15"
 #' e <- "2012-12-10"
 #' table_setup <- data.frame(set=a,stringsAsFactors = F)
-#' table_setup <- rbind(setupDataFrame,b,c,d,e)
+#' table_setup <- rbind(setupDataFrame, b, c, d, e)
 #' setup <- readSetup(Read = F, table_setup)
 #' 
-readSetup <- function(Read = T, ...){
+readSetup <- function(Read = TRUE, setup =...){
   
-  if (Read == T){
-    
-    setup <- read.table("./data/setup_data.rda")
-    setup_data <- setup_data
-    
-    # final date of simulation
-    setup_data[10,1] <- paste(substr(setup[9,], 1, 7),"-01",sep="")  # changes the day speficfied to the first day of the month
-    # final date of calibration
-    setup_data[11,1] <- paste(substr(setup[10,], 1, 7),"-01",sep="")
+  if(!exists("Read") | !exists("setup")){
+    warning("Read or setup parameters are missing")
   }else{
-    setup_data <- ...  # asigns the dataframe created in the R environment
+    if (Read == TRUE){
+      setup <- read.table("./data/setup_data.rda")
+      setup_data <- setup
+      # final date of simulation
+      setup_data[10,1] <- paste(substr(setup[9,], 1, 7),"-01",sep = "")  # changes the day speficfied to the first day of the month
+      # final date of calibration
+      setup_data[11,1] <- paste(substr(setup[10,], 1, 7),"-01",sep = "")
+    }else{
+      setup_data <- ...  # asigns the dataframe created in the R environment
+    }
+    return(setup_data)
   }
-  
-  return(setup_data)
 }

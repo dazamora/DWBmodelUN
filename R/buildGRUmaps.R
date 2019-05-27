@@ -31,17 +31,19 @@
 buildGRUmaps <- function(gruLoc, parsValues){
   
   gruNumber <- raster::cellStats(gruLoc, 'max')
-  if(dim(parsValues)[1] != gruNumber){ stop("There is a mismatch between the GRU defined in the raster file and the table which contains the values") }
+  if(dim(parsValues)[1] != gruNumber){
+    stop("There is a mismatch between the GRU defined in \n the raster file and the table which contains the values") 
+  }
   
   alpha1 <- alpha2 <- smax <- d <- raster::raster(gruLoc)
   
-  for ( i in 1:dim( parsValues)[1] ){
-    alpha1[gruLoc==i] <- parsValues[i,1]
-    alpha2[gruLoc==i] <- parsValues[i,2]
-    d[gruLoc==i] <- parsValues[i,3]
-    smax[gruLoc==i] <- parsValues[i,4]
+  for (i in 1:dim(parsValues)[1]){
+    alpha1[gruLoc == i] <- parsValues[i, 1]
+    alpha2[gruLoc == i] <- parsValues[i, 2]
+    d[gruLoc == i] <- parsValues[i, 3]
+    smax[gruLoc == i] <- parsValues[i, 4]
   }
-  gruMaps <- list(alpha1 <- alpha1, alpha2 <- alpha2, smax <- smax, d <- d)
+  gruMaps <- list(alpha1 = alpha1, alpha2 = alpha2, smax = smax, d = d)
   
   return(gruMaps)
 }
