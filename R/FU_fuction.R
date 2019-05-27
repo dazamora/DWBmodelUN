@@ -16,6 +16,8 @@
 #' @return a value or a vector (depending on which kind of data was introduced for numerator and denominator)
 #'
 #' @author Nicolas Duque Gardeazabal <nduqueg@unal.edu.co> 
+#' Pedro Felipe Arboleda Obando <pfarboledao@unal.edu.co> 
+#' Carolina Vega Viviescas <cvegav@unal.edu.co>
 #' David Zamora <dazamoraa@unal.edu.co>
 #' Water Resources Engineering Research Group - GIREH
 #' 
@@ -34,8 +36,9 @@
 #' fun_FU(PET, P, alpha)
 #' 
 funFU <- function(PET, P, alpha){
-  F_FU <- 1 + PET/P - (1 + (PET/P)^(1/(1 - param)))^(1 - param)
-  F_FU[P == 0] <- 1
-  # recordar separar variables
+  
+  F_FU <- 1 + PET/P - (1 + (PET/P)^(1/(1 - alpha)))^(1 - alpha)
+  F_FU[P == 0] <- 1  # it identifies where the limit of the function is not fulfilled and assigns the limit value
+  
   return(F_FU)
 }
