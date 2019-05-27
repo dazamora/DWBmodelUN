@@ -39,36 +39,41 @@
 #' meteo <- UpForcing(path_p = "./precip/", path_pet = "./pet/", file_type = "csv")
 #' 
 upForcing <- function(path_p = "./precip/", path_pet = "./pet/", file_type = "raster", format = "GTiff"){
-  if (!exists("path_p") | !exists("path_pet")){
-    path_p <- getwd()
+  
+  if ( !exists("path_pet")){
     path_pet <- getwd()
   } else if (!exists("path_p")){
     path_p <- getwd()
-  } else if (!exists("path_pet")){
+  } else if (!exists("path_p") | !exists("path_pet")){
     path_pet <- getwd()
-  } else {
-    
+    path_p <- getwd()
   }
-  # Aqui falta generar un error o aviso en caso que la persona tenga archivos de las extensiones requeridas o 
-  # Simplemente no tenga archivos
-  if(list.files(path_pet, pattern = "tiff") | ){
-    print("Not avaliable data of precipitation or evapotranspiration")
-  }
+  
   
   if (file_type == "raster"){
     # ---- identify raster format and loading----
     if (format == "GTiff"){
+      
+      if( length(list.files( path_pet, pattern = ".tif")) == 0 | length( list.files(path_p, pattern = ".tif")) == 0){
+        stop("Not avaliable data of precipitation or evapotranspiration")
+      }
+      
       pet_files <- list.files(path_pet)
       pet <- raster::stack(paste(path_pet, pet_files, sep = ""))
       p_files <- list.files(path_p)
       p <- raster::stack(paste(path_p, p_files, sep = ""))
     } else if(format == "NCDF"){
-      pet <- raster::stack(path_pet)
-      p <- raster::stack(path_p)
+      
+      if( length( list.files(path_pet, pattern = ".nc")) == 0 | length( list.files(path_p, pattern = ".nc")) == 0){
+        stop("Not avaliable data of precipitation or evapotranspiration")
+      }
+      
+      pet <- raster::brick(path_pet)
+      p <- raster::brick(path_p)
     }
     # ---- transformation to dataframes ----
-    p_v <- raster::rasterToPoints(p)[ ,-c(1, 2)]
-    pet_v <- raster::rasterToPoints(pet)[ ,-c(1, 2)]
+    p_v <- raster::rasterToPoints(p)
+    pet_v <- raster::rasterToPoints(pet)
     # ---- print forcings ----
     dir.create("./forcings", showWarnings = F)
     write.csv(p_v, "./forcings/precip.csv")
