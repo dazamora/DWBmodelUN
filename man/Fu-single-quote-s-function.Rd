@@ -40,6 +40,8 @@ Budyko framework – Model development and testing. Journal of Hydrology,
 }
 \author{
 Nicolas Duque Gardeazabal <nduqueg@unal.edu.co> 
+Pedro Felipe Arboleda Obando <pfarboledao@unal.edu.co> 
+Carolina Vega Viviescas <cvegav@unal.edu.co>
 David Zamora <dazamoraa@unal.edu.co>
 Water Resources Engineering Research Group - GIREH
 }

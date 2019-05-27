@@ -4,14 +4,14 @@
 \alias{readSetup}
 \title{Read the model setup}
 \usage{
-readSetup(Read = T, ...)
+readSetup(Read = TRUE, setup = ...)
 }
 \arguments{
 \item{Read}{is a boolean which is used to identify whether the modeller has created its own dataframe in R or
 the setup is read from file previously written in the \code{data} directory. An example of the file is contained in the package.
 The default value is \emph{TRUE}, meaning that it will read the plain file from the \code{data} directory.}
 
-\item{...}{is an optinal dataframe that contains the character strings which specifies dates and variables to be printed.
+\item{setup}{is an optinal dataframe that contains the character strings which specifies dates and variables to be printed.
 The first seven rows must be character strings specifying the actions regarding if the modeller requires to print the
 simulated variables. The order is: calibration mode, print variables, print total runoff, print soil moisture, print actual ET, print direct runoff,
 print baseflow. Those strings must be \emph{YES} or \emph{NO}. The next four rows are: the initial date of simulation, the initial date for calibration,
@@ -35,12 +35,14 @@ c <- "1991-01-01"
 d <- "2012-12-15"
 e <- "2012-12-10"
 table_setup <- data.frame(set=a,stringsAsFactors = F)
-table_setup <- rbind(setupDataFrame,b,c,d,e)
+table_setup <- rbind(setupDataFrame, b, c, d, e)
 setup <- readSetup(Read = F, table_setup)
 
 }
 \author{
 Nicolas Duque Gardeazabal <nduqueg@unal.edu.co> 
+Pedro Felipe Arboleda Obando <pfarboledao@unal.edu.co> 
+Carolina Vega Viviescas <cvegav@unal.edu.co>
 David Zamora <dazamoraa@unal.edu.co>
 Water Resources Engineering Research Group - GIREH
 }

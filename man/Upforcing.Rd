@@ -36,15 +36,15 @@ However, if one intention is to upload them from NetCDF files, the \bold{strings
 a complete path that includes the name and extension of the file.
 }
 \examples{
-meteo <- UpForcing(path_p="./precip/", path_pet="./pet/", file_type="raster", format= "NCDF")
-meteo <- UpForcing(path_p="./precip/", path_pet="./pet/", file_type="csv")
+meteo <- UpForcing(path_p = "./precip/", path_pet = "./pet/", file_type = "raster", format = "NCDF")
+meteo <- UpForcing(path_p = "./precip/", path_pet = "./pet/", file_type = "csv")
 
 }
 \author{
 Nicolas Duque Gardeazabal <nduqueg@unal.edu.co>
 Pedro Felipe Arboleda <pfarboledao@unal.edu.co>
-David Zamora <dazamoraa@unal.edu.co>
 Carolina Vega Viviescas <cvegav@unal.edu.co>
-Grupo de Investigación en Ingeniería de los Recursos Hídricos - GIREH
+David Zamora <dazamoraa@unal.edu.co>
+Water Resources Engineering Research Group - GIREH
 Universidad Nacional de Colombia
 }

@@ -2,15 +2,15 @@
 % Please edit documentation in R/DWBCalculator.R
 \name{DWB model function}
 \alias{DWB model function}
-\alias{dwbCalculator}
+\alias{DWBCalculator}
 \title{DWB model function}
 \usage{
-dwbCalculator(p_v, etp_v, g_v, s_v, alpha1_v, alpha2_v, smax_v, d_v)
+DWBCalculator(p_v, pet_v, g_v, s_v, alpha1_v, alpha2_v, smax_v, d_v)
 }
 \arguments{
 \item{p_v}{matrix comprised by the precipitation records and that has as raws the number of cells that will be simulated and as columns the number of time steps to be simulated}
 
-\item{etp_v}{matrix comprised by the potential evapotranspiration records and that has as raws the number of cells that will be simulated and as columns the number of time steps to be simulated}
+\item{pet_v}{matrix comprised by the potential evapotranspiration records and that has as raws the number of cells that will be simulated and as columns the number of time steps to be simulated}
 
 \item{g_v}{vector comprised by the initial values of the ground water storage, it must have as many values as cells defined to simulate}
 
