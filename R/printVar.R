@@ -1,27 +1,50 @@
-# funcion que permite imprimir alguna de las variables simuladas por el modelo
-#' Title
+#' @name 
+#' Print Variables
+#'  
+#' @title
+#' Print variables of interest
+#' 
+#' @description This function that allows to print some of the variables simulated by the DWB model
+#' 
+#' @param variable Corresponds to the results of a specific variable of the DWBCalculator
+#' @param coor_cells Coordinates of the cells to be extracted the results
+#' @param coord_sys Geographic coordinate system
+#' @param dates Dates to be extracted
+#' @param as Option to print the results as independent raster (\emph{\code{.tif}}) or in a NetCDF file (\emph{\code{.nc}})
 #'
-#' @param variable 
-#' @param coor_celdas 
-#' @param sis_cord 
-#' @param fechas 
+#' @author Nicolas Duque Gardeazabal <nduqueg@unal.edu.co>
+#' Pedro Felipe Arboleda Obando <pfarboledao@unal.edu.co> 
+#' Carolina Vega Viviescas <cvegav@unal.edu.co> 
+#' David Zamora <dazamoraa@unal.edu.co>
+#' Water Resources Engineering Research Group - GIREH
 #'
-#' @return
-#' @export
+#' @return It saves in a folder previously created a set of raster files with the results of the 
+#' variable of interest
 #'
+#' @export 
+#' 
 #' @examples
-printVar<-function(variable,coor_celdas,sis_cord,fechas){
-  var_name<-as.character(substitute(variable))
+#' library(raster)
+#' data(dwb_results)    
+#' printVar(dwb_results[[3]],coor_cells,"+init=epsg:4326",dates)
+#' 
+printVar <- function(variable, coor_cells, coord_sys, dates, as){
+  var_name <- as.character(substitute(variable))
   
   if (file.exists(var_name)){
-    path_var<-paste("./",var_name,"/",sep="")
+    path_var <- paste("./", var_name, "/", sep="")
   }else{
-    print("No existe la carpeta, por favor creela")
+    print("There is no folder to save the files. Please create it with the name of the variable.")
     stop()
   }
   
-  var_r<-rasterFromXYZ(cbind(coor_celdas[,-3],variable),crs=sis_cord)
-  for (i in 1:nlayers(var_r)){
-    writeRaster(var_r[[i]],filename=paste(path_var,var_name,"_",as.character(fechas[i]),".tif",sep=""),format="GTiff",overwrite=T)
+  if (as == 'raster'){
+    var_r <- rasterFromXYZ(cbind(coor_cells[,-3], variable), crs = coor_cells)
+    for (i in 1:nlayers(var_r)){
+      writeRaster(var_r[[i]], filename = paste(path_var, var_name, "_", as.character(dates[i]), ".tif", sep = ""), format="GTiff", overwrite=TRUE)
+      }
+  }
+  else{
+    writeRaster(var_r[[1:nlayers(var_r)]], filename = paste(path_var, var_name, ".nc", sep = ""), format = 'CDF', overwrite = TRUE)
   }
 }
