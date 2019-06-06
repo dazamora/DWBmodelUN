@@ -10,7 +10,7 @@
 #' @param coor_cells Coordinates of the cells to be extracted the results
 #' @param coord_sys Geographic coordinate system
 #' @param dates Dates to be extracted
-#' @param as Option to print the results as independent raster (\emph{\code{.tif}}) or in a NetCDF file (\emph{\code{.nc}})
+#' @param as Option to print the results as independent 'raster' (\emph{\code{.tif}}) or in a 'NetCDF' file (\emph{\code{.nc}})
 #'
 #' @author Nicolas Duque Gardeazabal <nduqueg@unal.edu.co>
 #' Pedro Felipe Arboleda Obando <pfarboledao@unal.edu.co> 
@@ -44,7 +44,11 @@ printVar <- function(variable, coor_cells, coord_sys, dates, as){
       writeRaster(var_r[[i]], filename = paste(path_var, var_name, "_", as.character(dates[i]), ".tif", sep = ""), format="GTiff", overwrite=TRUE)
       }
   }
-  else{
+  if (as == 'NetCDF'){
     writeRaster(var_r[[1:nlayers(var_r)]], filename = paste(path_var, var_name, ".nc", sep = ""), format = 'CDF', overwrite = TRUE)
   }
+  else (
+    print("Invalid file extension")
+    stop()
+  )
 }
