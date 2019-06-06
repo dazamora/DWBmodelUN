@@ -115,7 +115,7 @@ DWBCalculator <- function(p_v, pet_v, g_v, s_v, alpha1_v, alpha2_v, smax_v, d_v)
   close(pb)
   
   #---- return ----
-  dwb_aux <- list(q_total, aet, r, qd, qb, s)
+  dwb_aux <- list(q_total, aet, r, qd, qb, s, g)
   return(dwb_aux)
   
 }
