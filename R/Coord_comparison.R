@@ -31,9 +31,8 @@
 #' Universidad Nacional de Colombia - sede Bogotá
 #' 
 #' @examples
-#' 
-<<<<<<< HEAD
-Coord_comparison<-function(r1, r2){
+#' <<<<<<< HEAD
+Coord_comparison <- function(r1, r2){
   #Verify if r1 is data frame, if it is, convert to raster
   if (is.data.frame(r1)) {
     print("First data file is a data frame - Converting to raster")
@@ -72,54 +71,5 @@ Coord_comparison<-function(r1, r2){
     }
     
   }
-  
-  
-  # This part of the code compares three features from the raster:
-  # Extent, resolution, and number of layers (if it is a raster brick or raster stack)
-  er1<-extent(r1)
-  er2<-extent(r2)
-  if(er1==er2){
-    print("Raster extent verified")
-    if(res(r1)[1]==res(r2)[1]&res(r1)[2]==res(r2)[2]){
-=======
-#' 
-Coord_comparison <- function(r1, r2){
-  er1 <- extent(r1)
-  er2 <- extent(r2)
-  if(er1 == er2){
-    print("Coordinates verified")
-    if(res(r1)[1] == res(r2)[1] & res(r1)[2] == res(r2)[2]){
->>>>>>> f0d213fdca37759b97df2893667bace4b38aa08d
-      print("Resolution verified")
-      if (nlayers(r1) != 1 & nlayers(r2) != 1)
-        if (nlayers(r1) == nlayers(r2)){
-        print("Number of layers verified")
-        return(TRUE)
-        #if(sum(!is.na(r1[[1]]))==sum(!is.na(r2[[1]]))){
-        #print("Celdas con valor verificadas")
-        
-        #}else{
-        # print("Verificar celdas con valor")
-        #return(FALSE)
-        #}
-        
-        }else{
-        print("Please verify number of layers - Dates may be not matching")
-        return(FALSE)
-        }else{
-        print("One of the data have different lenght - Please verify dates and data sets")
-        return(FALSE)
-      }
-    }else{
-      print("Resolution not matching - Please verify raster resolution")
-      return(FALSE)
-    }
-  }else{
-<<<<<<< HEAD
-    print("Rasters extent not matching - Please verify raster extent")
-    
-=======
-    print("Please verify raster coordinates")
->>>>>>> f0d213fdca37759b97df2893667bace4b38aa08d
-  }
 }
+ 
