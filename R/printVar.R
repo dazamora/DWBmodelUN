@@ -34,21 +34,19 @@ printVar <- function(variable, coor_cells, coord_sys, dates, as){
   if (file.exists(var_name)){
     path_var <- paste("./", var_name, "/", sep="")
   }else{
-    print("There is no folder to save the files. Please create it with the name of the variable.")
-    stop()
+    stop("There is no folder to save the files. Please create it with the name of the variable")
   }
   
   if (as == 'raster'){
-    var_r <- rasterFromXYZ(cbind(coor_cells[,-3], variable), crs = coor_cells)
+    var_r <- raster::rasterFromXYZ(cbind(coor_cells[,-3], variable), crs = coor_cells)
     for (i in 1:nlayers(var_r)){
-      writeRaster(var_r[[i]], filename = paste(path_var, var_name, "_", as.character(dates[i]), ".tif", sep = ""), format="GTiff", overwrite=TRUE)
-      }
+      # no se si serria buena idea que si crea un raster y lo guarda, tambien crear una carpeta para este archivo?
+      raster::writeRaster(var_r[[i]], filename = paste(path_var, var_name, "_", as.character(dates[i]), ".tif", sep = ""), format="GTiff", overwrite=TRUE)
+    }
   }
   if (as == 'NetCDF'){
-    writeRaster(var_r[[1:nlayers(var_r)]], filename = paste(path_var, var_name, ".nc", sep = ""), format = 'CDF', overwrite = TRUE)
+    raster::writeRaster(var_r[[1:nlayers(var_r)]], filename = paste(path_var, var_name, ".nc", sep = ""), format = 'CDF', overwrite = TRUE)
+  } else{ 
+    stop("Invalid file extension")
   }
-  else (
-    print("Invalid file extension")
-    stop()
-  )
 }

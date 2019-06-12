@@ -25,18 +25,19 @@
 #' Nicolas Duque Gardeazabal <nduqueg@unal.edu.co> 
 #' Pedro Felipe Arboleda Obando <pfarboledao@unal.edu.co> 
 #' Carolina Vega Viviescas <cvegav@unal.edu.co>
-#' David Andres Zamora Avila<dazamoraa@unal.edu.co>
+#' David Zamora <dazamoraa@unal.edu.co>
 #' 
 #' Water Resources Engineering Research Group - GIREH
 #' Universidad Nacional de Colombia - sede Bogotá
 #' 
 #' @examples
-#' <<<<<<< HEAD
+#' 
+#' 
 Coord_comparison <- function(r1, r2){
   #Verify if r1 is data frame, if it is, convert to raster
   if (is.data.frame(r1)) {
     print("First data file is a data frame - Converting to raster")
-    rummy <- rasterFromXYZ(r1[,1:3])
+    rummy <- raster::rasterFromXYZ(r1[ ,1:3])
     a1 <- r1
     r1 <- rummy
   }
@@ -44,14 +45,14 @@ Coord_comparison <- function(r1, r2){
   #Verify if r2 is data frame, if it is, convert to raster
   if (is.data.frame(r2)) {
     print("Second data file is a data frame - Converting to raster")
-    rummy <- rasterFromXYZ(r2[,1:3])
+    rummy <- raster::rasterFromXYZ(r2[ ,1:3])
     a2 <- r2
     r2 <- rummy
   }
   
-  #If the two inputs are data frames, the dates in the headers are compared
-  #Careful!! The model will keep running even if the two headers does not match, but
-  #there will be a warning
+  # If the two inputs are data frames, the dates in the headers are compared
+  # Careful!! The model will keep running even if the two headers does not match, but
+  # there will be a warning
   # This code also compares number of columns. If the first date match, and the number of columns match
   # the code assumes that the final data match too
   if (is.data.frame(a2) & is.data.frame(a1)) {
@@ -60,7 +61,7 @@ Coord_comparison <- function(r1, r2){
     d2 <- colnames(a2)
     if (d1 == d2) {
       print("First date is matching")
-      if (length(d1)==length(d2)) {
+      if (length(d1) == length(d2)) {
         print("First date and final date are matching")
       }else{
         print("First date is matching, but final date is not matching - Please verify")
@@ -72,4 +73,4 @@ Coord_comparison <- function(r1, r2){
     
   }
 }
- 
+

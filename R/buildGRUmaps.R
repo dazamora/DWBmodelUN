@@ -20,15 +20,21 @@
 #' Pedro Felipe Arboleda Obando <pfarboledao@unal.edu.co> 
 #' Carolina Vega Viviescas <cvegav@unal.edu.co> 
 #' David Zamora <dazamoraa@unal.edu.co>
+#' 
 #' Water Resources Engineering Research Group - GIREH
+#' Universidad Nacional de Colombia - sede Bogotá
 #'
 #' @export
 #' 
 #' @examples
 #' # library(raster)
-#' data(GRU)    # GRU <- raster("./directory/gru2_cober_location.tif")
-#' data(param)  # param <- read.csv("./directory/param_dwb.csv")
-#' gru_maps <- Build_gru_maps(GRU,param)
+#' data(GRU)    
+#' data(param)
+#' gru_maps <- buildGRUmaps(GRU, param)
+#' # Non run  
+#' GRU <- raster("./directory/gru2_cober_location.tif")
+#' param <- read.csv("./directory/param_dwb.csv")
+#' gru_maps <- buildGRUmaps(GRU, param)
 #' 
 buildGRUmaps <- function(gruLoc, parsValues){
   

@@ -29,14 +29,15 @@
 #' Pedro Felipe Arboleda <pfarboledao@unal.edu.co>
 #' Carolina Vega Viviescas <cvegav@unal.edu.co>
 #' David Zamora <dazamoraa@unal.edu.co>
+#' 
 #' Water Resources Engineering Research Group - GIREH
-#' Universidad Nacional de Colombia
+#' Universidad Nacional de Colombia - sede Bogotá
 #' 
 #' @export
 #' 
 #' @examples
-#' meteo <- UpForcing(path_p = "./precip/", path_pet = "./pet/", file_type = "raster", format = "NCDF")
-#' meteo <- UpForcing(path_p = "./precip/", path_pet = "./pet/", file_type = "csv")
+#' meteo <- upForcing(path_p = "./precip/", path_pet = "./pet/", file_type = "raster", format = "NCDF")
+#' meteo <- upForcing(path_p = "./precip/", path_pet = "./pet/", file_type = "csv")
 #' 
 upForcing <- function(path_p = "./precip/", path_pet = "./pet/", file_type = "raster", format = "GTiff"){
   
