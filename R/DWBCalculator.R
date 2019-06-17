@@ -59,7 +59,36 @@
 #' @export
 #'
 #' @examples
-#' 
+#' library(raster)
+#' # Load P and PET databases
+#' data(P_sogamoso, PET_sogamoso)
+#' # Verify that the coordinates of the databases match
+#' Coord_comparison(P_sogamoso, PET_sogamoso)
+#' # Load geographic info of GRU and parameters per cell
+#' data(GRU, param)
+#' # Construction of parameter maps from values by GRU
+#' GRU.maps <- buildGRUmaps(GRU, param)
+#' # Establish the initial modeling conditions
+#' init <- init_state(GRU.maps$smax, "/in_state/")
+#' InGround <- init$In_ground
+#' InStorage <- init$In_storage
+#' rm(init)
+#' # Load general characteristics of modeling
+#' data(setup_data)
+#' Dates <- seq(as.Date(setup_data[8,1]), as.Date(setup_data[10,1]), by="month")
+#' Sim.Period <- seq(2:(length(Dates)+2))
+#' # Vector format conversion to all data
+#' # Ground water and Soil water storage, Retention an PET efficiency, Soil water storage capacity and Recession constant
+#' g_v <- rasterToPoints(InGround)[,-c(1,2)]
+#' s_v <- rasterToPoints(InStorage)[,-c(1,2)]
+#' alpha1_v <- rasterToPoints(GRU.maps$alpha1)[,-c(1,2)]
+#' alpha2_v <- rasterToPoints(GRU.maps$alpha2)[,-c(1,2)]
+#' smax_v <- rasterToPoints(GRU.maps$smax)[,-c(1,2)]
+#' d_v <- rasterToPoints(GRU.maps$d)[,-c(1,2)]
+#' # Run DWB model
+#' DWB.sogamoso <- DWBCalculator(P_sogamoso[,Sim.Period], 
+#'                     PET_sogamoso[,Sim.Period],
+#'                     g_v,s_v,alpha1_v,alpha2_v,smax_v,d_v)
 #' 
 DWBCalculator <- function(p_v, pet_v, g_v, s_v, alpha1_v, alpha2_v, smax_v, d_v){
   
@@ -84,13 +113,13 @@ DWBCalculator <- function(p_v, pet_v, g_v, s_v, alpha1_v, alpha2_v, smax_v, d_v)
   # Calculation of the variables and fluxes for the first time step
   dummy   <- smax_v - s_v
   xo[, 1] <- dummy + pet_v[, 1]
-  x[, 1]  <- p_v[, 1] * fun_FU(PET = xo[, 1], P = p_v[, 1], param = alpha1_v)
+  x[, 1]  <- p_v[, 1] * funFU(PET = xo[, 1], P = p_v[, 1], alpha = alpha1_v)
   qd[, 1] <- p_v[, 1] - x[, 1]
   w[, 1]  <- x[, 1] + s_v
   yo[, 1] <- pet_v[, 1] + smax_v
-  y[, 1]  <- w[, 1] * fun_FU(PET = yo[, 1], P = w[, 1], param = alpha2_v)
+  y[, 1]  <- w[, 1] * funFU(PET = yo[, 1], P = w[, 1], alpha = alpha2_v)
   r[, 1]  <- w[, 1] - y[, 1]
-  aet[, 1] <- w[, 1] * fun_FU(PET = pet_v[, 1], P = w[, 1], param = alpha2_v)
+  aet[, 1] <- w[, 1] * funFU(PET = pet_v[, 1], P = w[, 1], alpha = alpha2_v)
   s[, 1]  <- y[, 1] - aet[, 1]
   qb[, 1] <- d_v * g_v
   g[, 1]  <- (1 - d_v) * g_v + r[, 1]
@@ -102,13 +131,13 @@ DWBCalculator <- function(p_v, pet_v, g_v, s_v, alpha1_v, alpha2_v, smax_v, d_v)
     
     dummy   <- smax_v - s[, (i-1)]
     xo[, i] <- dummy + pet_v[, i]
-    x[, i]  <- p_v[, i] * fun_FU(PET = xo[, i], P = p_v[, i], param = alpha1_v)
+    x[, i]  <- p_v[, i] * funFU(PET = xo[, i], P = p_v[, i], alpha = alpha1_v)
     qd[, i] <- p_v[, i] - x[, i]
     w[, i]  <- x[, i] + s[, (i-1)]
     yo[, i] <- pet_v[, i] + smax_v
-    y[, i]  <- w[, i] * fun_FU(PET = yo[, i], P = w[, i], param = alpha2_v)
+    y[, i]  <- w[, i] * funFU(PET = yo[, i], P = w[, i], alpha = alpha2_v)
     r[, i]  <- w[, i] - y[, i]
-    aet[, i] <- w[, i] * fun_FU(PET = pet_v[, i], P = w[, i], param = alpha2_v)
+    aet[, i] <- w[, i] * funFU(PET = pet_v[, i], P = w[, i], alpha = alpha2_v)
     s[, i]  <- y[, i] - aet[, i]
     qb[, i] <- d_v * g[, (i-1)]
     g[, i] <- (1-d_v) * g_v + r[, i]
