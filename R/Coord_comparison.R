@@ -31,7 +31,9 @@
 #' Universidad Nacional de Colombia - sede Bogotá
 #' 
 #' @examples
-#' 
+#' # library(raster)
+#' data(P_sogamoso,PET_sogamoso)
+#' Coord_comparison(P_sogamoso,PET_sogamoso)
 #' 
 Coord_comparison <- function(r1, r2){
   #Verify if r1 is data frame, if it is, convert to raster
@@ -57,11 +59,11 @@ Coord_comparison <- function(r1, r2){
   # the code assumes that the final data match too
   if (is.data.frame(a2) & is.data.frame(a1)) {
     print("Two data frames - Comparing headers")
-    d1 <- colnames(a1)
-    d2 <- colnames(a2)
-    if (d1 == d2) {
+    d1 <- colnames(a1)[-(1:2)]
+    d2 <- colnames(a2)[-(1:2)]
+    if (d1[1] == d2[1]) {
       print("First date is matching")
-      if (length(d1) == length(d2)) {
+      if (d1[length(d1)] == d2[length(d2)]) {
         print("First date and final date are matching")
       }else{
         print("First date is matching, but final date is not matching - Please verify")
