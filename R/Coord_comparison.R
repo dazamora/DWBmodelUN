@@ -62,17 +62,52 @@ Coord_comparison <- function(r1, r2){
     d1 <- colnames(a1)[-(1:2)]
     d2 <- colnames(a2)[-(1:2)]
     if (d1[1] == d2[1]) {
-      print("First date is matching")
+      print("First date matches")
       if (d1[length(d1)] == d2[length(d2)]) {
-        print("First date and final date are matching")
+        print("First date and final date match")
       }else{
-        print("First date is matching, but final date is not matching - Please verify")
+        print("First date matches, but final date does not match - Please verify")
       }
     }else{
-      print("First date is not matching according to the header")
-      print("The model will run, but a warning is being raising - Please verify dates")
+      print("First date does not match according to the header")
+      print("The model will run, but WARNING - Please verify dates")
     }
     
   }
+  ## Rasters are compared in extent, number of layers, and number of row - columns
+  ## If those characteristics match, it is said the rasters use the same cell locations.
+  er1<-extent(r1)
+  er2<-extent(r2)
+  if(er1==er2){
+    print("Extent verified")
+    if(res(r1)[1]==res(r2)[1]&res(r1)[2]==res(r2)[2]){
+      print("Resolution verified")
+      if (nlayers(r1)==nlayers(r2)){
+        print("Number of layers verified")
+        return(TRUE)
+        #if(sum(!is.na(r1[[1]]))==sum(!is.na(r2[[1]]))){
+        #print("Celdas con valor verificadas")
+        
+        #}else{
+        # print("Verificar celdas con valor")
+        #return(FALSE)
+        #}
+        
+      }else{
+        print("WARNING - Please verify the raster extent")
+        return(FALSE)
+      }
+      
+    }else{
+      print("Warning - Please verify raster resolution")
+      return(FALSE)
+    }
+    
+  }else{
+    print("Warning - Please verify raster coordinates")
+    
+  }
+  
+  
 }
 
