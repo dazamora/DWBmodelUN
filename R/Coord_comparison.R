@@ -82,21 +82,15 @@ Coord_comparison <- function(r1, r2){
     print("Extent verified")
     if(res(r1)[1]==res(r2)[1]&res(r1)[2]==res(r2)[2]){
       print("Resolution verified")
-      if (nlayers(r1)==nlayers(r2)){
-        print("Number of layers verified")
-        return(TRUE)
-        #if(sum(!is.na(r1[[1]]))==sum(!is.na(r2[[1]]))){
-        #print("Celdas con valor verificadas")
-        
-        #}else{
-        # print("Verificar celdas con valor")
-        #return(FALSE)
-        #}
-        
-      }else{
-        print("WARNING - Please verify the raster extent")
-        return(FALSE)
-      }
+     if (nlayers(r1) > 1 | nlayers(r2) > 1) {
+         if (nlayers(r1)==nlayers(r2)){
+          print("Number of layers verified")
+          return(TRUE)
+        }else{
+          print("WARNING - Please verify number of layers in raster")
+          return(FALSE)
+        }
+      }else{return(TRUE)}
       
     }else{
       print("Warning - Please verify raster resolution")
@@ -104,10 +98,7 @@ Coord_comparison <- function(r1, r2){
     }
     
   }else{
-    print("Warning - Please verify raster coordinates")
-    
+    print("Warning - Please verify raster extent")
   }
-  
-  
 }
 
