@@ -1,7 +1,7 @@
 #' @name 
-#' Raster coordinates comparison
+#' Coord_comparison
 #' 
-#' @Title
+#' @title
 #' Raster coordinates comparison
 #' 
 #' @description This function compares three characteristicas from two rasters: 
@@ -31,7 +31,6 @@
 #' Universidad Nacional de Colombia - sede Bogotá
 #' 
 #' @examples
-#' # library(raster)
 #' data(P_sogamoso,PET_sogamoso)
 #' Coord_comparison(P_sogamoso,PET_sogamoso)
 #' 
@@ -76,14 +75,14 @@ Coord_comparison <- function(r1, r2){
   }
   ## Rasters are compared in extent, number of layers, and number of row - columns
   ## If those characteristics match, it is said the rasters use the same cell locations.
-  er1<-extent(r1)
-  er2<-extent(r2)
+  er1<-raster::extent(r1)
+  er2<-raster::extent(r2)
   if(er1==er2){
     print("Extent verified")
-    if(res(r1)[1]==res(r2)[1]&res(r1)[2]==res(r2)[2]){
+    if(raster::res(r1)[1]==raster::res(r2)[1]&raster::res(r1)[2]==raster::res(r2)[2]){
       print("Resolution verified")
-     if (nlayers(r1) > 1 | nlayers(r2) > 1) {
-         if (nlayers(r1)==nlayers(r2)){
+     if (raster::nlayers(r1) > 1 | raster::nlayers(r2) > 1) {
+         if (raster::nlayers(r1)==raster::nlayers(r2)){
           print("Number of layers verified")
           return(TRUE)
         }else{
