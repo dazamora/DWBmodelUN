@@ -1,23 +1,43 @@
-# función para extraer las coordenadas de simulación
-#' Title
+#' @name
+#' cellBasins
+#' 
+#' @title
+#' Identification of the Cells within a basin
+#' 
+#' @description This function identifies the cells that are within a basin. The runoff produced by those cells
+#' will be used, either to calculate the water availability or to compare the simulated with the observed runoff
+#' in certain streamflow gauges.
 #'
-#' @param raster 
-#' @param cuencas 
+#' @param gruLoc raster file that was used to build GRUs. In this function will be used to number each cell
+#' from West to East and from North to South.
+#' @param basins a shapefile that is compraised each one of the basins where the modeller want to know the runoff.
+#' It must be in the same projection of the gruLoc raster.
 #'
 #' @return
+#' a list compraised two dataframes. First one, the list of cells in each of the basins cointained in the shapefile,
+#' and second a table that associates the coordinates of each cell with the assigned number.
+#' 
 #' @export
 #'
 #' @examples
+#' data("GRU","basins")
+#' cellBasins <- cellBasins(GRU, basins)
 #' 
-cellBasins <- function(raster, basins){
-  # crear el raster con el numero de celdas
-  cell_table <- raster::rasterToPoints(raster)[ ,c(1,2)]
-  cell_table <- cbind(cell_table, seq(from = 1,to = nrow(cell_table), by = 1))
-  cells <- raster::rasterFromXYZ(cell_table, crs = crs(raster))
+cellBasins <- function(gruLoc, basins){
   
-  # extraer las celdas que se encuentran en cada una de las cuecas
-  cell_basins <- raster::extract(cells, basins, na.rm = T)
-  names(cell_basins) <- basins$cod
-  
-  return(list(cellBasins = cell_basins, cellTable = cell_table))
+  if(!exists("gruLoc") | !exists("basins")){
+    warning("Either gruLoc or basins are missing")
+  }else{
+    # build the raster that consist of the number of each cell
+    cell_table <- raster::rasterToPoints(gruLoc)[ ,c(1,2)]
+    cell_table <- cbind(cell_table, seq(from = 1,to = nrow(cell_table), by = 1))
+    cells <- raster::rasterFromXYZ(cell_table, crs = raster::crs(gruLoc))
+    
+    # extract the cells that are within each basin
+    cell_basins <- raster::extract(cells, basins, na.rm = T)
+    names(cell_basins) <- basins$cod
+      
+    return(list(cellBasins = cell_basins, cellTable = cell_table))
+      
+  }
 }
