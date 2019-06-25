@@ -1,5 +1,5 @@
 #' @name 
-#' DWB model function
+#' DWBCalculator
 #' 
 #' @title
 #' DWB model function
@@ -68,15 +68,19 @@
 #' data(GRU, param)
 #' # Construction of parameter maps from values by GRU
 #' GRU.maps <- buildGRUmaps(GRU, param)
+#' 
 #' # Establish the initial modeling conditions
+#' # if you would like to upload the initial state variables provided in this example, create a "/in_state/" directory and print the following files in that path
+#' # writeRaster(In_storage,"./in_state/in_storage.tif",format="GTiff"); writeRaster(In_ground,"./in_state/in_groundwater.tif",format="GTiff")
+#' 
 #' init <- init_state(GRU.maps$smax, "/in_state/")
 #' InGround <- init$In_ground
 #' InStorage <- init$In_storage
 #' rm(init)
 #' # Load general characteristics of modeling
-#' data(setup_data)
+#' setup_data <- readSetup(Read = TRUE)
 #' Dates <- seq(as.Date(setup_data[8,1]), as.Date(setup_data[10,1]), by="month")
-#' Sim.Period <- seq(2:(length(Dates)+2))
+#' Sim.Period <- seq(3,(length(Dates)+2))
 #' # Vector format conversion to all data
 #' # Ground water and Soil water storage, Retention an PET efficiency, Soil water storage capacity and Recession constant
 #' g_v <- rasterToPoints(InGround)[,-c(1,2)]
