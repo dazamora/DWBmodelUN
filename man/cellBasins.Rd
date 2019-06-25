@@ -2,18 +2,28 @@
 % Please edit documentation in R/cellCuencas.R
 \name{cellBasins}
 \alias{cellBasins}
-\title{Title}
+\title{Identification of the Cells within a basin}
 \usage{
-cellBasins(raster, basins)
+cellBasins(gruLoc, basins)
 }
 \arguments{
-\item{raster}{}
+\item{gruLoc}{raster file that was used to build GRUs. In this function will be used to number each cell
+from West to East and from North to South.}
 
-\item{cuencas}{}
+\item{basins}{a shapefile that is compraised each one of the basins where the modeller want to know the runoff.
+It must be in the same projection of the gruLoc raster.}
+}
+\value{
+a list compraised two dataframes. First one, the list of cells in each of the basins cointained in the shapefile,
+and second a table that associates the coordinates of each cell with the assigned number.
 }
 \description{
-Title
+This function identifies the cells that are within a basin. The runoff produced by those cells
+will be used, either to calculate the water availability or to compare the simulated with the observed runoff
+in certain streamflow gauges.
 }
 \examples{
+data("GRU","basins")
+cellBasins <- cellBasins(GRU, basins)
 
 }

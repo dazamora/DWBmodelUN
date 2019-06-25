@@ -9,13 +9,16 @@ init_state(srmax, path_init)
 \arguments{
 \item{srmax}{Maximum storage in the root zone}
 
-\item{path_init}{Directory to read the raster files \code{\emph{.tif}} file of initial storage conditions}
+\item{path_init}{Directory to read the raster files \code{\emph{.tif}} of initial storage conditions}
 }
 \value{
 A list cointaing initial conditions in storage and in ground
 }
 \description{
-
+This function uploads or creates the initial conditions of the two state variables present in the DWB model, in raster format.
+It requires the raster composed of the Srmax values that was created using the \code{\link{bulidGRUmaps}} function
+and a path from where the function can read two rasters previously created. If the path or those raster cannot
+be found, the function creates those two raster using the value of the Srmax reduced by half.
 }
 \examples{
 
@@ -30,6 +33,7 @@ Nicolas Duque Gardeazabal <nduqueg@unal.edu.co>
 Pedro Felipe Arboleda <pfarboledao@unal.edu.co>
 Carolina Vega Viviescas <cvegav@unal.edu.co>
 David Zamora <dazamoraa@unal.edu.co>
+
 Water Resources Engineering Research Group - GIREH
 Universidad Nacional de Colombia
 }

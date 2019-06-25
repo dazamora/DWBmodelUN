@@ -27,22 +27,25 @@ that will be printed in individual directories. It reads the information from a 
 Optionally, one can insert the string setup in a dataframe and hence use it in this function.
 }
 \examples{
-setup <- readSetup()
+setup <- readSetup(Read = TRUE)  # run if you would like to upload the example setup
 
+# example on how to create your own setup
 a <- rep("no",7)
 b <- "1990-01-01"
 c <- "1991-01-01"
 d <- "2012-12-15"
 e <- "2012-12-10"
 table_setup <- data.frame(set=a,stringsAsFactors = F)
-table_setup <- rbind(setupDataFrame, b, c, d, e)
+table_setup <- rbind(table_setup, b, c, d, e)
 setup <- readSetup(Read = F, table_setup)
 
 }
 \author{
-Nicolas Duque Gardeazabal <nduqueg@unal.edu.co> 
+Nicolas Duque Gardeazabal <nduqueg@unal.edu.co>  
 Pedro Felipe Arboleda Obando <pfarboledao@unal.edu.co> 
 Carolina Vega Viviescas <cvegav@unal.edu.co>
 David Zamora <dazamoraa@unal.edu.co>
+
 Water Resources Engineering Research Group - GIREH
+Universidad Nacional de Colombia - sede Bogotá
 }
