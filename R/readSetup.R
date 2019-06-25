@@ -31,32 +31,33 @@
 #' Universidad Nacional de Colombia - sede Bogotá
 #'
 #' @examples
-#' setup <- readSetup()
+#' setup <- readSetup(Read = TRUE)  # run if you would like to upload the example setup
 #' 
+#' # example on how to create your own setup
 #' a <- rep("no",7)
 #' b <- "1990-01-01"
 #' c <- "1991-01-01"
 #' d <- "2012-12-15"
 #' e <- "2012-12-10"
 #' table_setup <- data.frame(set=a,stringsAsFactors = F)
-#' table_setup <- rbind(setupDataFrame, b, c, d, e)
+#' table_setup <- rbind(table_setup, b, c, d, e)
 #' setup <- readSetup(Read = F, table_setup)
 #' 
-readSetup <- function(Read = TRUE, setup =...){
+readSetup <- function(Read = TRUE, setup = ...){
   
   if(!exists("Read") | !exists("setup")){
     warning("Read or setup parameters are missing")
   }else{
     if (Read == TRUE){
-      setup <- read.table("./data/setup_data.rda")
-      setup_data <- setup
-      # final date of simulation
-      setup_data[10,1] <- paste(substr(setup[9,], 1, 7),"-01",sep = "")  # changes the day speficfied to the first day of the month
-      # final date of calibration
-      setup_data[11,1] <- paste(substr(setup[10,], 1, 7),"-01",sep = "")
+      setup <- setup_data  # "setup_data" is a rdata file that is available in the "data" directory, which can be loaded by just typing the name of the variable
+      
     }else{
-      setup_data <- ...  # asigns the dataframe created in the R environment
+      # asigns the dataframe created in the R environment
+      # final date of simulation
+      setup[10,1] <- paste(substr(setup[10,], 1, 7),"-01",sep = "")  # changes the day speficfied to the first day of the month
+      # final date of calibration
+      setup[11,1] <- paste(substr(setup[11,], 1, 7),"-01",sep = "")
     }
-    return(setup_data)
+    return(setup)
   }
 }
