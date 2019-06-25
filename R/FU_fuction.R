@@ -1,5 +1,5 @@
 #' @name 
-#' Fu's function
+#' funFU
 #' 
 #' @title
 #' Fu's function for relationship between precipitation and potential evapotranspiration
@@ -37,7 +37,7 @@
 #' PET <- 1000
 #' P <- 2000
 #' alpha <- 0.69  # value used by Zhang et al. (2008) to study the mean anual actual evapotranspiration as a function of Potential ET and Precipitation
-#' fun_FU(PET, P, alpha)
+#' funFU(PET, P, alpha)
 #' 
 funFU <- function(PET, P, alpha){
   

@@ -1,5 +1,5 @@
 #' @name 
-#' Upforcing
+#' upForcing
 #'
 #' @title
 #' Upload Forcings
@@ -36,6 +36,7 @@
 #' @export
 #' 
 #' @examples
+#' #Not run
 #' meteo <- upForcing(path_p = "./precip/", path_pet = "./pet/", file_type = "raster", format = "NCDF")
 #' meteo <- upForcing(path_p = "./precip/", path_pet = "./pet/", file_type = "csv")
 #' 

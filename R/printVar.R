@@ -1,5 +1,5 @@
 #' @name 
-#' Print Variables
+#' printVar
 #'  
 #' @title
 #' Print variables of interest
