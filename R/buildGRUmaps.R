@@ -1,5 +1,5 @@
 #' @name 
-#' Build GRU maps
+#' buildGRUmaps
 #'  
 #' @title
 #' Build Grouped Response Units in maps
@@ -31,10 +31,11 @@
 #' data(GRU)    
 #' data(param)
 #' gru_maps <- buildGRUmaps(GRU, param)
-#' # Non run  
-#' GRU <- raster("./directory/gru2_cober_location.tif")
-#' param <- read.csv("./directory/param_dwb.csv")
-#' gru_maps <- buildGRUmaps(GRU, param)
+#' 
+#' # Not run, this an example on how to upload your own files
+#' # GRU <- raster("./directory/gru2_cober_location.tif")
+#' # param <- read.csv("./directory/param_dwb.csv")
+#' # gru_maps <- buildGRUmaps(GRU, param)
 #' 
 buildGRUmaps <- function(gruLoc, parsValues){
   
