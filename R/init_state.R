@@ -3,10 +3,13 @@
 #' @title
 #' Initial conditions of the model
 #' @description
-#' 
+#' This function uploads or creates the initial conditions of the two state variables present in the DWB model, in raster format.
+#' It requires the raster composed of the Srmax values that was created using the \code{\link{bulidGRUmaps}} function
+#' and a path from where the function can read two rasters previously created. If the path or those raster cannot
+#' be found, the function creates those two raster using the value of the Srmax reduced by half.
 #' 
 #' @param srmax Maximum storage in the root zone
-#' @param path_init Directory to read the raster files \code{\emph{.tif}} file of initial storage conditions
+#' @param path_init Directory to read the raster files \code{\emph{.tif}} of initial storage conditions
 #'
 #' @return 
 #' A list cointaing initial conditions in storage and in ground
@@ -30,14 +33,14 @@
 #' @examples
 #' 
 init_state <- function(srmax, path_init){
-  if(length(list.files(path_init) == 2)){
+  if(length(list.files(path_init)) == 2){
     dummy_f <- paste(path_init, "in_storage.tif", sep = '')
-    In_storage <- raster(dummy_f)
+    In_storage <- raster::raster(dummy_f)
     dummy_f <- paste(path_init, "in_groundwater.tif", sep = '')
-    In_ground <- raster( dummy_f)
+    In_ground <- raster::raster( dummy_f)
   } else{
     if(length(list.files(path_init)) != 2){
-      cat("Strange number of initial state files\n Review files of initial states \n Creation by default from srmax")
+      cat("Strange number of initial state files\n Review files of initial states \n Creation by default from Srmax")
     }
     In_storage <- srmax / 2
     In_ground <- srmax / 2
