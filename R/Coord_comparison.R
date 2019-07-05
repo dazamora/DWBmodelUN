@@ -4,23 +4,24 @@
 #' @title
 #' Raster coordinates comparison
 #' 
-#' @description This function compares three characteristicas from two rasters: 
+#' @description 
+#' This function compares three characteristicas from two rasters: 
 #' coordinates, resolution, and number of layers (if the rasters have more than one) 
-#' from two different rasters stacks, and let to know if they are using the same geographical info.,
-#' or if new set-up should be done
+#' from two different rasters stacks, and let to know if they are using the same geographical information,
+#' or if new set-up should be done.
 #' 
 #' @param r1 raster or data frame. If it is a data frame, it should put in the two first columns, the X, Y 
 #' coordinates for every point, in GEOGRAPHIC COORDINATES, the third column and so on should have the variable values,
-#' and optinally, the header should have the date, using the format "%m/%Y"
+#' and optinally, the header should have the date, using the format \%m/\%Y.
 #' @param r2 raster or data frame. If it is a data frame, it should put in the two first columns, the X, Y 
 #' coordinates for every point, in GEOGRAPHIC COORDINATES, the third column and so on should have the variable values,
-#' and optinally, the header should have the date, using the format "%m/%Y"
+#' and optinally, the header should have the date, using the format \%m/\%Y.
 #'
 #' @return It prints to console if the two rasters are on the same coordinates or not, and return
 #' a boolean, TRUE if the rasters are on the same coordinates, and FALSE if not
 #' 
 #' @export
-#'
+#' 
 #' @author 
 #' Nicolas Duque Gardeazabal <nduqueg@unal.edu.co> 
 #' Pedro Felipe Arboleda Obando <pfarboledao@unal.edu.co> 

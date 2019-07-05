@@ -25,8 +25,8 @@ DWBCalculator(p_v, pet_v, g_v, s_v, alpha1_v, alpha2_v, smax_v, d_v)
 }
 \value{
 a list comprised by the time series of the hydrological fluxes calculated by the model. The fluxes are:
-the total runoff, the actual evapotranspiration, the groundwater recharge, the surface runoff, the baseflow and
-the soil water storage. The time series have the same length as the forcings that where employed to run the model
+  the total runoff, the actual evapotranspiration, the groundwater recharge, the surface runoff, the baseflow and
+  the soil water storage. The time series have the same length as the forcings that where employed to run the model
 }
 \description{
 The function performs the distibuted DWB hydrological model calculations in the defined domain and
@@ -42,17 +42,13 @@ soil water storage capacity (\emph{\code{\expression{S_max}}}), and a recession 
 storage that controls the baseflow (\emph{\code{\expression{d}}}).
 }
 \details{
-\code{dwbCalculator()} only performs one simulation of the distributed hydrological model. The decision to perform
+\code{DWBCalculator} only performs one simulation of the distributed hydrological model. The decision to perform
 other kind of procedure, such as calibration or assimilation, is entirely on modellers' requirements and necessities.
 A complementary function is available in the package to calibrate the model (\code{\link{dds}}), which has proved to
 be effective in calibrating models with several GRUs.
-
-To start the model one should set the model features using the (\code{\link{readSetup}}) function, load the precipitation
-and evapotranspiration forcings with the (\code{\link{upForcing}}) function, build the GRU and parameter maps with the
-(\code{\link{buildGRUmaps}}) function, compare the coordinates of the uploaded datasets (i.e. the forcings and GRU cells),
-set the initial conditions of the soil moisture and the groundwater storage, and run the model with \code{dwbCalculator} function.
 }
 \examples{
+
 library(raster)
 # Load P and PET databases
 data(P_sogamoso, PET_sogamoso)

@@ -25,19 +25,14 @@
 #' @param smax_v vector comprised by the values of the soil water storage capacity that must be above 0, it must have as many values as cells defined to simulate
 #' @param d_v vector comprised by the values of the recession constant that must be between 0 and 1, it must have as many values as cells defined to simulate 
 #'
-#' @details \code{dwbCalculator()} only performs one simulation of the distributed hydrological model. The decision to perform
+#' @return a list comprised by the time series of the hydrological fluxes calculated by the model. The fluxes are:
+#'   the total runoff, the actual evapotranspiration, the groundwater recharge, the surface runoff, the baseflow and
+#'   the soil water storage. The time series have the same length as the forcings that where employed to run the model
+#' 
+#' @details \code{DWBCalculator} only performs one simulation of the distributed hydrological model. The decision to perform
 #' other kind of procedure, such as calibration or assimilation, is entirely on modellers' requirements and necessities.
 #' A complementary function is available in the package to calibrate the model (\code{\link{dds}}), which has proved to
 #' be effective in calibrating models with several GRUs.
-#' 
-#' To start the model one should set the model features using the (\code{\link{readSetup}}) function, load the precipitation
-#' and evapotranspiration forcings with the (\code{\link{upForcing}}) function, build the GRU and parameter maps with the
-#' (\code{\link{buildGRUmaps}}) function, compare the coordinates of the uploaded datasets (i.e. the forcings and GRU cells),
-#' set the initial conditions of the soil moisture and the groundwater storage, and run the model with \code{dwbCalculator} function.
-#'
-#' @return a list comprised by the time series of the hydrological fluxes calculated by the model. The fluxes are:
-#' the total runoff, the actual evapotranspiration, the groundwater recharge, the surface runoff, the baseflow and
-#' the soil water storage. The time series have the same length as the forcings that where employed to run the model
 #' 
 #' @references 
 #' Budyko. (1974). Climate and life. New York: Academic Press, INC.
@@ -59,6 +54,7 @@
 #' @export
 #'
 #' @examples
+#' 
 #' library(raster)
 #' # Load P and PET databases
 #' data(P_sogamoso, PET_sogamoso)

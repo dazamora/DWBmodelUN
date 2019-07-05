@@ -42,7 +42,7 @@
 #' 
 upForcing <- function(path_p = "./precip/", path_pet = "./pet/", file_type = "raster", format = "GTiff"){
   
-  if ( !exists("path_pet")){
+  if (!exists("path_pet")){
     path_pet <- getwd()
   } else if (!exists("path_p")){
     path_p <- getwd()
