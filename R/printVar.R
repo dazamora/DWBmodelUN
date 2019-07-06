@@ -26,7 +26,7 @@
 #' @examples
 #' library(raster)
 #' data(dwb_results)    
-#' printVar(dwb_results[[3]],coor_cells,"+init=epsg:4326",dates)
+#' printVar(dwb_results[[3]], coor_cells, "+init=epsg:4326",dates)
 #' 
 printVar <- function(variable, coor_cells, coord_sys, dates, as){
   var_name <- as.character(substitute(variable))

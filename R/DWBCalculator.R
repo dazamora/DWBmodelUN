@@ -12,9 +12,9 @@
 #' of the fluxes and state variables on a monthly time step. The named variables affected by \code{\link{Fu's function}} 
 #' are: the available storage capacity (\emph{\code{X}}), the evapotranspiration oportunity (\emph{\code{Y}})
 #' and the actual evapotranspiration (\emph{\code{ET}}). The model is controlled by four parameters: retention
-#' efficiency (\emph{\code{\expression{alpha_1}}}), evapotranspiration efficiency (\emph{\code{\expression{alpha_2}}}),
-#' soil water storage capacity (\emph{\code{\expression{S_max}}}), and a recession parameter in the groundwater
-#' storage that controls the baseflow (\emph{\code{\expression{d}}}). 
+#' efficiency (\eqn{\alpha-1}), evapotranspiration efficiency (\eqn{\alpha-2}),
+#' soil water storage capacity (\emph{\code{S_max}}), and a recession parameter in the groundwater
+#' storage that controls the baseflow (\emph{\code{d}}). 
 #'
 #' @param p_v matrix comprised by the precipitation records and that has as raws the number of cells that will be simulated and as columns the number of time steps to be simulated
 #' @param pet_v matrix comprised by the potential evapotranspiration records and that has as raws the number of cells that will be simulated and as columns the number of time steps to be simulated
@@ -25,10 +25,19 @@
 #' @param smax_v vector comprised by the values of the soil water storage capacity that must be above 0, it must have as many values as cells defined to simulate
 #' @param d_v vector comprised by the values of the recession constant that must be between 0 and 1, it must have as many values as cells defined to simulate 
 #'
-#' @return a list comprised by the time series of the hydrological fluxes calculated by the model. The fluxes are:
-#'   the total runoff, the actual evapotranspiration, the groundwater recharge, the surface runoff, the baseflow and
-#'   the soil water storage. The time series have the same length as the forcings that where employed to run the model
+#' @return a list comprised by the time series of the hydrological fluxes calculated by the model. 
+#' The time series have the same length as the forcings that where employed to run the model. The fluxes are:
 #' 
+#'  \itemize{
+#'     \item \code{q_total} a numeric matrix of the total runoff.... (UNIDADES).
+#'     \item \code{aet} a numeric matrix of actual evapotranspiration.... (UNIDADES).
+#'     \item \code{r} a numeric matrix of groundwater recharge ...(UNIDADES).
+#'     \item \code{qd} a numeric matrix of surface runoff... (UNIDADES).
+#'     \item \code{qb} a numeric matrix of baseflow.... (UNIDADES).
+#'     \item \code{s} a numeric matrix of soil water storage.... (UNIDADES).
+#'     \item \code{g} a numeric matrix.... (UNIDADES).
+#'  }
+#'  
 #' @details \code{DWBCalculator} only performs one simulation of the distributed hydrological model. The decision to perform
 #' other kind of procedure, such as calibration or assimilation, is entirely on modellers' requirements and necessities.
 #' A complementary function is available in the package to calibrate the model (\code{\link{dds}}), which has proved to
@@ -37,24 +46,23 @@
 #' To start the model one should set the model features using the (\code{\link{readSetup}}) function, load the precipitation
 #' and evapotranspiration forcings with the (\code{\link{upForcing}}) function, build the GRU and parameter maps with the
 #' (\code{\link{buildGRUmaps}}) function, compare the coordinates of the uploaded datasets (i.e. the forcings and GRU cells),
-#' set the initial conditions of the soil moisture and the groundwater storage, and run the model with \code{dwbCalculator} function.
+#' set the initial conditions of the soil moisture and the groundwater storage, and run the model with \code{DWBCalculator} function.
+#' 
+#' @author Nicolas Duque Gardeazabal <nduqueg@unal.edu.co> 
+#' Pedro Felipe Arboleda Obando <pfarboledao@unal.edu.co>
+#' David Andres Zamora Avila <dazamoraa@unal.edu.co>
+#' Carolina Vega Viviescas <cvegav@unal.edu.co>
+#' 
+#' Water Resources Engineering Research Group - GIREH
+#' Universidad Nacional de Colombia - sede Bogota
 #' 
 #' @references 
 #' Budyko. (1974). Climate and life. New York: Academic Press, INC.
 #' 
 #' Zhang, L., Potter, N., Hickel, K., Zhang, Y., & Shao, Q. (2008). 
-#' Water balance modeling over variable time scales based on the Budyko framework - 
-#' Model development and testing. Journal of Hydrology, 360(1-4), 117-131.
-#' https://doi.org/10.1016/j.jhydrol.2008.07.021
-#' 
-#' @author 
-#' Nicolas Duque Gardeazabal <nduqueg@unal.edu.co> 
-#' Pedro Felipe Arboleda Obando <pfarboledao@unal.edu.co>
-#' David Andres Zamora Avila<dazamoraa@unal.edu.co>
-#' Carolina Vega Viviescas <cvegav@unal.edu.co>
-#' 
-#' Water Resources Engineering Research Group - GIREH
-#' Universidad Nacional de Colombia - sede Bogotá
+#' Water balance modeling over variable time scales based on the 
+#' Budyko framework – Model development and testing. Journal of Hydrology, 
+#' 360(1-4), 117–131. doi:10.1016/j.jhydrol.2008.07.021.
 #' 
 #' @export
 #'
@@ -94,7 +102,7 @@
 #' DWB.sogamoso <- DWBCalculator(P_sogamoso[,Sim.Period], 
 #'                     PET_sogamoso[,Sim.Period],
 #'                     g_v,s_v,alpha1_v,alpha2_v,smax_v,d_v)
-#' 
+#'                     
 DWBCalculator <- function(p_v, pet_v, g_v, s_v, alpha1_v, alpha2_v, smax_v, d_v){
   
   # total number of cells and time steps to be simulated
@@ -102,18 +110,19 @@ DWBCalculator <- function(p_v, pet_v, g_v, s_v, alpha1_v, alpha2_v, smax_v, d_v)
   nmonths <- NCOL(p_v)
   
   # ---- Set the object variables with NA values ----
-  xo <- matrix(nrow = ncells, ncol = nmonths)  # demand limit of rainfall retention
-  x  <- matrix(nrow = ncells, ncol = nmonths)  # rainfall retention
-  qd <- matrix(nrow = ncells, ncol = nmonths)  # surface runoff
-  w  <- matrix(nrow = ncells, ncol = nmonths)  # water availability
-  yo <- matrix(nrow = ncells, ncol = nmonths)  # demand limit of evapotranspiration opportunity
-  y  <- matrix(nrow = ncells, ncol = nmonths)  # evapotranspiration opportunity
-  r  <- matrix(nrow = ncells, ncol = nmonths)  # Groundwater recharge
-  aet <- matrix(nrow = ncells, ncol = nmonths) # actual evapotranspiration
-  s  <- matrix(nrow = ncells, ncol = nmonths)  # soil moisture storage
-  qb <- matrix(nrow = ncells, ncol = nmonths)  # base flow
-  g  <- matrix(nrow = ncells, ncol = nmonths)  # groundwater storage
-  q_total <- matrix(nrow = ncells, ncol = nmonths)  # total runoff
+  M.result <- matrix(nrow = ncells, ncol = nmonths) 
+  xo <- M.result  # demand limit of rainfall retention
+  x  <- M.result  # rainfall retention
+  qd <- M.result  # surface runoff
+  w  <- M.result  # water availability
+  yo <- M.result  # demand limit of evapotranspiration opportunity
+  y  <- M.result  # evapotranspiration opportunity
+  r  <- M.result  # Groundwater recharge
+  aet <- M.result # actual evapotranspiration
+  s  <- M.result  # soil moisture storage
+  qb <- M.result  # base flow
+  g  <- M.result  # groundwater storage
+  q_total <- M.result  # total runoff
   
   # Calculation of the variables and fluxes for the first time step
   dummy   <- smax_v - s_v
@@ -153,7 +162,7 @@ DWBCalculator <- function(p_v, pet_v, g_v, s_v, alpha1_v, alpha2_v, smax_v, d_v)
   close(pb)
   
   #---- return ----
-  dwb_aux <- list(q_total, aet, r, qd, qb, s, g)
+  dwb_aux <- list(q_total = q_total, aet = aet, r = r, qd = qd, qb = qb, s = s, g = g)
   return(dwb_aux)
   
 }

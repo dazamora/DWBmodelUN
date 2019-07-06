@@ -24,9 +24,18 @@ DWBCalculator(p_v, pet_v, g_v, s_v, alpha1_v, alpha2_v, smax_v, d_v)
 \item{d_v}{vector comprised by the values of the recession constant that must be between 0 and 1, it must have as many values as cells defined to simulate}
 }
 \value{
-a list comprised by the time series of the hydrological fluxes calculated by the model. The fluxes are:
-  the total runoff, the actual evapotranspiration, the groundwater recharge, the surface runoff, the baseflow and
-  the soil water storage. The time series have the same length as the forcings that where employed to run the model
+a list comprised by the time series of the hydrological fluxes calculated by the model. 
+The time series have the same length as the forcings that where employed to run the model. The fluxes are:
+
+ \itemize{
+    \item \code{q_total} a numeric matrix of the total runoff.... (UNIDADES).
+    \item \code{aet} a numeric matrix of actual evapotranspiration.... (UNIDADES).
+    \item \code{r} a numeric matrix of groundwater recharge ...(UNIDADES).
+    \item \code{qd} a numeric matrix of surface runoff... (UNIDADES).
+    \item \code{qb} a numeric matrix of baseflow.... (UNIDADES).
+    \item \code{s} a numeric matrix of soil water storage.... (UNIDADES).
+    \item \code{g} a numeric matrix.... (UNIDADES).
+ }
 }
 \description{
 The function performs the distibuted DWB hydrological model calculations in the defined domain and
@@ -37,15 +46,20 @@ by \code{\link{Fu's function}}, postulate that is applied to three variables in 
 of the fluxes and state variables on a monthly time step. The named variables affected by \code{\link{Fu's function}} 
 are: the available storage capacity (\emph{\code{X}}), the evapotranspiration oportunity (\emph{\code{Y}})
 and the actual evapotranspiration (\emph{\code{ET}}). The model is controlled by four parameters: retention
-efficiency (\emph{\code{\expression{alpha_1}}}), evapotranspiration efficiency (\emph{\code{\expression{alpha_2}}}),
-soil water storage capacity (\emph{\code{\expression{S_max}}}), and a recession parameter in the groundwater
-storage that controls the baseflow (\emph{\code{\expression{d}}}).
+efficiency (\eqn{\alpha-1}), evapotranspiration efficiency (\eqn{\alpha-2}),
+soil water storage capacity (\emph{\code{S_max}}), and a recession parameter in the groundwater
+storage that controls the baseflow (\emph{\code{d}}).
 }
 \details{
 \code{DWBCalculator} only performs one simulation of the distributed hydrological model. The decision to perform
 other kind of procedure, such as calibration or assimilation, is entirely on modellers' requirements and necessities.
 A complementary function is available in the package to calibrate the model (\code{\link{dds}}), which has proved to
 be effective in calibrating models with several GRUs.
+
+To start the model one should set the model features using the (\code{\link{readSetup}}) function, load the precipitation
+and evapotranspiration forcings with the (\code{\link{upForcing}}) function, build the GRU and parameter maps with the
+(\code{\link{buildGRUmaps}}) function, compare the coordinates of the uploaded datasets (i.e. the forcings and GRU cells),
+set the initial conditions of the soil moisture and the groundwater storage, and run the model with \code{DWBCalculator} function.
 }
 \examples{
 
@@ -83,22 +97,22 @@ d_v <- rasterToPoints(GRU.maps$d)[,-c(1,2)]
 DWB.sogamoso <- DWBCalculator(P_sogamoso[,Sim.Period], 
                     PET_sogamoso[,Sim.Period],
                     g_v,s_v,alpha1_v,alpha2_v,smax_v,d_v)
-
+                    
 }
 \references{
 Budyko. (1974). Climate and life. New York: Academic Press, INC.
 
 Zhang, L., Potter, N., Hickel, K., Zhang, Y., & Shao, Q. (2008). 
-Water balance modeling over variable time scales based on the Budyko framework - 
-Model development and testing. Journal of Hydrology, 360(1-4), 117-131.
-https://doi.org/10.1016/j.jhydrol.2008.07.021
+Water balance modeling over variable time scales based on the 
+Budyko framework – Model development and testing. Journal of Hydrology, 
+360(1-4), 117–131. doi:10.1016/j.jhydrol.2008.07.021.
 }
 \author{
 Nicolas Duque Gardeazabal <nduqueg@unal.edu.co> 
 Pedro Felipe Arboleda Obando <pfarboledao@unal.edu.co>
-David Andres Zamora Avila<dazamoraa@unal.edu.co>
+David Andres Zamora Avila <dazamoraa@unal.edu.co>
 Carolina Vega Viviescas <cvegav@unal.edu.co>
 
 Water Resources Engineering Research Group - GIREH
-Universidad Nacional de Colombia - sede Bogotá
+Universidad Nacional de Colombia - sede Bogota
 }

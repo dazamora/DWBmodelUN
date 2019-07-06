@@ -27,7 +27,7 @@ This function that allows to print some of the variables simulated by the DWB mo
 \examples{
 library(raster)
 data(dwb_results)    
-printVar(dwb_results[[3]],coor_cells,"+init=epsg:4326",dates)
+printVar(dwb_results[[3]], coor_cells, "+init=epsg:4326",dates)
 
 }
 \author{
