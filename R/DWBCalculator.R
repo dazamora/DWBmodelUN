@@ -69,8 +69,11 @@
 #' @examples
 #' 
 #' library(raster)
+#' 
 #' # Load P and PET databases
 #' data(P_sogamoso, PET_sogamoso)
+#' # Not run {meteo <- upForcing(path_p = "./precip/", path_pet = "./pet/", file_type = "raster", format = "NCDF")}
+#' 
 #' # Verify that the coordinates of the databases match
 #' Coord_comparison(P_sogamoso, PET_sogamoso)
 #' # Load geographic info of GRU and parameters per cell

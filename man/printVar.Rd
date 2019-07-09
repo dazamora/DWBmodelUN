@@ -9,11 +9,12 @@ printVar(variable, coor_cells, coord_sys, dates, as)
 \arguments{
 \item{variable}{Corresponds to the results of a specific variable of the DWBCalculator}
 
-\item{coor_cells}{Coordinates of the cells to be extracted the results}
+\item{coor_cells}{Coordinates of the cells in the same order that were simulated and that will be used to
+create the results in raster format from the dataframes which contain the simulated results}
 
 \item{coord_sys}{Geographic coordinate system}
 
-\item{dates}{Dates to be extracted}
+\item{dates}{Dates that were simulated}
 
 \item{as}{Option to print the results as independent 'raster' (\emph{\code{.tif}}) or in a 'NetCDF' file (\emph{\code{.nc}})}
 }
@@ -25,9 +26,11 @@ variable of interest
 This function that allows to print some of the variables simulated by the DWB model
 }
 \examples{
-library(raster)
-data(dwb_results)    
-printVar(dwb_results[[3]], coor_cells, "+init=epsg:4326",dates)
+data(dwb_results)
+data(cells)
+dates <- seq(as.Date("2001-01-01"), as.Date("2016-12-01"), by="month")
+coor_cells <- "+init=epsg:4326"
+printVar(dwb_results[[3]], cells, coor_cells, dates, "NetCDF")
 
 }
 \author{
