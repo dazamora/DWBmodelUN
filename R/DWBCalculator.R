@@ -95,8 +95,6 @@
 #' Sim.Period <- seq(3,(length(Dates)+2))
 #' # Vector format conversion to all data
 #' # Ground water and Soil water storage, Retention an PET efficiency, Soil water storage capacity and Recession constant
-#' g_v <- rasterToPoints(InGround)[,-c(1,2)]
-#' s_v <- rasterToPoints(InStorage)[,-c(1,2)]
 #' alpha1_v <- rasterToPoints(GRU.maps$alpha1)[,-c(1,2)]
 #' alpha2_v <- rasterToPoints(GRU.maps$alpha2)[,-c(1,2)]
 #' smax_v <- rasterToPoints(GRU.maps$smax)[,-c(1,2)]

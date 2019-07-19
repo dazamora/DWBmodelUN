@@ -45,6 +45,8 @@ init_state <- function(srmax, path_init){
     In_storage <- srmax / 2
     In_ground <- srmax / 2
   }
-  init <- list(In_storage = In_storage, In_ground = In_ground)
+  g_v <- rasterToPoints(In_ground)[,-c(1,2)]
+  s_v <- rasterToPoints(In_storage)[,-c(1,2)]
+  init <- list(In_storage = s_v, In_ground = g_v)
   return(init)
 }
