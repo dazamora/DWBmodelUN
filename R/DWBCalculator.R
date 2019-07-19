@@ -29,13 +29,13 @@
 #' The time series have the same length as the forcings that where employed to run the model. The fluxes are:
 #' 
 #'  \itemize{
-#'     \item \code{q_total} a numeric matrix of the total runoff.... (UNIDADES).
-#'     \item \code{aet} a numeric matrix of actual evapotranspiration.... (UNIDADES).
-#'     \item \code{r} a numeric matrix of groundwater recharge ...(UNIDADES).
-#'     \item \code{qd} a numeric matrix of surface runoff... (UNIDADES).
-#'     \item \code{qb} a numeric matrix of baseflow.... (UNIDADES).
-#'     \item \code{s} a numeric matrix of soil water storage.... (UNIDADES).
-#'     \item \code{g} a numeric matrix.... (UNIDADES).
+#'     \item \code{q_total} a numeric matrix of the total runoff.... (mm/month).
+#'     \item \code{aet} a numeric matrix of actual evapotranspiration.... (mm/month).
+#'     \item \code{r} a numeric matrix of groundwater recharge ...(mm/month).
+#'     \item \code{qd} a numeric matrix of surface runoff... (mm/month).
+#'     \item \code{qb} a numeric matrix of baseflow.... (mm/month).
+#'     \item \code{s} a numeric matrix of soil water storage.... (mm).
+#'     \item \code{g} a numeric matrixof groundwater storage.... (mm).
 #'  }
 #'  
 #' @details \code{DWBCalculator} only performs one simulation of the distributed hydrological model. The decision to perform

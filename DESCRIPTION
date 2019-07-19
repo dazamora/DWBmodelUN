@@ -1,5 +1,5 @@
 Package: DWBmodelUN
-Title: What the Package Does (one line, title case)
+Title: R native implementation of the DWB hydrologic model from Zhang et al. (2008)
 Version: 0.0.0.9000
 Authors@R: c(person("Nicolas", "Duque", email = "nduqueg@unal.edu.co", role = c("aut", "cre")),
              person("Carolina", "Vega", email = "cvegav@unal.edu.co", role = c("aut")),
