@@ -14,7 +14,7 @@ rows as number of GRU that were defined, and must have four columns which define
 and \code{Smax}}
 }
 \value{
-a list which is comprised by four raster, each one of them has the values of a parameter spatialized according with
+a list which is comprised by four vectors and four raster, each one of them has the values of a parameter spatialized according with
 the GRU raster layer
 }
 \description{

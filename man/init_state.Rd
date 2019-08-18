@@ -7,7 +7,7 @@
 init_state(srmax, path_init)
 }
 \arguments{
-\item{srmax}{Maximum storage in the root zone}
+\item{srmax}{Maximum storage in the root zone in Raster format}
 
 \item{path_init}{Directory to read the raster files \code{\emph{.tif}} of initial storage conditions}
 }

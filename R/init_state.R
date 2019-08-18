@@ -8,7 +8,7 @@
 #' and a path from where the function can read two rasters previously created. If the path or those raster cannot
 #' be found, the function creates those two raster using the value of the Srmax reduced by half.
 #' 
-#' @param srmax Maximum storage in the root zone
+#' @param srmax Maximum storage in the root zone in Raster format
 #' @param path_init Directory to read the raster files \code{\emph{.tif}} of initial storage conditions
 #'
 #' @return 
@@ -45,8 +45,8 @@ init_state <- function(srmax, path_init){
     In_storage <- srmax / 2
     In_ground <- srmax / 2
   }
-  g_v <- rasterToPoints(In_ground)[,-c(1,2)]
-  s_v <- rasterToPoints(In_storage)[,-c(1,2)]
+  g_v <- raster::rasterToPoints(In_ground)[,-c(1,2)]
+  s_v <- raster::rasterToPoints(In_storage)[,-c(1,2)]
   init <- list(In_storage = s_v, In_ground = g_v)
   return(init)
 }

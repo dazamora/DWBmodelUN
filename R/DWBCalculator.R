@@ -68,8 +68,6 @@
 #'
 #' @examples
 #' 
-#' library(raster)
-#' 
 #' # Load P and PET databases
 #' data(P_sogamoso, PET_sogamoso)
 #' # Not run {meteo <- upForcing(path_p = "./precip/", path_pet = "./pet/", file_type = "raster", format = "NCDF")}
@@ -80,28 +78,28 @@
 #' data(GRU, param)
 #' # Construction of parameter maps from values by GRU
 #' GRU.maps <- buildGRUmaps(GRU, param)
+#' alpha1_v <- GRU.maps$alpha1
+#' alpha2_v <- GRU.maps$alpha2
+#' smax_v <- GRU.maps$smax
+#' d_v <- GRU.maps$d
 #' 
 #' # Establish the initial modeling conditions
 #' # if you would like to upload the initial state variables provided in this example, create a "/in_state/" directory and print the following files in that path
 #' # writeRaster(In_storage,"./in_state/in_storage.tif",format="GTiff"); writeRaster(In_ground,"./in_state/in_groundwater.tif",format="GTiff")
-#' 
-#' init <- init_state(GRU.maps$smax, "/in_state/")
-#' InGround <- init$In_ground
-#' InStorage <- init$In_storage
+#' init <- init_state(GRU.maps$smaxR, "/in_state/")
+#' g_v <- init$In_ground
+#' s_v <- init$In_storage
 #' rm(init)
+#' 
 #' # Load general characteristics of modeling
 #' setup_data <- readSetup(Read = TRUE)
-#' Dates <- seq(as.Date(setup_data[8,1]), as.Date(setup_data[10,1]), by="month")
-#' Sim.Period <- seq(3,(length(Dates)+2))
-#' # Vector format conversion to all data
-#' # Ground water and Soil water storage, Retention an PET efficiency, Soil water storage capacity and Recession constant
-#' alpha1_v <- rasterToPoints(GRU.maps$alpha1)[,-c(1,2)]
-#' alpha2_v <- rasterToPoints(GRU.maps$alpha2)[,-c(1,2)]
-#' smax_v <- rasterToPoints(GRU.maps$smax)[,-c(1,2)]
-#' d_v <- rasterToPoints(GRU.maps$d)[,-c(1,2)]
+#' Dates <- seq(as.Date("1900-01-01"), as.Date("2050-12-31"), by="month")
+#' Start.sim <- which(H.days==setup_data[8,1]);End.sim<-which(H.days==setup_data[10,1])
+#' Sim.Period <-c(Start.sim:End.sim)
+#' 
 #' # Run DWB model
-#' DWB.sogamoso <- DWBCalculator(P_sogamoso[,Sim.Period], 
-#'                     PET_sogamoso[,Sim.Period],
+#' DWB.sogamoso <- DWBCalculator(P_sogamoso[, Sim.Period], 
+#'                     PET_sogamoso[, Sim.Period],
 #'                     g_v,s_v,alpha1_v,alpha2_v,smax_v,d_v)
 #'                     
 DWBCalculator <- function(p_v, pet_v, g_v, s_v, alpha1_v, alpha2_v, smax_v, d_v){
