@@ -35,7 +35,7 @@ cellBasins <- function(gruLoc, basins){
     
     # extract the cells that are within each basin
     cell_basins <- raster::extract(cells, basins, na.rm = T)
-    names(cell_basins) <- basins$cod
+    if(is.character(basins@data[[2]])) names(cell_basins) <- basins[[2]]
       
     return(list(cellBasins = cell_basins, cellTable = cell_table))
       

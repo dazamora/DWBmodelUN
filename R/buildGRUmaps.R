@@ -13,7 +13,7 @@
 #' rows as number of GRU that were defined, and must have four columns which define the \code{alpha1}, \code{alpha2}, \code{d}
 #' and \code{Smax}
 #' 
-#' @return a list which is comprised by four raster, each one of them has the values of a parameter spatialized according with
+#' @return a list which is comprised by four vectors and four raster, each one of them has the values of a parameter spatialized according with
 #' the GRU raster layer
 #' 
 #' @author Nicolas Duque Gardeazabal <nduqueg@unal.edu.co>
@@ -52,7 +52,13 @@ buildGRUmaps <- function(gruLoc, parsValues){
     d[gruLoc == i] <- parsValues[i, 3]
     smax[gruLoc == i] <- parsValues[i, 4]
   }
-  gruMaps <- list(alpha1 = alpha1, alpha2 = alpha2, smax = smax, d = d)
+  
+  alpha1_v <- raster::rasterToPoints(alpha1)[,-c(1,2)]
+  alpha2_v <- raster::rasterToPoints(alpha2)[,-c(1,2)]
+  smax_v <- raster::rasterToPoints(smax)[,-c(1,2)]
+  d_v <- raster::rasterToPoints(d)[,-c(1,2)]
+  gruMaps <- list(alpha1 = alpha1_v, alpha2 = alpha2_v, smax = smax_v, d = d_v,
+                  alpha1R = alpha1, alpha2R = alpha2, smaxR = smax, dR = d)
   
   return(gruMaps)
 }
