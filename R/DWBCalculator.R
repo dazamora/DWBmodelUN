@@ -24,6 +24,8 @@
 #' @param alpha2_v vector comprised by the values of the evapotranspiration efficiency that must be between 0 and 1, it must have as many values as cells defined to simulate
 #' @param smax_v vector comprised by the values of the soil water storage capacity that must be above 0, it must have as many values as cells defined to simulate
 #' @param d_v vector comprised by the values of the recession constant that must be between 0 and 1, it must have as many values as cells defined to simulate 
+#' @param calibration boolean variable which sets the printing of the waitbar that indicates the progress of the calculation of the time series results. The default 
+#' value is FALSE, indicating that just one run of the model is going to be performed and there is no other waitbar such as the one used by a calibration algorithm.
 #'
 #' @return a list comprised by the time series of the hydrological fluxes calculated by the model. 
 #' The time series have the same length as the forcings that where employed to run the model. The fluxes are:
@@ -93,72 +95,126 @@
 #' 
 #' # Load general characteristics of modeling
 #' setup_data <- readSetup(Read = TRUE)
-#' Dates <- seq(as.Date("1900-01-01"), as.Date("2050-12-31"), by="month")
-#' Start.sim <- which(H.days==setup_data[8,1]);End.sim<-which(H.days==setup_data[10,1])
-#' Sim.Period <-c(Start.sim:End.sim)
+#' Dates <- seq(as.Date(colnames(P_sogamoso)[3],format="%Y.%m.%d"), as.Date(tail(colnames(P_sogamoso),1),format="%Y.%m.%d"), by="month")
+#' Start.sim <- which(Dates==setup_data[8,1]); End.sim <- which(Dates==setup_data[10,1])
+#' Sim.Period <- c(Start.sim:End.sim)+2  # the first two columns of the P and PET are the coordinates of the cells
 #' 
 #' # Run DWB model
 #' DWB.sogamoso <- DWBCalculator(P_sogamoso[, Sim.Period], 
 #'                     PET_sogamoso[, Sim.Period],
 #'                     g_v,s_v,alpha1_v,alpha2_v,smax_v,d_v)
 #'                     
-DWBCalculator <- function(p_v, pet_v, g_v, s_v, alpha1_v, alpha2_v, smax_v, d_v){
+DWBCalculator <- function(p_v, pet_v, g_v, s_v, alpha1_v, alpha2_v, smax_v, d_v, calibration = F){
   
-  # total number of cells and time steps to be simulated
-  ncells <- NROW(p_v)
-  nmonths <- NCOL(p_v)
-  
-  # ---- Set the object variables with NA values ----
-  M.result <- matrix(nrow = ncells, ncol = nmonths) 
-  xo <- M.result  # demand limit of rainfall retention
-  x  <- M.result  # rainfall retention
-  qd <- M.result  # surface runoff
-  w  <- M.result  # water availability
-  yo <- M.result  # demand limit of evapotranspiration opportunity
-  y  <- M.result  # evapotranspiration opportunity
-  r  <- M.result  # Groundwater recharge
-  aet <- M.result # actual evapotranspiration
-  s  <- M.result  # soil moisture storage
-  qb <- M.result  # base flow
-  g  <- M.result  # groundwater storage
-  q_total <- M.result  # total runoff
-  
-  # Calculation of the variables and fluxes for the first time step
-  dummy   <- smax_v - s_v
-  xo[, 1] <- dummy + pet_v[, 1]
-  x[, 1]  <- p_v[, 1] * funFU(PET = xo[, 1], P = p_v[, 1], alpha = alpha1_v)
-  qd[, 1] <- p_v[, 1] - x[, 1]
-  w[, 1]  <- x[, 1] + s_v
-  yo[, 1] <- pet_v[, 1] + smax_v
-  y[, 1]  <- w[, 1] * funFU(PET = yo[, 1], P = w[, 1], alpha = alpha2_v)
-  r[, 1]  <- w[, 1] - y[, 1]
-  aet[, 1] <- w[, 1] * funFU(PET = pet_v[, 1], P = w[, 1], alpha = alpha2_v)
-  s[, 1]  <- y[, 1] - aet[, 1]
-  qb[, 1] <- d_v * g_v
-  g[, 1]  <- (1 - d_v) * g_v + r[, 1]
-  q_total[, 1] <- qb[, 1] + qd[, 1]
-  
-  # Loop defined to calculate the variables and fluxes in the following timesteps
-  pb <- txtProgressBar(min = 0, max = nmonths, style = 3)
-  for(i in 2:nmonths){
+  if (!calibration){
+    # total number of cells and time steps to be simulated
+    ncells <- NROW(p_v)
+    nmonths <- NCOL(p_v)
     
-    dummy   <- smax_v - s[, (i-1)]
-    xo[, i] <- dummy + pet_v[, i]
-    x[, i]  <- p_v[, i] * funFU(PET = xo[, i], P = p_v[, i], alpha = alpha1_v)
-    qd[, i] <- p_v[, i] - x[, i]
-    w[, i]  <- x[, i] + s[, (i-1)]
-    yo[, i] <- pet_v[, i] + smax_v
-    y[, i]  <- w[, i] * funFU(PET = yo[, i], P = w[, i], alpha = alpha2_v)
-    r[, i]  <- w[, i] - y[, i]
-    aet[, i] <- w[, i] * funFU(PET = pet_v[, i], P = w[, i], alpha = alpha2_v)
-    s[, i]  <- y[, i] - aet[, i]
-    qb[, i] <- d_v * g[, (i-1)]
-    g[, i] <- (1-d_v) * g_v + r[, i]
-    q_total[, i] <- qb[, i] + qd[, i]
+    # ---- Set the object variables with NA values ----
+    M.result <- matrix(nrow = ncells, ncol = nmonths) 
+    xo <- M.result  # demand limit of rainfall retention
+    x  <- M.result  # rainfall retention
+    qd <- M.result  # surface runoff
+    w  <- M.result  # water availability
+    yo <- M.result  # demand limit of evapotranspiration opportunity
+    y  <- M.result  # evapotranspiration opportunity
+    r  <- M.result  # Groundwater recharge
+    aet <- M.result # actual evapotranspiration
+    s  <- M.result  # soil moisture storage
+    qb <- M.result  # base flow
+    g  <- M.result  # groundwater storage
+    q_total <- M.result  # total runoff
     
-    setTxtProgressBar(pb, i)
+    # Calculation of the variables and fluxes for the first time step
+    dummy   <- smax_v - s_v
+    xo[, 1] <- dummy + pet_v[, 1]
+    x[, 1]  <- p_v[, 1] * funFU(PET = xo[, 1], P = p_v[, 1], alpha = alpha1_v)
+    qd[, 1] <- p_v[, 1] - x[, 1]
+    w[, 1]  <- x[, 1] + s_v
+    yo[, 1] <- pet_v[, 1] + smax_v
+    y[, 1]  <- w[, 1] * funFU(PET = yo[, 1], P = w[, 1], alpha = alpha2_v)
+    r[, 1]  <- w[, 1] - y[, 1]
+    aet[, 1] <- w[, 1] * funFU(PET = pet_v[, 1], P = w[, 1], alpha = alpha2_v)
+    s[, 1]  <- y[, 1] - aet[, 1]
+    qb[, 1] <- d_v * g_v
+    g[, 1]  <- (1 - d_v) * g_v + r[, 1]
+    q_total[, 1] <- qb[, 1] + qd[, 1]
+    
+    # Loop defined to calculate the variables and fluxes in the following timesteps
+    pb <- txtProgressBar(min = 0, max = nmonths, style = 3)
+    for(i in 2:nmonths){
+      
+      dummy   <- smax_v - s[, (i-1)]
+      xo[, i] <- dummy + pet_v[, i]
+      x[, i]  <- p_v[, i] * funFU(PET = xo[, i], P = p_v[, i], alpha = alpha1_v)
+      qd[, i] <- p_v[, i] - x[, i]
+      w[, i]  <- x[, i] + s[, (i-1)]
+      yo[, i] <- pet_v[, i] + smax_v
+      y[, i]  <- w[, i] * funFU(PET = yo[, i], P = w[, i], alpha = alpha2_v)
+      r[, i]  <- w[, i] - y[, i]
+      aet[, i] <- w[, i] * funFU(PET = pet_v[, i], P = w[, i], alpha = alpha2_v)
+      s[, i]  <- y[, i] - aet[, i]
+      qb[, i] <- d_v * g[, (i-1)]
+      g[, i] <- (1-d_v) * g_v + r[, i]
+      q_total[, i] <- qb[, i] + qd[, i]
+      
+      setTxtProgressBar(pb, i)
+    }
+    close(pb) 
+  }else if(calibration){
+    # total number of cells and time steps to be simulated
+    ncells <- NROW(p_v)
+    nmonths <- NCOL(p_v)
+    
+    # ---- Set the object variables with NA values ----
+    M.result <- matrix(nrow = ncells, ncol = nmonths) 
+    xo <- M.result  # demand limit of rainfall retention
+    x  <- M.result  # rainfall retention
+    qd <- M.result  # surface runoff
+    w  <- M.result  # water availability
+    yo <- M.result  # demand limit of evapotranspiration opportunity
+    y  <- M.result  # evapotranspiration opportunity
+    r  <- M.result  # Groundwater recharge
+    aet <- M.result # actual evapotranspiration
+    s  <- M.result  # soil moisture storage
+    qb <- M.result  # base flow
+    g  <- M.result  # groundwater storage
+    q_total <- M.result  # total runoff
+    
+    # Calculation of the variables and fluxes for the first time step
+    dummy   <- smax_v - s_v
+    xo[, 1] <- dummy + pet_v[, 1]
+    x[, 1]  <- p_v[, 1] * funFU(PET = xo[, 1], P = p_v[, 1], alpha = alpha1_v)
+    qd[, 1] <- p_v[, 1] - x[, 1]
+    w[, 1]  <- x[, 1] + s_v
+    yo[, 1] <- pet_v[, 1] + smax_v
+    y[, 1]  <- w[, 1] * funFU(PET = yo[, 1], P = w[, 1], alpha = alpha2_v)
+    r[, 1]  <- w[, 1] - y[, 1]
+    aet[, 1] <- w[, 1] * funFU(PET = pet_v[, 1], P = w[, 1], alpha = alpha2_v)
+    s[, 1]  <- y[, 1] - aet[, 1]
+    qb[, 1] <- d_v * g_v
+    g[, 1]  <- (1 - d_v) * g_v + r[, 1]
+    q_total[, 1] <- qb[, 1] + qd[, 1]
+    
+    # Loop defined to calculate the variables and fluxes in the following timesteps
+    for(i in 2:nmonths){
+      
+      dummy   <- smax_v - s[, (i-1)]
+      xo[, i] <- dummy + pet_v[, i]
+      x[, i]  <- p_v[, i] * funFU(PET = xo[, i], P = p_v[, i], alpha = alpha1_v)
+      qd[, i] <- p_v[, i] - x[, i]
+      w[, i]  <- x[, i] + s[, (i-1)]
+      yo[, i] <- pet_v[, i] + smax_v
+      y[, i]  <- w[, i] * funFU(PET = yo[, i], P = w[, i], alpha = alpha2_v)
+      r[, i]  <- w[, i] - y[, i]
+      aet[, i] <- w[, i] * funFU(PET = pet_v[, i], P = w[, i], alpha = alpha2_v)
+      s[, i]  <- y[, i] - aet[, i]
+      qb[, i] <- d_v * g[, (i-1)]
+      g[, i] <- (1-d_v) * g_v + r[, i]
+      q_total[, i] <- qb[, i] + qd[, i]
+    }
   }
-  close(pb)
   
   #---- return ----
   dwb_aux <- list(q_total = q_total, aet = aet, r = r, qd = qd, qb = qb, s = s, g = g)

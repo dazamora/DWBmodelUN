@@ -4,7 +4,8 @@
 \alias{DWBCalculator}
 \title{DWB model function}
 \usage{
-DWBCalculator(p_v, pet_v, g_v, s_v, alpha1_v, alpha2_v, smax_v, d_v)
+DWBCalculator(p_v, pet_v, g_v, s_v, alpha1_v, alpha2_v, smax_v, d_v,
+  calibration = F)
 }
 \arguments{
 \item{p_v}{matrix comprised by the precipitation records and that has as raws the number of cells that will be simulated and as columns the number of time steps to be simulated}
@@ -22,6 +23,9 @@ DWBCalculator(p_v, pet_v, g_v, s_v, alpha1_v, alpha2_v, smax_v, d_v)
 \item{smax_v}{vector comprised by the values of the soil water storage capacity that must be above 0, it must have as many values as cells defined to simulate}
 
 \item{d_v}{vector comprised by the values of the recession constant that must be between 0 and 1, it must have as many values as cells defined to simulate}
+
+\item{calibration}{boolean variable which sets the printing of the waitbar that indicates the progress of the calculation of the time series results. The default 
+value is FALSE, indicating that just one run of the model is going to be performed and there is no other waitbar such as the one used by a calibration algorithm.}
 }
 \value{
 a list comprised by the time series of the hydrological fluxes calculated by the model. 
@@ -88,9 +92,9 @@ rm(init)
 
 # Load general characteristics of modeling
 setup_data <- readSetup(Read = TRUE)
-Dates <- seq(as.Date("1900-01-01"), as.Date("2050-12-31"), by="month")
-Start.sim <- which(H.days==setup_data[8,1]);End.sim<-which(H.days==setup_data[10,1])
-Sim.Period <-c(Start.sim:End.sim)
+Dates <- seq(as.Date(colnames(P_sogamoso)[3],format="\%Y.\%m.\%d"), as.Date(tail(colnames(P_sogamoso),1),format="\%Y.\%m.\%d"), by="month")
+Start.sim <- which(Dates==setup_data[8,1]); End.sim <- which(Dates==setup_data[10,1])
+Sim.Period <- c(Start.sim:End.sim)+2  # the first two columns of the P and PET are the coordinates of the cells
 
 # Run DWB model
 DWB.sogamoso <- DWBCalculator(P_sogamoso[, Sim.Period], 
