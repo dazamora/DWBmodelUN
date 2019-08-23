@@ -7,7 +7,7 @@
 #' @description This function allows the user to calibrate the DWB or other model with the Dynamical Dimension Search (DDS) algorithm \cite{(Tolson & Shoemaker, 2007)}.
 #' As the calibration is performed based on a single value, one should average or create a scalar with the evaluation made in all
 #' the streamflow stations, or other variables, between the observed and the simulated values.
-#'
+#' 
 #' @param xBounds.df must be a dataframe which defines the parameter range for searching, with 1st column as minimum and 2nd column as maximum of the parameter space
 #' @param numIter is an integer that defines the total number of simulations so as to calibrate de model
 #' @param iniPar is a vector which contains an optional initial parameter set
@@ -96,7 +96,7 @@
 #' result <- dds(xBounds.df = xBounds.df, numIter=200, OBJFUN=NSE_Sogamoso_DWB,
 #'         P=P_sogamoso, PET=PET_sogamoso, g_v=g_v,s_v=s_v, Sim.Period=Sim.Period, EscObs=EscSogObs, Cal.Period=Cal.Period)
 #' 
-dds<-function(xBounds.df, numIter,iniPar=NA, r = 0.2, OBJFUN, ...){
+dds <- function(xBounds.df, numIter,iniPar=NA, r = 0.2, OBJFUN, ...){
 
   # Format xBounds.df colnames
   colnames(xBounds.df) <- c("min", "max")
@@ -129,7 +129,7 @@ dds<-function(xBounds.df, numIter,iniPar=NA, r = 0.2, OBJFUN, ...){
   
   pb1<-txtProgressBar(style=3)
   for (i in 2:numIter){
-    setTxtProgressBar(pb1,i/numIter,title=paste(i/numIter,"% Calibrando"))
+    setTxtProgressBar(pb1,i/numIter,title=paste(i/numIter,"% of Calibration"))
     # Set up test x
     x_test[,i]<-as.matrix(x_best)
     

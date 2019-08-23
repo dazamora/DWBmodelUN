@@ -7,16 +7,14 @@
 #' @description 
 #' Function to graph dynamically the results of the DWB model
 #' 
-#' @param date.ini 
-#' @param ... 
-#' @param q_total 
-#'
-#' @param  
+#' @param date.ini sasasa
+#' @param q_total asasas
+#' @param ... sasas 
 #'
 #' @return A plot of precipitation, actual evapotranspiration and runoff
 #' 
 #' @export
-#' #'
+#' 
 #' @author 
 #' Nicolas Duque Gardeazabal <nduqueg@unal.edu.co> 
 #' Pedro Felipe Arboleda Obando <pfarboledao@unal.edu.co> 
@@ -28,19 +26,20 @@
 #' 
 #' @examples
 #' # Load DWB model results
-#' data(dwb_results)
-#' runoff <- colMeans(dwb_results$q_total)
+#' data(simDWB.sogamoso, EscSogObs)
+#' runoff.sim <- simDWB.sogamoso[ ,1]
+#' runoff.obs <- EscSogObs[ ,1]  
+#' Runoff <- cbind(runoff.obs, runoff.sim) 
+#' date.ini <- c(2001, 1)
+#' 
+#' 
 #' graphDWB (runoff)
 #' 
-#' data(P_sogamoso, dwb_results)
 #' 
 graphDWB <- function(q_total, date.ini,  ...){
   # q_total<-colMeans(dwb_results$q_total); date.ini <- c(2001, 1)
-  q <- ts(q_total, date.ini, frequency = 12)
-  dygraphs::dygraph(q, ylab = "Runoff") %>% dyRangeSelector()
+  q <- ts(q_total, star = date.ini, frequency = 12)
+  dygraphs::dygraph(q, ylab = "Runoff mm/mth") %>% dygraphs::dyRangeSelector()
   
   return(plot)
 }
-
-# lungDeaths <- cbind(mdeaths, fdeaths)
-# dygraph(lungDeaths)

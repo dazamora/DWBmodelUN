@@ -31,6 +31,7 @@
 #' cellBasins <- cellBasins$cellBasins
 #' 
 #' Esc.Sogamoso <- varBasins(Esc, cellBasins)
+#' 
 varBasins<-function(var, cellBasins){
   
   varProm <- data.frame(matrix(data=NA, ncol=length(cellBasins), nrow=ncol(var)))
@@ -40,10 +41,10 @@ varBasins<-function(var, cellBasins){
   
   for (i in 1:length(cellBasins)){
     if(length(cellBasins[[i]])>1){
-      varProm[,i] <- colMeans(varCells[[i]], na.rm = T)
+      varAverage[,i] <- colMeans(varCells[[i]], na.rm = T)
     }else{
-      varProm[,i] <- varCells[[i]]
+      varAverage[,i] <- varCells[[i]]
     }
   }
-  return(list(varProm = varProm, varCells = varCells))
+  return(list(varAverage = varAverage, varCells = varCells))
 }

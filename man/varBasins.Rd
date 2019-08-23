@@ -27,6 +27,7 @@ cellBasins <- cellBasins(GRU, basins)
 cellBasins <- cellBasins$cellBasins
 
 Esc.Sogamoso <- varBasins(Esc, cellBasins)
+
 }
 \author{
 Nicolas Duque Gardeazabal <nduqueg@unal.edu.co>
