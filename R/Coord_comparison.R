@@ -87,18 +87,18 @@ Coord_comparison <- function(r1, r2){
           print("Number of layers verified")
           return(TRUE)
         }else{
-          print("WARNING - Please verify number of layers in raster")
+          warning("Please verify number of layers in raster")
           return(FALSE)
         }
       }else{return(TRUE)}
       
     }else{
-      print("Warning - Please verify raster resolution")
+      warning("Please verify raster resolution")
       return(FALSE)
     }
     
   }else{
-    print("Warning - Please verify raster extent")
+    warning("Please verify raster extent")
   }
 }
 
