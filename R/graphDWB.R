@@ -2,15 +2,22 @@
 #' graphDWB
 #' 
 #' @title
-#' Graph for DWB model
+#' Graph for DWB model results
 #'
 #' @description 
-#' Function to graph dynamically the results of the DWB model
+#' This function dynamically graphs the inputs and results of the DWBmodelUN.
+#' It has three types of graphs: 
+#' The first (\emph{tp = 1}) to graph any variable in continuous format.
+#' The second (\emph{tp = 2}) is to compare the runoff result of the model, with the observations.
+#' Finally, (\emph{tp = 3}) allows to show a comparison between the observed and simulated runoff, as well as, with a set of precipitation.
 #' 
-#' @param var list of the variables to plot
-#' @param tp type of plot
+#' @param var It is a list that contains time series of type "ts" which you want to graph. 
+#' For (\emph{tp = 3}), it must first contain the observed precipitation series, 
+#' followed by the simulated runoff series and finally the observed runoff.
+#' @param tp Variable to choose the type of graph
+#' @param main Main title for the graph
 #'
-#' @return A plot of precipitation, actual evapotranspiration and runoff
+#' @return Prints a dynamic graph according to the requirements.
 #' 
 #' @export
 #' 
@@ -42,6 +49,9 @@
 #' 
 graphDWB <- function(var, tp, main){
   nvar <- length(var)
+  if (nvar == 0){
+    stop('The list must contain at least one time series variable')
+  }
   # All series must be time series class
   for(i in 1:nvar){
     if(class(var[[i]]) != "ts"){
@@ -53,7 +63,7 @@ graphDWB <- function(var, tp, main){
     if (nvar > 1){
       warning('Only the first variable in the list will be used')
     }
-    plot = dygraphs::dygraph(var[[1]], ylab = "Precipitation [mm/mth]", main = main) %>%
+    plot = dygraphs::dygraph(var[[1]], ylab = "names(var)[1]", main = main) %>%
             dygraphs::dySeries("V1", label = names(var)[1], strokeWidth = 1.7, color= "#2c7fb8") %>%
             dygraphs::dyLegend(show = "follow") %>% 
             dygraphs::dyRangeSelector()
@@ -83,7 +93,7 @@ graphDWB <- function(var, tp, main){
                                      package = "dygraphs"))
       }
     
-      plot = dygraphs::dygraph(var[[1]], ylab = "P [mm/mth]", group = "A", height = 150, width = "100%") %>%
+      plot = dygraphs::dygraph(var[[1]], ylab = "P [mm/mth]", group = "A", height = 150, width = "100%",  main = main) %>%
               dygraphs::dySeries("V1", label = names(var)[1], strokeWidth = 1.7, color= "#2c7fb8") %>%
               dygraphs::dyLegend(show = "follow") %>% dyBarChart() %>%
               htmltools::tagList(dygraphs::dygraph(cbind(var[[2]], var[[3]]), ylab = "Runoff [mm/mth]", group = "A", height = 300, width = "100%") %>%
