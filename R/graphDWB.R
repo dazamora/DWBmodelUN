@@ -24,15 +24,21 @@
 #' Universidad Nacional de Colombia - sede Bogotá
 #' 
 #' @examples
-#' # Load DWB model results
+#' data(P_sogamoso)
+#' P.est <- ts(c(t(P_sogamoso[1, -2:-1])), star = c(2001, 1), frequency = 12)
+#' var <- list("Precipitation" = P.est)
+#'  
+#' graphDWB (var, tp = 1, main = "Precipitation Lat:7.0 Lon:-72.94")
+#' 
+#' 
 #' data(simDWB.sogamoso, EscSogObs)
 #' runoff.sim <- ts(simDWB.sogamoso[ ,1], star = c(2001, 1), frequency = 12)
 #' runoff.obs <- ts(EscSogObs[ ,1] , star = c(2001, 1), frequency = 12)
 #' var <- list("Runoff.sim" = runoff.sim, "Runoff.obs" = runoff.obs)
+#'  
+#' graphDWB (var, tp = 2, main = "Runoff: Gauge 23147020")
 #' 
-#' 
-#' graphDWB (var, tp = 2, main = "Runoff at gauge 23147020")
-#' 
+#'  
 #' 
 graphDWB <- function(var, tp, main){
   nvar <- length(var)
@@ -47,24 +53,52 @@ graphDWB <- function(var, tp, main){
     if (nvar > 1){
       warning('Only the first variable in the list will be used')
     }
-    dygraphs::dygraph(var[[1]], ylab = "Precipitation [mm/mth]", main = main) %>%
-      dygraphs::dySeries("V1", label = names(var)[1], strokeWidth = 1.7, color= "#2c7fb8") %>%
-      dygraphs::dyLegend(show = "follow") %>% 
-      dygraphs::dyRangeSelector()
+    plot = dygraphs::dygraph(var[[1]], ylab = "Precipitation [mm/mth]", main = main) %>%
+            dygraphs::dySeries("V1", label = names(var)[1], strokeWidth = 1.7, color= "#2c7fb8") %>%
+            dygraphs::dyLegend(show = "follow") %>% 
+            dygraphs::dyRangeSelector()
       
   } else if (tp == 2){
     if (nvar < 2){
       stop('An additional variable is required for this type of graph')
-    }else{
-      dygraphs::dygraph(cbind(var[[1]], var[[2]]), ylab = "Runoff [mm/mth]", main = main) %>%
-        dygraphs::dySeries("var[[1]]", label = names(var)[1], strokeWidth = 1.7,  color= "#ef8a62") %>%
-        dygraphs::dySeries("var[[2]]", label = names(var)[2], strokeWidth = 1.7, color= "#404040", 
+    } else{
+      plot = dygraphs::dygraph(cbind(var[[1]], var[[2]]), ylab = "Runoff [mm/mth]", main = main) %>%
+              dygraphs::dySeries("var[[1]]", label = names(var)[1], strokeWidth = 1.7,  color= "#ef8a62") %>%
+              dygraphs::dySeries("var[[2]]", label = names(var)[2], strokeWidth = 1.7, color= "#404040", 
                            drawPoints = TRUE, pointSize = 2) %>%
-        dygraphs::dyLegend(show = "always") %>% 
-        dygraphs::dyHighlight(highlightCircleSize = 3, highlightSeriesBackgroundAlpha = 0.2,
+              dygraphs::dyLegend(show = "always") %>% 
+              dygraphs::dyHighlight(highlightCircleSize = 3, highlightSeriesBackgroundAlpha = 0.2,
                               hideOnMouseOut = FALSE)  %>% 
-        dygraphs::dyRangeSelector(height = 30)
+              dygraphs::dyRangeSelector(height = 30)
     }
+  } else if (tp == 3){
+    if (nvar < 3){
+      stop('An additional variable is required for this type of graph')
+    } else{
+      # New function required
+      dyBarChart <- function(dygraph) {
+        dyPlotter(dygraph = dygraph,
+                  name = "BarChart",
+                  path = system.file("plotters/barchart.js",
+                                     package = "dygraphs"))
+      }
+    
+      plot = dygraphs::dygraph(var[[1]], ylab = "P [mm/mth]", group = "A", height = 150, width = "100%") %>%
+              dygraphs::dySeries("V1", label = names(var)[1], strokeWidth = 1.7, color= "#2c7fb8") %>%
+              dygraphs::dyLegend(show = "follow") %>% dyBarChart() %>%
+              htmltools::tagList(dygraphs::dygraph(cbind(var[[2]], var[[3]]), ylab = "Runoff [mm/mth]", group = "A", height = 300, width = "100%") %>%
+                  dygraphs::dySeries("var[[2]]", label = names(var)[2], strokeWidth = 1.7,  color= "#ef8a62") %>%
+                  dygraphs::dySeries("var[[3]]", label = names(var)[3], strokeWidth = 1.7, color= "#404040", 
+                                     drawPoints = TRUE, pointSize = 2) %>%
+                  dygraphs::dyLegend(show = "follow") %>% 
+                  dygraphs::dyHighlight(highlightCircleSize = 3, highlightSeriesBackgroundAlpha = 0.2,
+                                        hideOnMouseOut = FALSE)  %>% 
+                  dygraphs::dyRangeSelector(height = 25)) %>%
+              htmltools::browsable() 
+        
+    }
+  } else {
+    stop('Wrong type of graph')
   }
   
   return(plot)
