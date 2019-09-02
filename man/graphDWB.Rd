@@ -2,34 +2,46 @@
 % Please edit documentation in R/graphDWB.R
 \name{graphDWB}
 \alias{graphDWB}
-\title{Graph for DWB model}
+\title{Graph for DWB model results}
 \usage{
-graphDWB(q_total, date.ini, ...)
+graphDWB(var, tp, main)
 }
 \arguments{
-\item{q_total}{asasas}
+\item{var}{It is a list that contains time series of type "ts" which you want to graph. 
+For (\emph{tp = 3}), it must first contain the observed precipitation series, 
+followed by the simulated runoff series and finally the observed runoff.}
 
-\item{date.ini}{sasasa}
+\item{tp}{Variable to choose the type of graph}
 
-\item{...}{sasas}
+\item{main}{Main title for the graph}
 }
 \value{
-A plot of precipitation, actual evapotranspiration and runoff
+Prints a dynamic graph according to the requirements.
 }
 \description{
-Function to graph dynamically the results of the DWB model
+This function dynamically graphs the inputs and results of the DWBmodelUN.
+It has three types of graphs: 
+The first (\emph{tp = 1}) to graph any variable in continuous format.
+The second (\emph{tp = 2}) is to compare the runoff result of the model, with the observations.
+Finally, (\emph{tp = 3}) allows to show a comparison between the observed and simulated runoff, as well as, with a set of precipitation.
 }
 \examples{
-# Load DWB model results
+# Example 1
+data(P_sogamoso)
+P.est <- ts(c(t(P_sogamoso[1, -2:-1])), star = c(2001, 1), frequency = 12)
+var <- list("Precipitation" = P.est)
+ 
+graphDWB (var, tp = 1, main = "Precipitation Lat:7.0 Lon:-72.94")
+
+# Example 2
 data(simDWB.sogamoso, EscSogObs)
-runoff.sim <- simDWB.sogamoso[ ,1]
-runoff.obs <- EscSogObs[ ,1]  
-Runoff <- cbind(runoff.obs, runoff.sim) 
-dates <- c(2001, 1)
+runoff.sim <- ts(simDWB.sogamoso[ ,1], star = c(2001, 1), frequency = 12)
+runoff.obs <- ts(EscSogObs[ ,1] , star = c(2001, 1), frequency = 12)
+var <- list("Runoff.sim" = runoff.sim, "Runoff.obs" = runoff.obs)
+ 
+graphDWB (var, tp = 2, main = "Runoff: Gauge 23147020")
 
-
-graphDWB (runoff)
-
+ 
 
 }
 \author{
