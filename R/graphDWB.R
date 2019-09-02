@@ -6,26 +6,33 @@
 #'
 #' @description 
 #' This function dynamically graphs the inputs and results of the DWBmodelUN.
-#' It has three types of graphs: 
-#' The first (\emph{tp = 1}) to graph any variable in continuous format.
-#' The second (\emph{tp = 2}) is to compare the runoff result of the model, with the observations.
-#' Finally, (\emph{tp = 3}) allows to show a comparison between the observed and simulated runoff, as well as, with a set of precipitation.
+#' It has three types of graphs: \cr
+#' \itemize{
+#'   \item \emph{tp = 1}: Plots any variable in continuous format.\cr
+#'   \item \emph{tp = 2}): Compares the runoff result of the model, with the observations.\cr
+#'   \item (\emph{tp = 3}): It allows to show a comparison between the observed and simulated runoff, as well as, with a set of precipitation.\cr
+#'   \item (\emph{tp = 4}): It presents a comparison between the a set of precipitation, actual or potential evaporatranspiration and runoff.
+#'   }
 #' 
-#' @param var It is a list that contains time series of type "ts" which you want to graph. 
+#' @param var It is a list that contains time series of type "ts" which you want to graph. \cr
+#' For (\emph{tp = 2}), it is recommended to list the simulated runoff series first, followed by the observed.\cr
 #' For (\emph{tp = 3}), it must first contain the observed precipitation series, 
-#' followed by the simulated runoff series and finally the observed runoff.
+#' followed by the simulated runoff series and finally the observed runoff. \cr
+#' For (\emph{tp = 4}), it must first contain the observed precipitation series, 
+#' followed by the evapotranspiration series and finally the runoff time series. \cr
 #' @param tp Variable to choose the type of graph
 #' @param main Main title for the graph
+#' @param ... Other parameters of the dygraphs package.
 #'
 #' @return Prints a dynamic graph according to the requirements.
 #' 
 #' @export
 #' 
 #' @author 
-#' Nicolas Duque Gardeazabal <nduqueg@unal.edu.co> 
-#' Pedro Felipe Arboleda Obando <pfarboledao@unal.edu.co> 
-#' Carolina Vega Viviescas <cvegav@unal.edu.co>
-#' David Zamora <dazamoraa@unal.edu.co>
+#' Carolina Vega Viviescas <cvegav@unal.edu.co> \cr
+#' Pedro Felipe Arboleda Obando <pfarboledao@unal.edu.co> \cr
+#' David Zamora <dazamoraa@unal.edu.co> \cr
+#' Nicolas Duque Gardeazabal <nduqueg@unal.edu.co> \cr
 #' 
 #' Water Resources Engineering Research Group - GIREH
 #' Universidad Nacional de Colombia - sede Bogotá
@@ -46,9 +53,25 @@
 #'  
 #' graphDWB (var, tp = 2, main = "Runoff: Gauge 23147020")
 #' 
+#' # Example 3
+#' data(P_sogamoso, simDWB.sogamoso, EscSogObs)
+#' P.est <- ts(c(t(P_sogamoso[1, -2:-1])), star = c(2001, 1), frequency = 12)
+#' runoff.sim <- ts(simDWB.sogamoso[ ,1], star = c(2001, 1), frequency = 12)
+#' runoff.obs <- ts(EscSogObs[ ,1] , star = c(2001, 1), frequency = 12)
+#' var <- list("Precipitation" = P.est,"Runoff.sim" = runoff.sim, "Runoff.obs" = runoff.obs)
 #'  
+#' graphDWB (var, tp = 3, main = "DWB results at Sogamoso Basin")
 #' 
-graphDWB <- function(var, tp, main){
+#' # Example 4
+#' data(P_sogamoso, PET_sogamoso, simDWB.sogamoso)
+#' P <- ts(c(t(P_sogamoso[1, -2:-1])), star = c(2001, 1), frequency = 12)
+#' PET <- ts(c(t(PET_sogamoso[1, -2:-1])), star = c(2001, 1), frequency = 12)
+#' runoff.sim <- ts(simDWB.sogamoso[ ,1], star = c(2001, 1), frequency = 12)
+#' var <- list("P" = P,"PET" = PET, "Runoff.sim" = runoff.sim)
+#'  
+#' graphDWB (var, tp = 4, main = "General Comparison Sogamoso Basin")
+#' 
+graphDWB <- function(var, tp, main, ...){
   nvar <- length(var)
   if (nvar == 0){
     stop('The list must contain at least one time series variable')
@@ -59,12 +82,19 @@ graphDWB <- function(var, tp, main){
       warning(paste('The', i, 'variable is not a time series', dQuote(c("ts")) ,'class'))
     }
   }; rm(i)
+  # New function required
+  dyBarChart <- function(dygraph) {
+    dyPlotter(dygraph = dygraph,
+              name = "BarChart",
+              path = system.file("plotters/barchart.js",
+                                 package = "dygraphs"))
+  }
   # Verification of type of plot
   if(tp == 1){
     if (nvar > 1){
       warning('Only the first variable in the list will be used')
     }
-    plot = dygraphs::dygraph(var[[1]], ylab = paste(names(var)[1], "[mm/mth]", sep =" "), main = main) %>%
+    plot = dygraphs::dygraph(var[[1]], ylab = paste(names(var)[1], "[mm/mth]", sep =" "), main = main, ...) %>%
             dygraphs::dySeries("V1", label = names(var)[1], strokeWidth = 1.7, color= "#2c7fb8") %>%
             dygraphs::dyLegend(show = "follow") %>% 
             dygraphs::dyRangeSelector() %>% 
@@ -74,7 +104,7 @@ graphDWB <- function(var, tp, main){
     if (nvar < 2){
       stop('An additional variable is required for this type of graph')
     } else{
-      plot = dygraphs::dygraph(cbind(var[[1]], var[[2]]), ylab = "Runoff [mm/mth]", main = main) %>%
+      plot = dygraphs::dygraph(cbind(var[[1]], var[[2]]), ylab = "Runoff [mm/mth]", main = main, ...) %>%
               dygraphs::dySeries("var[[1]]", label = names(var)[1], strokeWidth = 1.7,  color= "#ef8a62") %>%
               dygraphs::dySeries("var[[2]]", label = names(var)[2], strokeWidth = 1.7, color= "#404040", 
                            drawPoints = TRUE, pointSize = 2) %>%
@@ -88,28 +118,41 @@ graphDWB <- function(var, tp, main){
     if (nvar < 3){
       stop('An additional variable is required for this type of graph')
     } else{
-      # New function required
-      dyBarChart <- function(dygraph) {
-        dyPlotter(dygraph = dygraph,
-                  name = "BarChart",
-                  path = system.file("plotters/barchart.js",
-                                     package = "dygraphs"))
-      }
-    
-      plot = dygraphs::dygraph(var[[1]], ylab = "P [mm/mth]", group = "A", height = 150, width = "100%",  main = main) %>%
+      plot = dygraphs::dygraph(var[[1]], ylab = "P [mm/mth]", group = "A", height = 150, width = "100%",  main = main, ...) %>%
               dygraphs::dySeries("V1", label = names(var)[1], strokeWidth = 1.7, color= "#2c7fb8") %>%
-              dygraphs::dyLegend(show = "follow", width = 400) %>% dyBarChart() %>%
-              htmltools::tagList(dygraphs::dygraph(cbind(var[[2]], var[[3]]), ylab = "Runoff [mm/mth]", group = "A", height = 300, width = "100%") %>%
+              dygraphs::dyLegend(show = "follow", width = 210) %>% dyBarChart() %>%
+              dyCSS(system.file("data", "dygraph.css", package = "DWBmodelUN"))  %>%
+              htmltools::tagList(dygraphs::dygraph(cbind(var[[2]], var[[3]]), ylab = "Runoff [mm/mth]", group = "A", height = 300, width = "100%", ...) %>%
                   dygraphs::dySeries("var[[2]]", label = names(var)[2], strokeWidth = 1.7,  color= "#ef8a62") %>%
                   dygraphs::dySeries("var[[3]]", label = names(var)[3], strokeWidth = 1.7, color= "#404040", 
                                      drawPoints = TRUE, pointSize = 2) %>%
-                  dygraphs::dyLegend(show = "follow") %>% 
+                  dygraphs::dyLegend(show = "follow", width = 210) %>% 
                   dygraphs::dyHighlight(highlightCircleSize = 3, highlightSeriesBackgroundAlpha = 0.2,
                                         hideOnMouseOut = FALSE)  %>% 
                   dygraphs::dyRangeSelector(height = 25)) %>%
-              htmltools::browsable() %>% 
-              dyCSS(system.file("data", "dygraph.css", package = "DWBmodelUN"))
+              htmltools::browsable()
         
+    }
+  } else if (tp == 4){
+    if (nvar < 3){
+      stop('An additional variable is required for this type of graph')
+    } else{
+      plot = dygraphs::dygraph(cbind(var[[1]], var[[2]]), ylab = "P / ET [mm/mth]", group = "A", height = 225, width = "100%",  main = main, ...) %>%
+        dygraphs::dyMultiColumn() %>% 
+        dygraphs::dySeries("var[[1]]", label = names(var)[1], strokeWidth = 1.7, color= "#2c7fb8") %>%
+        dygraphs::dySeries("var[[2]]", label = names(var)[2], strokeWidth = 1.7, color= "#1a9850") %>%
+        dygraphs::dyLegend(show = "follow", width = 210) %>% 
+        dyCSS(system.file("data", "dygraph.css", package = "DWBmodelUN"))  %>%
+        htmltools::tagList(dygraphs::dygraph(var[[3]], ylab = "Runoff [mm/mth]", group = "A", height = 225, width = "100%", ...) %>%
+                             dygraphs::dySeries("V1", label = names(var)[3], strokeWidth = 1.7,  color= "#ef8a62") %>%
+                             dygraphs::dyLegend(show = "follow", width = 210) %>% 
+                             dygraphs::dyRangeSelector(height = 25)) %>%
+        htmltools::browsable()
+      
+      lungDeaths <- cbind(mdeaths, fdeaths)
+      dygraph(lungDeaths) %>%
+        dyRangeSelector() %>%
+        dyMultiColumn()
     }
   } else {
     stop('Wrong type of graph')

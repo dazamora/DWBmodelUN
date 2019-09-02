@@ -18,6 +18,15 @@
 #' and second a table that associates the coordinates of each cell with the assigned number.
 #' 
 #' @export
+#' 
+#' @author 
+#' Pedro Felipe Arboleda Obando <pfarboledao@unal.edu.co> \cr
+#' Nicolas Duque Gardeazabal <nduqueg@unal.edu.co> \cr
+#' Carolina Vega Viviescas <cvegav@unal.edu.co> \cr
+#' David Zamora <dazamoraa@unal.edu.co> \cr
+#'  
+#' Water Resources Engineering Research Group - GIREH
+#' Universidad Nacional de Colombia - sede Bogotá
 #'
 #' @examples
 #' data("GRU","basins")

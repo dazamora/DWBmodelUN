@@ -22,18 +22,18 @@ It also returns the time serie average value of the variable.
 }
 \examples{
 data(dwb_results,GRU,basins)
-Esc <- dwb_results$q_total
+Run <- dwb_results$q_total
 cellBasins <- cellBasins(GRU, basins)
 cellBasins <- cellBasins$cellBasins
 
-Esc.Sogamoso <- varBasins(Esc, cellBasins)
+Runfoff.Sogamoso <- varBasins(Run, cellBasins)
 
 }
 \author{
-Nicolas Duque Gardeazabal <nduqueg@unal.edu.co>
-Pedro Felipe Arboleda Obando <pfarboledao@unal.edu.co> 
-Carolina Vega Viviescas <cvegav@unal.edu.co> 
-David Zamora <dazamoraa@unal.edu.co>
+Nicolas Duque Gardeazabal <nduqueg@unal.edu.co>  \cr
+Pedro Felipe Arboleda Obando <pfarboledao@unal.edu.co>  \cr
+Carolina Vega Viviescas <cvegav@unal.edu.co>  \cr
+David Zamora <dazamoraa@unal.edu.co> \cr
 
 Water Resources Engineering Research Group - GIREH
 Universidad Nacional de Colombia - sede Bogotá

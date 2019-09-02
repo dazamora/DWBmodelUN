@@ -15,11 +15,11 @@
 #'
 #' @return a value or a vector (depending on which kind of data was introduced for numerator and denominator)
 #'
-#' @author Nicolas Duque Gardeazabal <nduqueg@unal.edu.co> 
-#' Pedro Felipe Arboleda Obando <pfarboledao@unal.edu.co> 
-#' Carolina Vega Viviescas <cvegav@unal.edu.co>
-#' David Zamora <dazamoraa@unal.edu.co>
-#' Pedro Felipe Arboleda Obando <pfarboledao@unal.edu.co> 
+#' @author Nicolas Duque Gardeazabal <nduqueg@unal.edu.co>  \cr
+#' Pedro Felipe Arboleda Obando <pfarboledao@unal.edu.co>  \cr
+#' Carolina Vega Viviescas <cvegav@unal.edu.co> \cr
+#' David Zamora <dazamoraa@unal.edu.co> \cr
+#' Pedro Felipe Arboleda Obando <pfarboledao@unal.edu.co>  \cr
 #' 
 #' Water Resources Engineering Research Group - GIREH
 #' Universidad Nacional de Colombia - sede Bogotá

@@ -4,26 +4,34 @@
 \alias{graphDWB}
 \title{Graph for DWB model results}
 \usage{
-graphDWB(var, tp, main)
+graphDWB(var, tp, main, ...)
 }
 \arguments{
-\item{var}{It is a list that contains time series of type "ts" which you want to graph. 
+\item{var}{It is a list that contains time series of type "ts" which you want to graph. \cr
+For (\emph{tp = 2}), it is recommended to list the simulated runoff series first, followed by the observed.\cr
 For (\emph{tp = 3}), it must first contain the observed precipitation series, 
-followed by the simulated runoff series and finally the observed runoff.}
+followed by the simulated runoff series and finally the observed runoff. \cr
+For (\emph{tp = 4}), it must first contain the observed precipitation series, 
+followed by the evapotranspiration series and finally the runoff time series. \cr}
 
 \item{tp}{Variable to choose the type of graph}
 
 \item{main}{Main title for the graph}
+
+\item{...}{Other parameters of the dygraphs package.}
 }
 \value{
 Prints a dynamic graph according to the requirements.
 }
 \description{
 This function dynamically graphs the inputs and results of the DWBmodelUN.
-It has three types of graphs: 
-The first (\emph{tp = 1}) to graph any variable in continuous format.
-The second (\emph{tp = 2}) is to compare the runoff result of the model, with the observations.
-Finally, (\emph{tp = 3}) allows to show a comparison between the observed and simulated runoff, as well as, with a set of precipitation.
+It has three types of graphs: \cr
+\itemize{
+  \item \emph{tp = 1}: Plots any variable in continuous format.\cr
+  \item \emph{tp = 2}): Compares the runoff result of the model, with the observations.\cr
+  \item (\emph{tp = 3}): It allows to show a comparison between the observed and simulated runoff, as well as, with a set of precipitation.\cr
+  \item (\emph{tp = 4}): It presents a comparison between the a set of precipitation, actual or potential evaporatranspiration and runoff.
+  }
 }
 \examples{
 # Example 1
@@ -41,14 +49,30 @@ var <- list("Runoff.sim" = runoff.sim, "Runoff.obs" = runoff.obs)
  
 graphDWB (var, tp = 2, main = "Runoff: Gauge 23147020")
 
+# Example 3
+data(P_sogamoso, simDWB.sogamoso, EscSogObs)
+P.est <- ts(c(t(P_sogamoso[1, -2:-1])), star = c(2001, 1), frequency = 12)
+runoff.sim <- ts(simDWB.sogamoso[ ,1], star = c(2001, 1), frequency = 12)
+runoff.obs <- ts(EscSogObs[ ,1] , star = c(2001, 1), frequency = 12)
+var <- list("Precipitation" = P.est,"Runoff.sim" = runoff.sim, "Runoff.obs" = runoff.obs)
  
+graphDWB (var, tp = 3, main = "DWB results at Sogamoso Basin")
+
+# Example 4
+data(P_sogamoso, PET_sogamoso, simDWB.sogamoso)
+P <- ts(c(t(P_sogamoso[1, -2:-1])), star = c(2001, 1), frequency = 12)
+PET <- ts(c(t(PET_sogamoso[1, -2:-1])), star = c(2001, 1), frequency = 12)
+runoff.sim <- ts(simDWB.sogamoso[ ,1], star = c(2001, 1), frequency = 12)
+var <- list("Precipitation" = P,"PET" = PET, "Runoff.sim" = runoff.sim)
+ 
+graphDWB (var, tp = 4, main = "General Comparison Sogamoso Basin")
 
 }
 \author{
-Nicolas Duque Gardeazabal <nduqueg@unal.edu.co> 
-Pedro Felipe Arboleda Obando <pfarboledao@unal.edu.co> 
-Carolina Vega Viviescas <cvegav@unal.edu.co>
-David Zamora <dazamoraa@unal.edu.co>
+Carolina Vega Viviescas <cvegav@unal.edu.co> \cr
+Pedro Felipe Arboleda Obando <pfarboledao@unal.edu.co> \cr
+David Zamora <dazamoraa@unal.edu.co> \cr
+Nicolas Duque Gardeazabal <nduqueg@unal.edu.co> \cr
 
 Water Resources Engineering Research Group - GIREH
 Universidad Nacional de Colombia - sede Bogotá

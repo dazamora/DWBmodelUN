@@ -50,10 +50,10 @@
 #' (\code{\link{buildGRUmaps}}) function, compare the coordinates of the uploaded datasets (i.e. the forcings and GRU cells),
 #' set the initial conditions of the soil moisture and the groundwater storage, and run the model with \code{DWBCalculator} function.
 #' 
-#' @author Nicolas Duque Gardeazabal <nduqueg@unal.edu.co> 
-#' Pedro Felipe Arboleda Obando <pfarboledao@unal.edu.co>
-#' David Andres Zamora Avila <dazamoraa@unal.edu.co>
-#' Carolina Vega Viviescas <cvegav@unal.edu.co>
+#' @author Nicolas Duque Gardeazabal <nduqueg@unal.edu.co> \cr
+#' Pedro Felipe Arboleda Obando <pfarboledao@unal.edu.co> \cr
+#' David Andres Zamora Avila <dazamoraa@unal.edu.co> \cr
+#' Carolina Vega Viviescas <cvegav@unal.edu.co> \cr
 #' 
 #' Water Resources Engineering Research Group - GIREH
 #' Universidad Nacional de Colombia - sede Bogota
