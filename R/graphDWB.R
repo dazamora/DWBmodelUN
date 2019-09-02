@@ -66,7 +66,7 @@ graphDWB <- function(var, tp, main){
     }
     plot = dygraphs::dygraph(var[[1]], ylab = paste(names(var)[1], "[mm/mth]", sep =" "), main = main) %>%
             dygraphs::dySeries("V1", label = names(var)[1], strokeWidth = 1.7, color= "#2c7fb8") %>%
-            dygraphs::dyLegend(show = "follow", width = 400) %>% 
+            dygraphs::dyLegend(show = "follow") %>% 
             dygraphs::dyRangeSelector() %>% 
             dyCSS(system.file("data", "dygraph.css", package = "DWBmodelUN"))
       
