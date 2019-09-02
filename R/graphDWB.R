@@ -104,7 +104,7 @@ graphDWB <- function(var, tp, main, ...){
     if (nvar < 2){
       stop('An additional variable is required for this type of graph')
     } else{
-      plot = dygraphs::dygraph(cbind(var[[1]], var[[2]]), ylab = "Runoff [mm/mth]", main = main, ...) %>%
+      plot = dygraphs::dygraph(cbind(var[[1]], var[[2]]), ylab = "[mm/mth]", main = main, ...) %>%
               dygraphs::dySeries("var[[1]]", label = names(var)[1], strokeWidth = 1.7,  color= "#ef8a62") %>%
               dygraphs::dySeries("var[[2]]", label = names(var)[2], strokeWidth = 1.7, color= "#404040", 
                            drawPoints = TRUE, pointSize = 2) %>%
