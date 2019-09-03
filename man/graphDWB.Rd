@@ -63,7 +63,7 @@ data(P_sogamoso, PET_sogamoso, simDWB.sogamoso)
 P <- ts(c(t(P_sogamoso[1, -2:-1])), star = c(2001, 1), frequency = 12)
 PET <- ts(c(t(PET_sogamoso[1, -2:-1])), star = c(2001, 1), frequency = 12)
 runoff.sim <- ts(simDWB.sogamoso[ ,1], star = c(2001, 1), frequency = 12)
-var <- list("Precipitation" = P,"PET" = PET, "Runoff.sim" = runoff.sim)
+var <- list("P" = P,"PET" = PET, "Runoff.sim" = runoff.sim)
  
 graphDWB (var, tp = 4, main = "General Comparison Sogamoso Basin")
 

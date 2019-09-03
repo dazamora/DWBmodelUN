@@ -82,13 +82,6 @@ graphDWB <- function(var, tp, main, ...){
       warning(paste('The', i, 'variable is not a time series', dQuote(c("ts")) ,'class'))
     }
   }; rm(i)
-  # New function required
-  dyBarChart <- function(dygraph) {
-    dyPlotter(dygraph = dygraph,
-              name = "BarChart",
-              path = system.file("plotters/barchart.js",
-                                 package = "dygraphs"))
-  }
   # Verification of type of plot
   if(tp == 1){
     if (nvar > 1){
@@ -96,14 +89,16 @@ graphDWB <- function(var, tp, main, ...){
     }
     plot = dygraphs::dygraph(var[[1]], ylab = paste(names(var)[1], "[mm/mth]", sep =" "), main = main, ...) %>%
             dygraphs::dySeries("V1", label = names(var)[1], strokeWidth = 1.7, color= "#2c7fb8") %>%
-            dygraphs::dyLegend(show = "follow") %>% 
+            dygraphs::dyLegend(show = "follow", hideOnMouseOut = FALSE) %>% 
             dygraphs::dyRangeSelector() %>% 
             dyCSS(system.file("data", "dygraph.css", package = "DWBmodelUN"))
       
   } else if (tp == 2){
     if (nvar < 2){
       stop('An additional variable is required for this type of graph')
-    } else{
+    } else if (nvar > 2){
+        warning('Only the first two variables in the list will be compared')
+      } else{
       plot = dygraphs::dygraph(cbind(var[[1]], var[[2]]), ylab = "[mm/mth]", main = main, ...) %>%
               dygraphs::dySeries("var[[1]]", label = names(var)[1], strokeWidth = 1.7,  color= "#ef8a62") %>%
               dygraphs::dySeries("var[[2]]", label = names(var)[2], strokeWidth = 1.7, color= "#404040", 
@@ -117,42 +112,46 @@ graphDWB <- function(var, tp, main, ...){
   } else if (tp == 3){
     if (nvar < 3){
       stop('An additional variable is required for this type of graph')
+    } else if (nvar > 3){
+      warning('Only the first three variables in the list will be compared, assumed as 1. Precipitation 2. Simulated runoff 3. Observed runoff')
     } else{
-      plot = dygraphs::dygraph(var[[1]], ylab = "P [mm/mth]", group = "A", height = 150, width = "100%",  main = main, ...) %>%
-              dygraphs::dySeries("V1", label = names(var)[1], strokeWidth = 1.7, color= "#2c7fb8") %>%
-              dygraphs::dyLegend(show = "follow", width = 210) %>% dyBarChart() %>%
+      aux <- c(-0.001, max(var[[1]], na.rm = TRUE))
+      plot <- dygraphs::dygraph(var[[1]], group = "A", height = 150, width = "100%",  main = main, ...) %>%
+              dygraphs::dySeries("V1", label = names(var)[1], strokeWidth = 1.7, axis = "y", color= "#2c7fb8") %>%
+              dygraphs::dyLegend(show = "follow", width = 210, hideOnMouseOut = FALSE) %>% 
+              dygraphs::dyBarChart()  %>%
+              dygraphs::dyAxis(name = "y", label = "P [mm/mth]", valueRange = c(max(var[[1]], na.rm = TRUE),0)) %>% 
               dyCSS(system.file("data", "dygraph.css", package = "DWBmodelUN"))  %>%
               htmltools::tagList(dygraphs::dygraph(cbind(var[[2]], var[[3]]), ylab = "Runoff [mm/mth]", group = "A", height = 300, width = "100%", ...) %>%
                   dygraphs::dySeries("var[[2]]", label = names(var)[2], strokeWidth = 1.7,  color= "#ef8a62") %>%
                   dygraphs::dySeries("var[[3]]", label = names(var)[3], strokeWidth = 1.7, color= "#404040", 
                                      drawPoints = TRUE, pointSize = 2) %>%
-                  dygraphs::dyLegend(show = "follow", width = 210) %>% 
+                  dygraphs::dyLegend(show = "follow", width = 210, hideOnMouseOut = FALSE) %>% 
                   dygraphs::dyHighlight(highlightCircleSize = 3, highlightSeriesBackgroundAlpha = 0.2,
                                         hideOnMouseOut = FALSE)  %>% 
                   dygraphs::dyRangeSelector(height = 25)) %>%
               htmltools::browsable()
-        
     }
   } else if (tp == 4){
     if (nvar < 3){
       stop('An additional variable is required for this type of graph')
+    } else if (nvar > 3){
+      warning('Only the first three variables in the list will be compared, assumed as 1. Precipitation 2. Evapotranspiration 3. Runoff')
     } else{
-      plot = dygraphs::dygraph(cbind(var[[1]], var[[2]]), ylab = "P / ET [mm/mth]", group = "A", height = 225, width = "100%",  main = main, ...) %>%
-        dygraphs::dyMultiColumn() %>% 
-        dygraphs::dySeries("var[[1]]", label = names(var)[1], strokeWidth = 1.7, color= "#2c7fb8") %>%
-        dygraphs::dySeries("var[[2]]", label = names(var)[2], strokeWidth = 1.7, color= "#1a9850") %>%
-        dygraphs::dyLegend(show = "follow", width = 210) %>% 
+      plot = dygraphs::dygraph(cbind(var[[1]], var[[2]]), group = "A", height = 225, width = "100%",  main = main, ...) %>%
+        dygraphs::dyStackedBarGroup(name = "var[[1]]", label = names(var)[1], axis = "y", color = "#2c7fb8") %>%
+        dygraphs::dyAxis(name = "y", label = "P [mm/mth]", valueRange = c(max(var[[1]], na.rm = TRUE), 0)) %>%
+        dygraphs::dyStackedBarGroup(name = "var[[2]]", label = names(var)[2], axis = "y2", color = "#1a9850") %>%
+        dygraphs::dyAxis(name = "y2", label = "ET [mm/mth]", valueRange = c(0, ceiling(max(var[[1]], na.rm = TRUE)/10)*10)) %>%
+        dygraphs::dyLegend(show = "follow", width = 210) %>%
+        dygraphs::dyHighlight(highlightCircleSize = 3, highlightSeriesBackgroundAlpha = 0.2,
+                              hideOnMouseOut = FALSE) %>%
         dyCSS(system.file("data", "dygraph.css", package = "DWBmodelUN"))  %>%
-        htmltools::tagList(dygraphs::dygraph(var[[3]], ylab = "Runoff [mm/mth]", group = "A", height = 225, width = "100%", ...) %>%
+        htmltools::tagList(dygraphs::dygraph(var[[3]], ylab = "Runoff [mm/mth]", group = "A", height = 225, width = "92%", ...) %>%
                              dygraphs::dySeries("V1", label = names(var)[3], strokeWidth = 1.7,  color= "#ef8a62") %>%
-                             dygraphs::dyLegend(show = "follow", width = 210) %>% 
+                             dygraphs::dyLegend(show = "follow", width = 210, hideOnMouseOut = FALSE) %>% 
                              dygraphs::dyRangeSelector(height = 25)) %>%
         htmltools::browsable()
-      
-      lungDeaths <- cbind(mdeaths, fdeaths)
-      dygraph(lungDeaths) %>%
-        dyRangeSelector() %>%
-        dyMultiColumn()
     }
   } else {
     stop('Wrong type of graph')
