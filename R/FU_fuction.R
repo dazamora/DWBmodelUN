@@ -4,22 +4,21 @@
 #' @title
 #' Fu's function for relationship between precipitation and potential evapotranspiration
 #'
-#' @param PET is the variable which will be inserted as numerator in Fu's function. In Fu's original
+#' @param PET is the variable which will be inserted as the numerator in Fu's function. In Fu's original
 #' function, the variable used is the potential evapotranspiration. It can be a value or a numeric vector,
 #' in which case it must have the same length as the denominator vector.
-#' @param P is the variable which will be inserted as numerator in Fu's function. In Fu's original
-#' function, the variable used is the precipitation. It can be a value or a numeric vector,
+#' @param P is the variable which will be inserted as the numerator in Fu's function. In Fu's original
+#' function, the variable used is precipitation. It can be a value or a numeric vector,
 #' in which case it must have the same length as the numerator vector.
 #' @param alpha parameter of Fu model which controls the evapotranspiration efficiency, yet it is named depending
-#' on the variables used as numerator and denominator. It must be an unique value of type double.
+#' on the variables used as numerator and denominator. It must be a unique value of type double.
 #'
-#' @return a value or a vector (depending on which kind of data was introduced for numerator and denominator)
+#' @return a value or a vector (depending on which kind of data was introduced for numerator and denominator).
 #'
 #' @author Nicolas Duque Gardeazabal <nduqueg@unal.edu.co>  \cr
 #' Pedro Felipe Arboleda Obando <pfarboledao@unal.edu.co>  \cr
 #' Carolina Vega Viviescas <cvegav@unal.edu.co> \cr
 #' David Zamora <dazamoraa@unal.edu.co> \cr
-#' Pedro Felipe Arboleda Obando <pfarboledao@unal.edu.co>  \cr
 #' 
 #' Water Resources Engineering Research Group - GIREH
 #' Universidad Nacional de Colombia - sede Bogotá
@@ -39,9 +38,7 @@
 #' funFU(PET, P, alpha)
 #' 
 funFU <- function(PET, P, alpha){
-  
   F_FU <- 1 + PET/P - (1 + (PET/P)^(1/(1 - alpha)))^(1 - alpha)
   F_FU[P == 0] <- 1  # it identifies where the limit of the function is not fulfilled and assigns the limit value
-  
   return(F_FU)
 }

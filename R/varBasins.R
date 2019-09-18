@@ -34,8 +34,8 @@
 #' 
 varBasins<-function(var, cellBasins){
   
-  varProm <- data.frame(matrix(data=NA, ncol=length(cellBasins), nrow=ncol(var)))
-  colnames(varProm) <- names(cellBasins)
+  varAverage <- data.frame(matrix(data=NA, ncol=length(cellBasins), nrow=ncol(var)))
+  colnames(varAverage) <- names(cellBasins)
   varCells <- lapply(cellBasins,FUN = function(i,var){ var[i,]}, var)
   names(varCells) <- names(cellBasins)
   

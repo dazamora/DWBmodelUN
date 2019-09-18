@@ -7,26 +7,26 @@
 dds(xBounds.df, numIter, iniPar = NA, r = 0.2, OBJFUN, ...)
 }
 \arguments{
-\item{xBounds.df}{must be a dataframe which defines the parameter range for searching, with 1st column as minimum and 2nd column as maximum of the parameter space}
+\item{xBounds.df}{must be a dataframe which defines the parameter range for searching, with 1st column as the minimum and 2nd column as the maximum of the parameter space.}
 
-\item{numIter}{is an integer that defines the total number of simulations so as to calibrate de model}
+\item{numIter}{is an integer that defines the total number of simulations so as to calibrate de model.}
 
-\item{iniPar}{is a vector which contains an optional initial parameter set}
+\item{iniPar}{is a vector which contains an optional initial parameter set.}
 
-\item{r}{is a double between 0 and 1 which defines the range of searching in the DDS algoritm, the default value is 0.2}
+\item{r}{is a double between 0 and 1 which defines the range of searching in the DDS algorithm, the default value is 0.2.}
 
-\item{OBJFUN}{is a function which returns a scalar value, for which we are trying to minimize. In this case the scalar is
-the Objective Function used to evaluate the model performance}
+\item{OBJFUN}{is a function which returns a scalar value, for which we are trying to minimize. In this case, the scalar is
+the Objective Function used to evaluate the model performance.}
 
-\item{...}{other variables and datasets needed to run the model}
+\item{...}{other variables and datasets needed to run the model.}
 }
 \value{
-outputs.df is a four entry list, containing X_BEST, Y_BEST, X_TEST and Y_TEST, as they evolve over numIter iterations.
-X_BEST and Y_BEST are the parameters found by the algoritm, parameters which produce a good value of the Objective Function Y_BEST.
-X_TEST and Y_TEST are the evaluated parameters and their respective performance value.
+\code{outputs.df} is a four entry list, containing \code{X_BEST}, \code{Y_BEST}, \code{X_TEST} and \code{Y_TEST}, as they evolve over \code{numIter} iterations.
+\code{X_BEST} and \code{Y_BEST} are the parameters found by the algorithm, parameters which produce a good value of the \strong{Objective Function} \code{Y_BEST}.
+\code{X_TEST} and \code{Y_TEST} are the evaluated parameters and their respective performance value.
 }
 \description{
-This function allows the user to calibrate the DWB or other model with the Dynamical Dimension Search (DDS) algorithm \cite{(Tolson & Shoemaker, 2007)}.
+This function allows the user to calibrate the DWB or other models with the Dynamical Dimension Search (DDS) algorithm \cite{(Tolson & Shoemaker, 2007)}.
 As the calibration is performed based on a single value, one should average or create a scalar with the evaluation made in all
 the streamflow stations, or other variables, between the observed and the simulated values.
 }
@@ -54,12 +54,12 @@ rm(init)
 
 # Load general characteristics of modeling
 setup_data <- readSetup(Read = TRUE)
-Dates <- seq(as.Date(colnames(P_sogamoso)[3],format="\%Y.\%m.\%d"), as.Date(tail(colnames(P_sogamoso),1),format="\%Y.\%m.\%d"), by="month")
+Dates <- seq(as.Date(colnames(P_sogamoso)[3], format = "\%Y.\%m.\%d"), as.Date(tail(colnames(P_sogamoso),1), format = "\%Y.\%m.\%d"), by = "month")
 
 # For this calibration exercise, the last date of simulation is the same as the final date of calibration
-Start.sim <- which(Dates==setup_data[8,1]); End.sim <- which(Dates==setup_data[11,1])
+Start.sim <- which(Dates == setup_data[8,1]); End.sim <- which(Dates == setup_data[11,1])
 Sim.Period <- c(Start.sim:End.sim)+2  # the first two columns of the P and PET are the coordinates of the cells
-Start.cal <- which(Dates==setup_data[9,1]); End.cal <- which(Dates==setup_data[11,1])
+Start.cal <- which(Dates == setup_data[9,1]); End.cal <- which(Dates == setup_data[11,1])
 Cal.Period <- c(Start.cal:End.cal)+2  # the first two columns of the P and PET are the coordinates of the cells
 
 #Load observed runoff
@@ -69,7 +69,7 @@ data(EscSogObs)
 NSE_Sogamoso_DWB <- function(parameters, P, PET, g_v,s_v, Sim.Period, EscObs, Cal.Period){
 
 parameters <- as.vector(parameters)
-param <- matrix(parameters, nrow= cellStats(GRU,stat="max"))  # Transform the parameters to the format that the model needs
+param <- matrix(parameters, nrow = cellStats(GRU,stat="max"))  # Transform the parameters to the format that the model needs
 
 # Construction of parameter maps from values by GRU
 GRU.maps <- buildGRUmaps(GRU, param)
@@ -77,19 +77,19 @@ alpha1_v <- GRU.maps$alpha1
 alpha2_v <- GRU.maps$alpha2
 smax_v <- GRU.maps$smax
 d_v <- GRU.maps$d
-DWB.sogamoso <- DWBCalculator(P_sogamoso[, Sim.Period], PET_sogamoso[, Sim.Period], g_v,s_v,alpha1_v,alpha2_v,smax_v,d_v, calibration = T)
+DWB.sogamoso <- DWBCalculator(P_sogamoso[ ,Sim.Period], PET_sogamoso[ ,Sim.Period], g_v,s_v,alpha1_v,alpha2_v,smax_v,d_v, calibration = T)
 Esc.Sogamoso <- varBasins(DWB.sogamoso$q_total, cellBasins$cellBasins)
 
 # model evaluation; in case of possible NA results in the simulation, add a conditional assingment to a very high value
-Perf <- (-1)*hydroGOF::NSE(Esc.Sogamoso$varProm[Cal.Period,],EscSogObs[Cal.Period,])
-if( !is.na(mean(Perf))){ Mean.Perf <- mean(Perf)} else{ Mean.Perf <- 1e100}
+Perf <- (-1)*hydroGOF::NSE(Esc.Sogamoso$varProm[Cal.Period, ],EscSogObs[Cal.Period, ])
+if(!is.na(mean(Perf))){ Mean.Perf <- mean(Perf)} else{ Mean.Perf <- 1e100}
 return(Mean.Perf)
 }
 
 # coupling with the DDS algorithm
-xBounds.df <- data.frame(lower=rep(0,times=40), upper=c(rep(1,times=30),rep(2000,times=10)))
+xBounds.df <- data.frame(lower = rep(0, times = 40), upper = c(rep(1, times = 30), rep(2000, times = 10)))
 result <- dds(xBounds.df = xBounds.df, numIter=200, OBJFUN=NSE_Sogamoso_DWB,
-        P=P_sogamoso, PET=PET_sogamoso, g_v=g_v,s_v=s_v, Sim.Period=Sim.Period, EscObs=EscSogObs, Cal.Period=Cal.Period)
+        P = P_sogamoso, PET = PET_sogamoso, g_v = g_v, s_v = s_v, Sim.Period = Sim.Period, EscObs = EscSogObs, Cal.Period = Cal.Period)
 
 }
 \references{

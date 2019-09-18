@@ -7,18 +7,18 @@
 init_state(srmax, path_init)
 }
 \arguments{
-\item{srmax}{Maximum storage in the root zone in Raster format}
+\item{srmax}{Maximum storage in the root zone in Raster format.}
 
-\item{path_init}{Directory to read the raster files \code{\emph{.tif}} of initial storage conditions}
+\item{path_init}{Directory to read the raster files \code{\emph{.tif}} of initial storage conditions.}
 }
 \value{
-A list cointaing initial conditions in storage and in ground
+A list cointaing initial conditions in storage and in ground.
 }
 \description{
-This function uploads or creates the initial conditions of the two state variables present in the DWB model, in raster format.
-It requires the raster composed of the Srmax values that was created using the \code{\link{bulidGRUmaps}} function
-and a path from where the function can read two rasters previously created. If the path or those raster cannot
-be found, the function creates those two raster using the value of the Srmax reduced by half.
+This function uploads or creates the initial conditions of the two-state variables present in the DWB model, in raster format.
+It requires the raster composed of the Srmax values that were created using the \code{\link{bulidGRUmaps}} function
+and a path from where the function can read two rasters previously created. If the path or those rasters cannot
+be found, the function creates those two rasters using the value of the Srmax reduced by half.
 }
 \examples{
 
@@ -26,7 +26,10 @@ be found, the function creates those two raster using the value of the Srmax red
 \references{
 Budyko. (1974). Climate and life. New York: Academic Press, INC.
 
-Zhang, L., Potter, N., Hickel, K., Zhang, Y., & Shao, Q. (2008). Water balance modeling over variable time scales based on the Budyko framework - Model development and testing. Journal of Hydrology, 360(1-4), 117-131. https://doi.org/10.1016/j.jhydrol.2008.07.021
+Zhang, L., Potter, N., Hickel, K., Zhang, Y., & Shao, Q. (2008). 
+Water balance modeling over variable time scales based on the Budyko framework - Model 
+development and testing. Journal of Hydrology, 360(1-4), 
+117-131. https://doi.org/10.1016/j.jhydrol.2008.07.021
 }
 \author{
 Nicolas Duque Gardeazabal <nduqueg@unal.edu.co> \cr

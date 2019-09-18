@@ -8,28 +8,28 @@ DWBCalculator(p_v, pet_v, g_v, s_v, alpha1_v, alpha2_v, smax_v, d_v,
   calibration = F)
 }
 \arguments{
-\item{p_v}{matrix comprised by the precipitation records and that has as raws the number of cells that will be simulated and as columns the number of time steps to be simulated}
+\item{p_v}{matrix comprised by the precipitation records and that has as raws the number of cells that will be simulated and as columns the number of time steps to be simulated.}
 
-\item{pet_v}{matrix comprised by the potential evapotranspiration records and that has as raws the number of cells that will be simulated and as columns the number of time steps to be simulated}
+\item{pet_v}{matrix comprised by the potential evapotranspiration records and that has as raws the number of cells that will be simulated and as columns the number of time steps to be simulated.}
 
-\item{g_v}{vector comprised by the initial values of the ground water storage, it must have as many values as cells defined to simulate}
+\item{g_v}{vector comprised of the initial values of the groundwater storage, it must have as many values as cells defined to simulate.}
 
-\item{s_v}{vector comprised by the initial values of the soil water storage, it must have as many values as cells defined to simulate}
+\item{s_v}{vector comprised of the initial values of the soil water storage, it must have as many values as cells defined to simulate.}
 
-\item{alpha1_v}{vector comprised by the values of the retention efficiency that must be between 0 and 1, it must have as many values as cells defined to simulate}
+\item{alpha1_v}{vector comprised of the values of the retention efficiency that must be between 0 and 1, it must have as many values as cells defined to simulate.}
 
-\item{alpha2_v}{vector comprised by the values of the evapotranspiration efficiency that must be between 0 and 1, it must have as many values as cells defined to simulate}
+\item{alpha2_v}{vector comprised of the values of the evapotranspiration efficiency that must be between 0 and 1, it must have as many values as cells defined to simulate.}
 
-\item{smax_v}{vector comprised by the values of the soil water storage capacity that must be above 0, it must have as many values as cells defined to simulate}
+\item{smax_v}{vector comprised of the values of the soil water storage capacity that must be above 0, it must have as many values as cells defined to simulate.}
 
-\item{d_v}{vector comprised by the values of the recession constant that must be between 0 and 1, it must have as many values as cells defined to simulate}
+\item{d_v}{vector comprised of the values of the recession constant that must be between 0 and 1, it must have as many values as cells defined to simulate.}
 
 \item{calibration}{boolean variable which sets the printing of the waitbar that indicates the progress of the calculation of the time series results. The default 
 value is FALSE, indicating that just one run of the model is going to be performed and there is no other waitbar such as the one used by a calibration algorithm.}
 }
 \value{
 a list comprised by the time series of the hydrological fluxes calculated by the model. 
-The time series have the same length as the forcings that where employed to run the model. The fluxes are:
+The time series have the same length as the forcings that were employed to run the model. The fluxes are:
 
  \itemize{
     \item \code{q_total} a numeric matrix of the total runoff.... (mm/month).
@@ -42,13 +42,13 @@ The time series have the same length as the forcings that where employed to run 
  }
 }
 \description{
-The function performs the distibuted DWB hydrological model calculations in the defined domain and
+The function performs the distributed DWB hydrological model calculations in the defined domain and
 time period. It is a model based on the postulates of Budyko, which stated that not only does the actual
-evapotrasnpiration depend on potential evapotranspiration, but it is also contrained by water availability
+evapotranspiration depend on potential evapotranspiration, but it is also constrained by water availability
 \cite{(Budyko, 1974)}. The monthly Dynamic Water Balance is underpinned in the demand and supply limits demonstrated
 by \code{\link{Fu's function}}, postulate that is applied to three variables in order to acquire the values
 of the fluxes and state variables on a monthly time step. The named variables affected by \code{\link{Fu's function}} 
-are: the available storage capacity (\emph{\code{X}}), the evapotranspiration oportunity (\emph{\code{Y}})
+are: the available storage capacity (\emph{\code{X}}), the evapotranspiration opportunity (\emph{\code{Y}})
 and the actual evapotranspiration (\emph{\code{ET}}). The model is controlled by four parameters: retention
 efficiency (\eqn{\alpha-1}), evapotranspiration efficiency (\eqn{\alpha-2}),
 soil water storage capacity (\emph{\code{S_max}}), and a recession parameter in the groundwater
@@ -56,7 +56,7 @@ storage that controls the baseflow (\emph{\code{d}}).
 }
 \details{
 \code{DWBCalculator} only performs one simulation of the distributed hydrological model. The decision to perform
-other kind of procedure, such as calibration or assimilation, is entirely on modellers' requirements and necessities.
+other kinds of procedure, such as calibration or assimilation, is entirely on modelers' requirements and necessities.
 A complementary function is available in the package to calibrate the model (\code{\link{dds}}), which has proved to
 be effective in calibrating models with several GRUs.
 
@@ -84,7 +84,7 @@ d_v <- GRU.maps$d
 
 # Establish the initial modeling conditions
 # if you would like to upload the initial state variables provided in this example, create a "/in_state/" directory and print the following files in that path
-# writeRaster(In_storage,"./in_state/in_storage.tif",format="GTiff"); writeRaster(In_ground,"./in_state/in_groundwater.tif",format="GTiff")
+# writeRaster(In_storage, "./in_state/in_storage.tif", format = "GTiff"); writeRaster(In_ground,"./in_state/in_groundwater.tif", format = "GTiff")
 init <- init_state(GRU.maps$smaxR, "/in_state/")
 g_v <- init$In_ground
 s_v <- init$In_storage
@@ -92,14 +92,14 @@ rm(init)
 
 # Load general characteristics of modeling
 setup_data <- readSetup(Read = TRUE)
-Dates <- seq(as.Date(colnames(P_sogamoso)[3],format="\%Y.\%m.\%d"), as.Date(tail(colnames(P_sogamoso),1),format="\%Y.\%m.\%d"), by="month")
-Start.sim <- which(Dates==setup_data[8,1]); End.sim <- which(Dates==setup_data[10,1])
+Dates <- seq(as.Date(colnames(P_sogamoso)[3],format = "\%Y.\%m.\%d"), as.Date(tail(colnames(P_sogamoso),1),format="\%Y.\%m.\%d"), by = "month")
+Start.sim <- which(Dates == setup_data[8,1]); End.sim <- which(Dates == setup_data[10,1])
 Sim.Period <- c(Start.sim:End.sim)+2  # the first two columns of the P and PET are the coordinates of the cells
 
 # Run DWB model
-DWB.sogamoso <- DWBCalculator(P_sogamoso[, Sim.Period], 
-                    PET_sogamoso[, Sim.Period],
-                    g_v,s_v,alpha1_v,alpha2_v,smax_v,d_v)
+DWB.sogamoso <- DWBCalculator(P_sogamoso[ ,Sim.Period], 
+                    PET_sogamoso[ ,Sim.Period],
+                    g_v, s_v, alpha1_v, alpha2_v, smax_v, d_v)
                     
 }
 \references{

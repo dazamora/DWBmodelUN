@@ -4,24 +4,26 @@
 #' @title
 #' Print variables of interest
 #' 
-#' @description This function that allows to print some of the variables simulated by the DWB model
+#' @description This function that allows to print some of the variables simulated by the DWB model.
 #' 
-#' @param variable Corresponds to the results of a specific variable of the DWBCalculator
-#' @param coor_cells Coordinates of the cells in the same order that were simulated and that will be used to
-#' create the results in raster format from the dataframes which contain the simulated results
-#' @param coord_sys Geographic coordinate system
-#' @param dates Dates that were simulated
-#' @param as Option to print the results as independent 'raster' (\emph{\code{.tif}}) or in a 'NetCDF' file (\emph{\code{.nc}})
+#' @param variable corresponds to the results of a specific variable of the DWBCalculator.
+#' @param coor_cells coordinates of the cells in the same order that were simulated and that will be used to
+#' create the results in raster format from the data frames which contain the simulated results
+#' @param coord_sys geographic coordinate system.
+#' @param dates dates that were simulated.
+#' @param as option to print the results as independent 'raster' (\emph{\code{.tif}}) or in a 'NetCDF' file (\emph{\code{.nc}}).
 #'
 #' @author 
 #' Carolina Vega Viviescas <cvegav@unal.edu.co>  \cr
 #' Nicolas Duque Gardeazabal <nduqueg@unal.edu.co>  \cr
 #' Pedro Felipe Arboleda Obando <pfarboledao@unal.edu.co>  \cr
 #' David Zamora <dazamoraa@unal.edu.co> \cr
+#' 
 #' Water Resources Engineering Research Group - GIREH
+#' Universidad Nacional de Colombia - sede Bogotá
 #'
 #' @return It saves in a folder previously created a set of raster files with the results of the 
-#' variable of interest
+#' variable of interest.
 #'
 #' @export 
 #' 
@@ -41,11 +43,11 @@ printVar <- function(variable, coor_cells, coord_sys, dates, as){
     stop("There is no folder to save the files. Please create it with the name of the variable")
   }
   
-  var_r <- raster::rasterFromXYZ(cbind(coor_cells[,-3], variable), crs = coor_cells)
+  var_r <- raster::rasterFromXYZ(cbind(coor_cells[ ,-3], variable), crs = coor_cells)
   if (as == 'raster'){
     # prints each time step in GTiff format, in the specified directory
     for (i in 1:raster::nlayers(var_r)){
-      raster::writeRaster(var_r[[i]], filename = paste(path_var, var_name, "_", as.character(dates[i]), ".tif", sep = ""), format="GTiff", overwrite=TRUE)
+      raster::writeRaster(var_r[[i]], filename = paste(path_var, var_name, "_", as.character(dates[i]), ".tif", sep = ""), format = "GTiff", overwrite = TRUE)
     }
   }
   if (as == 'NetCDF'){

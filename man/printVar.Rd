@@ -7,23 +7,23 @@
 printVar(variable, coor_cells, coord_sys, dates, as)
 }
 \arguments{
-\item{variable}{Corresponds to the results of a specific variable of the DWBCalculator}
+\item{variable}{corresponds to the results of a specific variable of the DWBCalculator.}
 
-\item{coor_cells}{Coordinates of the cells in the same order that were simulated and that will be used to
-create the results in raster format from the dataframes which contain the simulated results}
+\item{coor_cells}{coordinates of the cells in the same order that were simulated and that will be used to
+create the results in raster format from the data frames which contain the simulated results}
 
-\item{coord_sys}{Geographic coordinate system}
+\item{coord_sys}{geographic coordinate system.}
 
-\item{dates}{Dates that were simulated}
+\item{dates}{dates that were simulated.}
 
-\item{as}{Option to print the results as independent 'raster' (\emph{\code{.tif}}) or in a 'NetCDF' file (\emph{\code{.nc}})}
+\item{as}{option to print the results as independent 'raster' (\emph{\code{.tif}}) or in a 'NetCDF' file (\emph{\code{.nc}}).}
 }
 \value{
 It saves in a folder previously created a set of raster files with the results of the 
-variable of interest
+variable of interest.
 }
 \description{
-This function that allows to print some of the variables simulated by the DWB model
+This function that allows to print some of the variables simulated by the DWB model.
 }
 \examples{
 data(dwb_results)
@@ -38,5 +38,7 @@ Carolina Vega Viviescas <cvegav@unal.edu.co>  \cr
 Nicolas Duque Gardeazabal <nduqueg@unal.edu.co>  \cr
 Pedro Felipe Arboleda Obando <pfarboledao@unal.edu.co>  \cr
 David Zamora <dazamoraa@unal.edu.co> \cr
+
 Water Resources Engineering Research Group - GIREH
+Universidad Nacional de Colombia - sede Bogotá
 }

@@ -9,7 +9,7 @@ upForcing(path_p = "./precip/", path_pet = "./pet/",
 }
 \arguments{
 \item{path_p}{is a character string that specifies the directory where the precipitation rasters or
-the csv file are stored. The csv file must have nrows= N째 of cells and ncol= N째 of time steps.}
+the csv file are stored. The csv file must have nrows = N째 of cells and ncol= N째 of time steps.}
 
 \item{path_pet}{is a character string that specifies the location of the potential evapotranspiration rasters or
 the csv file are stored. The csv file must have nrows= N째 of cells and ncol= N째 of time steps.}
@@ -18,14 +18,14 @@ the csv file are stored. The csv file must have nrows= N째 of cells and ncol= N�
 the default value is "raster".}
 
 \item{format}{Character string that specifies the format file of the Rasters, posible values are "GTiff"
-and "NCDF". Default value is "GTiff"}
+and "NCDF". Default value is "GTiff".}
 }
 \value{
-a list containing the two Zoos (P and PET)
+a list containing the two Zoos (P and PET).
 }
 \description{
 This function loads the precipitation and evapotranspiration estimates that will be used
-to run or force the DWB model. It also creates a directory where stores csv files if the original forcing
+to run or force the DWB model (\code{\link{DWBCalculator}}). It also creates a directory where stores csv files if the original forcing
 files are in raster format.
 }
 \details{

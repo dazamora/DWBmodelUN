@@ -7,18 +7,18 @@
 graphDWB(var, tp, main, ...)
 }
 \arguments{
-\item{var}{It is a list that contains time series of type "ts" which you want to graph. \cr
+\item{var}{It is a list that contains a time series of type \code{\link{ts}} which you want to graph. \cr
 For (\emph{tp = 2}), it is recommended to list the simulated runoff series first, followed by the observed.\cr
 For (\emph{tp = 3}), it must first contain the observed precipitation series, 
 followed by the simulated runoff series and finally the observed runoff. \cr
 For (\emph{tp = 4}), it must first contain the observed precipitation series, 
 followed by the evapotranspiration series and finally the runoff time series. \cr}
 
-\item{tp}{Variable to choose the type of graph}
+\item{tp}{Variable to choose the type of graph.}
 
-\item{main}{Main title for the graph}
+\item{main}{Main title for the graph.}
 
-\item{...}{Other parameters of the dygraphs package.}
+\item{...}{Other parameters of the \pkg{dygraphs} package.}
 }
 \value{
 Prints a dynamic graph according to the requirements.
@@ -27,10 +27,10 @@ Prints a dynamic graph according to the requirements.
 This function dynamically graphs the inputs and results of the DWBmodelUN.
 It has three types of graphs: \cr
 \itemize{
-  \item \emph{tp = 1}: Plots any variable in continuous format.\cr
-  \item \emph{tp = 2}): Compares the runoff result of the model, with the observations.\cr
-  \item (\emph{tp = 3}): It allows to show a comparison between the observed and simulated runoff, as well as, with a set of precipitation.\cr
-  \item (\emph{tp = 4}): It presents a comparison between the a set of precipitation, actual or potential evaporatranspiration and runoff.
+  \item (\emph{tp = 1}): Plots any variable in a continuous format.\cr
+  \item (\emph{tp = 2}): Compares the runoff result of the model, with the observations.\cr
+  \item (\emph{tp = 3}): It allows showing a comparison between the observed and simulated runoff, as well as, with a dataset of precipitation.\cr
+  \item (\emph{tp = 4}): It presents a comparison between a set of precipitation, actual or potential evapotranspiration and runoff.
   }
 }
 \examples{
@@ -39,7 +39,7 @@ data(P_sogamoso)
 P.est <- ts(c(t(P_sogamoso[1, -2:-1])), star = c(2001, 1), frequency = 12)
 var <- list("Precipitation" = P.est)
  
-graphDWB (var, tp = 1, main = "Precipitation Lat:7.0 Lon:-72.94")
+graphDWB(var, tp = 1, main = "Precipitation Lat:7.0 Lon:-72.94")
 
 # Example 2
 data(simDWB.sogamoso, EscSogObs)
@@ -47,7 +47,7 @@ runoff.sim <- ts(simDWB.sogamoso[ ,1], star = c(2001, 1), frequency = 12)
 runoff.obs <- ts(EscSogObs[ ,1] , star = c(2001, 1), frequency = 12)
 var <- list("Runoff.sim" = runoff.sim, "Runoff.obs" = runoff.obs)
  
-graphDWB (var, tp = 2, main = "Runoff: Gauge 23147020")
+graphDWB(var, tp = 2, main = "Runoff: Gauge 23147020")
 
 # Example 3
 data(P_sogamoso, simDWB.sogamoso, EscSogObs)
@@ -56,7 +56,7 @@ runoff.sim <- ts(simDWB.sogamoso[ ,1], star = c(2001, 1), frequency = 12)
 runoff.obs <- ts(EscSogObs[ ,1] , star = c(2001, 1), frequency = 12)
 var <- list("Precipitation" = P.est,"Runoff.sim" = runoff.sim, "Runoff.obs" = runoff.obs)
  
-graphDWB (var, tp = 3, main = "DWB results at Sogamoso Basin")
+graphDWB(var, tp = 3, main = "DWB results at Sogamoso Basin")
 
 # Example 4
 data(P_sogamoso, PET_sogamoso, simDWB.sogamoso)
@@ -65,7 +65,7 @@ PET <- ts(c(t(PET_sogamoso[1, -2:-1])), star = c(2001, 1), frequency = 12)
 runoff.sim <- ts(simDWB.sogamoso[ ,1], star = c(2001, 1), frequency = 12)
 var <- list("P" = P,"PET" = PET, "Runoff.sim" = runoff.sim)
  
-graphDWB (var, tp = 4, main = "General Comparison Sogamoso Basin")
+graphDWB(var, tp = 4, main = "General Comparison Sogamoso Basin")
 
 }
 \author{

@@ -10,12 +10,12 @@ cellBasins(gruLoc, basins)
 \item{gruLoc}{raster file that was used to build GRUs. In this function will be used to number each cell
 from West to East and from North to South.}
 
-\item{basins}{a shapefile that is compraised each one of the basins where the modeller want to know the runoff.
+\item{basins}{a shapefile that is comprised each one of the basins where the modeler wants to know the runoff.
 It must be in the same projection of the gruLoc raster.}
 }
 \value{
-a list compraised two dataframes. First one, the list of cells in each of the basins cointained in the shapefile,
-and second a table that associates the coordinates of each cell with the assigned number.
+a list comprised two dataframes. The first one, the list of cells in each of the basins contained in the shapefile (\code{cellBasins}), 
+and second a table that associates the coordinates of each cell with the assigned number (\code{cellTable}).
 }
 \description{
 This function identifies the cells that are within a basin. The runoff produced by those cells

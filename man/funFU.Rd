@@ -7,19 +7,19 @@
 funFU(PET, P, alpha)
 }
 \arguments{
-\item{PET}{is the variable which will be inserted as numerator in Fu's function. In Fu's original
+\item{PET}{is the variable which will be inserted as the numerator in Fu's function. In Fu's original
 function, the variable used is the potential evapotranspiration. It can be a value or a numeric vector,
 in which case it must have the same length as the denominator vector.}
 
-\item{P}{is the variable which will be inserted as numerator in Fu's function. In Fu's original
-function, the variable used is the precipitation. It can be a value or a numeric vector,
+\item{P}{is the variable which will be inserted as the numerator in Fu's function. In Fu's original
+function, the variable used is precipitation. It can be a value or a numeric vector,
 in which case it must have the same length as the numerator vector.}
 
 \item{alpha}{parameter of Fu model which controls the evapotranspiration efficiency, yet it is named depending
-on the variables used as numerator and denominator. It must be an unique value of type double.}
+on the variables used as numerator and denominator. It must be a unique value of type double.}
 }
 \value{
-a value or a vector (depending on which kind of data was introduced for numerator and denominator)
+a value or a vector (depending on which kind of data was introduced for numerator and denominator).
 }
 \description{
 Fu's function for relationship between precipitation and potential evapotranspiration
@@ -42,7 +42,6 @@ Nicolas Duque Gardeazabal <nduqueg@unal.edu.co>  \cr
 Pedro Felipe Arboleda Obando <pfarboledao@unal.edu.co>  \cr
 Carolina Vega Viviescas <cvegav@unal.edu.co> \cr
 David Zamora <dazamoraa@unal.edu.co> \cr
-Pedro Felipe Arboleda Obando <pfarboledao@unal.edu.co>  \cr
 
 Water Resources Engineering Research Group - GIREH
 Universidad Nacional de Colombia - sede Bogotá

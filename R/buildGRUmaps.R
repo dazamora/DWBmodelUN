@@ -8,13 +8,13 @@
 #' Grouped Response Units (\code{GRUs}) are defined. This raster must have the same resolution as the forcing files
 #' (i.e., for each cell that is planned to be simulated, there must be forcing time series and a cell assigned to a \code{GRU}).
 #' 
-#' @param gruLoc raster file that is comprised by numbers from 1 to the number of total \code{GRUs} that were defined
+#' @param gruLoc raster file that is comprised by numbers from 1 to the number of total \code{GRUs} that were defined.
 #' @param parsValues data frame that has the values of the four parameters of each \code{GRU}. It must have equal number of
 #' rows as number of GRU that were defined, and must have four columns which define the \code{alpha1}, \code{alpha2}, \code{d}
-#' and \code{Smax}
+#' and \code{Smax}.
 #' 
 #' @return a list which is comprised by four vectors and four raster, each one of them has the values of a parameter spatialized according with
-#' the GRU raster layer
+#' the GRU raster layer.
 #' 
 #' @author 
 #' Nicolas Duque Gardeazabal <nduqueg@unal.edu.co> \cr
@@ -39,8 +39,8 @@
 #' # gru_maps <- buildGRUmaps(GRU, param)
 #' 
 buildGRUmaps <- function(gruLoc, parsValues){
-  
   gruNumber <- raster::cellStats(gruLoc, 'max')
+  
   if(dim(parsValues)[1] != gruNumber){
     stop("There is a mismatch between the GRU defined in \n the raster file and the table which contains the values") 
   }
@@ -60,6 +60,5 @@ buildGRUmaps <- function(gruLoc, parsValues){
   d_v <- raster::rasterToPoints(d)[,-c(1,2)]
   gruMaps <- list(alpha1 = alpha1_v, alpha2 = alpha2_v, smax = smax_v, d = d_v,
                   alpha1R = alpha1, alpha2R = alpha2, smaxR = smax, dR = d)
-  
   return(gruMaps)
 }
