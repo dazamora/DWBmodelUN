@@ -6,11 +6,13 @@ Authors@R: c(person("Nicolas", "Duque", email = "nduqueg@unal.edu.co", role = c(
              person("Pedro", "Arboleda", email = "pfarboledao@unal.edu.co", role = c("aut")),
              person("David", "Zamora", email = "dazamoraa@unal.edu.co", role = c("ctb")))
 Description: What the package does (one paragraph).
-Depends: R (>= 3.4.1), raster
+Depends: R (>= 3.4.1)
 Imports: 
     dygraphs,
     htmltools,
-    raster
+    raster,
+    rgdal,
+    ncdf4
 Suggests: hydroGOF 
 License: GPL-2
 Encoding: UTF-8

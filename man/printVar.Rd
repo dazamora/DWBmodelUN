@@ -4,13 +4,15 @@
 \alias{printVar}
 \title{Print variables of interest}
 \usage{
-printVar(variable, coor_cells, coord_sys, dates, as)
+printVar(variable, coor_cells, var, coord_sys, dates, as)
 }
 \arguments{
 \item{variable}{corresponds to the results of a specific variable of the DWBCalculator.}
 
 \item{coor_cells}{coordinates of the cells in the same order that were simulated and that will be used to
 create the results in raster format from the data frames which contain the simulated results}
+
+\item{var}{name of the variable that will be print (e.g., q_total, aet, r, qd, qb, s, g)}
 
 \item{coord_sys}{geographic coordinate system.}
 
@@ -29,8 +31,8 @@ This function that allows to print some of the variables simulated by the DWB mo
 data(dwb_results)
 data(cells)
 dates <- seq(as.Date("2001-01-01"), as.Date("2016-12-01"), by="month")
-coor_cells <- "+init=epsg:4326"
-printVar(dwb_results[[3]], cells, coor_cells, dates, "NetCDF")
+coord_sys <- "+init=epsg:4326"
+printVar(dwb_results[[3]], cells, var = "r", coord_sys, dates, "NetCDF")
 
 }
 \author{

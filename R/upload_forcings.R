@@ -37,8 +37,10 @@
 #' 
 #' @examples
 #' #Not run
-#' meteo <- upForcing(path_p = "./precip/", path_pet = "./pet/", file_type = "raster", format = "NCDF")
-#' meteo <- upForcing(path_p = "./precip/", path_pet = "./pet/", file_type = "csv")
+#' # meteo <- upForcing(path_p = "./precip/", path_pet = "./pet/",
+#' # file_type = "raster", format = "NCDF")
+#' # meteo <- upForcing(path_p = "./precip/", path_pet = "./pet/",
+#' # file_type = "csv")
 #' 
 upForcing <- function(path_p = "./precip/", path_pet = "./pet/", file_type = "raster", format = "GTiff"){
   
@@ -55,7 +57,7 @@ upForcing <- function(path_p = "./precip/", path_pet = "./pet/", file_type = "ra
     # ---- identify raster format and loading----
     if (format == "GTiff"){
       
-      if( length(list.files( path_pet, pattern = ".tif")) == 0 | length( list.files(path_p, pattern = ".tif")) == 0){
+      if( length(list.files(path_pet, pattern = ".tif")) == 0 | length( list.files(path_p, pattern = ".tif")) == 0){
         stop("Not avaliable data of precipitation or evapotranspiration")
       }
       pet_files <- list.files(path_pet)
