@@ -39,7 +39,6 @@
 #' 
 #' # Load P and PET databases
 #' data(P_sogamoso, PET_sogamoso)
-#' # Not run {meteo <- upForcing(path_p = "./precip/", path_pet = "./pet/", file_type = "raster", format = "NCDF")}
 #' 
 #' # Verify that the coordinates of the databases match
 #' Coord_comparison(P_sogamoso, PET_sogamoso)
@@ -49,8 +48,6 @@
 #' cellBasins <- cellBasins(GRU, basins)
 #' 
 #' # Establish the initial modeling conditions
-#' # if you would like to upload the initial state variables provided in this example, create a "/in_state/" directory and print the following files in that path
-#' # writeRaster(In_storage,"./in_state/in_storage.tif",format="GTiff"); writeRaster(In_ground,"./in_state/in_groundwater.tif",format="GTiff")
 #' GRU.maps <- buildGRUmaps(GRU, param)
 #' init <- init_state(GRU.maps$smaxR, "/in_state/")
 #' g_v <- init$In_ground
@@ -59,22 +56,29 @@
 #' 
 #' # Load general characteristics of modeling
 #' setup_data <- readSetup(Read = TRUE)
-#' Dates <- seq(as.Date(colnames(P_sogamoso)[3], format = "%Y.%m.%d"), as.Date(tail(colnames(P_sogamoso),1), format = "%Y.%m.%d"), by = "month")
+#' Dates <- seq(as.Date(colnames(P_sogamoso)[3], format = "%Y.%m.%d"), 
+#'              as.Date(tail(colnames(P_sogamoso),1), format = "%Y.%m.%d"), by = "month")
 #' 
-#' # For this calibration exercise, the last date of simulation is the same as the final date of calibration
-#' Start.sim <- which(Dates == setup_data[8,1]); End.sim <- which(Dates == setup_data[11,1])
-#' Sim.Period <- c(Start.sim:End.sim)+2  # the first two columns of the P and PET are the coordinates of the cells
-#' Start.cal <- which(Dates == setup_data[9,1]); End.cal <- which(Dates == setup_data[11,1])
-#' Cal.Period <- c(Start.cal:End.cal)+2  # the first two columns of the P and PET are the coordinates of the cells
+#' # For this calibration exercise, the last date of simulation is 
+#' # the same as the final date of calibration
+#' Start.sim <- which(Dates == setup_data[8,1])
+#' End.sim <- which(Dates == setup_data[11,1])
+#' # the first two columns of the P and PET are the coordinates of the cells
+#' Sim.Period <- c(Start.sim:End.sim)+2 
+#' Start.cal <- which(Dates == setup_data[9,1])
+#' End.cal <- which(Dates == setup_data[11,1])
+#' # the first two columns of the P and PET are the coordinates of the cells
+#' Cal.Period <- c(Start.cal:End.cal)+2  
 #' 
 #' #Load observed runoff
 #' data(EscSogObs)
 #' 
-#' #### Function that runs the DWB model ####
+#' # Function that runs the DWB model
 #' NSE_Sogamoso_DWB <- function(parameters, P, PET, g_v,s_v, Sim.Period, EscObs, Cal.Period){
 #' 
 #' parameters <- as.vector(parameters)
-#' param <- matrix(parameters, nrow = cellStats(GRU,stat="max"))  # Transform the parameters to the format that the model needs
+#' # Transform the parameters to the format that the model needs
+#' param <- matrix(parameters, nrow = raster::cellStats(GRU,stat="max"))  
 #' 
 #' # Construction of parameter maps from values by GRU
 #' GRU.maps <- buildGRUmaps(GRU, param)
@@ -82,19 +86,27 @@
 #' alpha2_v <- GRU.maps$alpha2
 #' smax_v <- GRU.maps$smax
 #' d_v <- GRU.maps$d
-#' DWB.sogamoso <- DWBCalculator(P_sogamoso[ ,Sim.Period], PET_sogamoso[ ,Sim.Period], g_v,s_v,alpha1_v,alpha2_v,smax_v,d_v, calibration = T)
+#' DWB.sogamoso <- DWBCalculator(P_sogamoso[ ,Sim.Period], PET_sogamoso[ ,Sim.Period],
+#'                               g_v,s_v, alpha1_v, alpha2_v, smax_v,d_v, calibration = TRUE)
 #' Esc.Sogamoso <- varBasins(DWB.sogamoso$q_total, cellBasins$cellBasins)
 #' 
-#' # model evaluation; in case of possible NA results in the simulation, add a conditional assingment to a very high value
-#' Perf <- (-1)*hydroGOF::NSE(Esc.Sogamoso$varProm[Cal.Period, ],EscSogObs[Cal.Period, ])
-#' if(!is.na(mean(Perf))){ Mean.Perf <- mean(Perf)} else{ Mean.Perf <- 1e100}
-#' return(Mean.Perf)
+#' # model evaluation; in case of possible NA results in the simulation, 
+#' # add a conditional assingment to a very high value
+#' sim <- Esc.Sogamoso$varAverage[Cal.Period, 1]
+#' obs <- EscSogObs[Cal.Period, 1]
+#' nse.cof <- 1-sum((sim - obs)^2, na.rm = TRUE)/sum((obs - mean(obs, na.rm = TRUE))^2, na.rm = TRUE)
+#' Perf <- (-1)*nse.cof
+#' if(!is.na(mean(Perf))){ 
+#'   Mean.Perf <- mean(Perf)
+#'   } else {Mean.Perf <- 1e100}
+#'      return(Mean.Perf)
 #' }
 #' 
 #' # coupling with the DDS algorithm
-#' xBounds.df <- data.frame(lower = rep(0, times = 40), upper = c(rep(1, times = 30), rep(2000, times = 10)))
+#' xBounds.df <- data.frame(lower = rep(0, times = 40), upper = rep(c(1, 2000), times = c(30, 10)))
 #' result <- dds(xBounds.df = xBounds.df, numIter=200, OBJFUN=NSE_Sogamoso_DWB,
-#'         P = P_sogamoso, PET = PET_sogamoso, g_v = g_v, s_v = s_v, Sim.Period = Sim.Period, EscObs = EscSogObs, Cal.Period = Cal.Period)
+#'               P = P_sogamoso, PET = PET_sogamoso, g_v = g_v, s_v = s_v, Sim.Period = Sim.Period, 
+#'               EscObs = EscSogObs, Cal.Period = Cal.Period)
 #' 
 dds <- function(xBounds.df, numIter,iniPar=NA, r = 0.2, OBJFUN, ...){
   # Format xBounds.df colnames

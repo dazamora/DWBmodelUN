@@ -9,6 +9,7 @@
 #' @param variable corresponds to the results of a specific variable of the DWBCalculator.
 #' @param coor_cells coordinates of the cells in the same order that were simulated and that will be used to
 #' create the results in raster format from the data frames which contain the simulated results
+#' @param var name of the variable that will be print (e.g., q_total, aet, r, qd, qb, s, g)
 #' @param coord_sys geographic coordinate system.
 #' @param dates dates that were simulated.
 #' @param as option to print the results as independent 'raster' (\emph{\code{.tif}}) or in a 'NetCDF' file (\emph{\code{.nc}}).
@@ -31,19 +32,18 @@
 #' data(dwb_results)
 #' data(cells)
 #' dates <- seq(as.Date("2001-01-01"), as.Date("2016-12-01"), by="month")
-#' coor_cells <- "+init=epsg:4326"
-#' printVar(dwb_results[[3]], cells, coor_cells, dates, "NetCDF")
+#' coord_sys <- "+init=epsg:4326"
+#' printVar(dwb_results[[3]], cells, var = "r", coord_sys, dates, "NetCDF")
 #' 
-printVar <- function(variable, coor_cells, coord_sys, dates, as){
-  var_name <- as.character(substitute(variable))
-  
-  if (file.exists(var_name)){
-    path_var <- paste("./", var_name, "/", sep="")
-  }else{
-    stop("There is no folder to save the files. Please create it with the name of the variable")
+printVar <- function(variable, coor_cells, var, coord_sys, dates, as){
+  var_name <- var
+  path_var <- paste("./", var_name, "/", sep="")
+
+  if(dir.exists(path_var)){
+  } else {
+    dir.create(path_var)
   }
-  
-  var_r <- raster::rasterFromXYZ(cbind(coor_cells[ ,-3], variable), crs = coor_cells)
+  var_r <- raster::rasterFromXYZ(cbind(coor_cells[ ,-3], variable), crs = coord_sys)
   if (as == 'raster'){
     # prints each time step in GTiff format, in the specified directory
     for (i in 1:raster::nlayers(var_r)){

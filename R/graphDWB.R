@@ -120,7 +120,7 @@ graphDWB <- function(var, tp, main, ...){
     plot.1 <- dygraphs::dySeries(dygraph = plot.1, "V1", label = names(var)[1], strokeWidth = 1.7, axis = "y", color= "#2c7fb8")
     plot.1 <- dygraphs::dyLegend(dygraph = plot.1, show = "follow", width = 210, hideOnMouseOut = FALSE)
     plot.1 <- dygraphs::dyBarChart(dygraph = plot.1)
-    plot.1 <- dygraphs::dyAxis(dygraph = plot.1, name = "y", label = "P [mm/mth]", valueRange = c(max(var[[1]], na.rm = TRUE),0))
+    plot.1 <- dygraphs::dyAxis(dygraph = plot.1, name = "y", label = "P [mm/mth]", valueRange = c(max(var[[1]] + 50, na.rm = TRUE),0))
     plot.1 <- dygraphs::dyCSS(dygraph = plot.1, system.file("data", "dygraph.css", package = "DWBmodelUN"))
     
     plot.2 <- dygraphs::dygraph(cbind(var[[2]], var[[3]]), ylab = "Runoff [mm/mth]", group = "A", height = 300, width = "100%", ...)
@@ -142,9 +142,9 @@ graphDWB <- function(var, tp, main, ...){
     }
     plot.1 <- dygraphs::dygraph(cbind(var[[1]], var[[2]]), group = "A", height = 225, width = "100%",  main = main, ...) 
     plot.1 <- dygraphs::dyStackedBarGroup(dygraph = plot.1,name = "var[[1]]", label = names(var)[1], axis = "y", color = "#2c7fb8") 
-    plot.1 <- dygraphs::dyAxis(dygraph = plot.1, name = "y", label = "P [mm/mth]", valueRange = c(max(var[[1]]+50, na.rm = TRUE), 0)) 
+    plot.1 <- dygraphs::dyAxis(dygraph = plot.1, name = "y", label = "P [mm/mth]", valueRange = c(max(var[[1]] + 50, na.rm = TRUE), 0)) 
     plot.1 <- dygraphs::dyStackedBarGroup(dygraph = plot.1, name = "var[[2]]", label = names(var)[2], axis = "y2", color = "#1a9850") 
-    plot.1 <- dygraphs::dyAxis(dygraph = plot.1, name = "y2", label = "ET [mm/mth]", valueRange = c(0, max(var[[1]]+50))) 
+    plot.1 <- dygraphs::dyAxis(dygraph = plot.1, name = "y2", label = "ET [mm/mth]", valueRange = c(0, max(var[[1]] + 50))) 
     plot.1 <- dygraphs::dyLegend(dygraph = plot.1, show = "follow", width = 210) 
     plot.1 <- dygraphs::dyHighlight(dygraph = plot.1, highlightCircleSize = 3, highlightSeriesBackgroundAlpha = 0.2,
                                     hideOnMouseOut = FALSE) 

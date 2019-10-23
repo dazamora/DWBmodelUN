@@ -32,13 +32,13 @@ a list comprised by the time series of the hydrological fluxes calculated by the
 The time series have the same length as the forcings that were employed to run the model. The fluxes are:
 
  \itemize{
-    \item \code{q_total} a numeric matrix of the total runoff.... (mm/month).
-    \item \code{aet} a numeric matrix of actual evapotranspiration.... (mm/month).
-    \item \code{r} a numeric matrix of groundwater recharge ...(mm/month).
-    \item \code{qd} a numeric matrix of surface runoff... (mm/month).
-    \item \code{qb} a numeric matrix of baseflow.... (mm/month).
-    \item \code{s} a numeric matrix of soil water storage.... (mm).
-    \item \code{g} a numeric matrixof groundwater storage.... (mm).
+    \item \code{q_total} a numeric matrix of the total runoff - units (mm/month).
+    \item \code{aet} a numeric matrix of actual evapotranspiration - units (mm/month).
+    \item \code{r} a numeric matrix of groundwater recharge - units (mm/month).
+    \item \code{qd} a numeric matrix of surface runoff - units  (mm/month).
+    \item \code{qb} a numeric matrix of baseflow - units  (mm/month).
+    \item \code{s} a numeric matrix of soil water storage - units  (mm).
+    \item \code{g} a numeric matrixof groundwater storage - units (mm).
  }
 }
 \description{
@@ -46,8 +46,8 @@ The function performs the distributed DWB hydrological model calculations in the
 time period. It is a model based on the postulates of Budyko, which stated that not only does the actual
 evapotranspiration depend on potential evapotranspiration, but it is also constrained by water availability
 \cite{(Budyko, 1974)}. The monthly Dynamic Water Balance is underpinned in the demand and supply limits demonstrated
-by \code{\link{Fu's function}}, postulate that is applied to three variables in order to acquire the values
-of the fluxes and state variables on a monthly time step. The named variables affected by \code{\link{Fu's function}} 
+by \code{\link{funFU}}, postulate that is applied to three variables in order to acquire the values
+of the fluxes and state variables on a monthly time step. The named variables affected by \code{\link{funFU}} 
 are: the available storage capacity (\emph{\code{X}}), the evapotranspiration opportunity (\emph{\code{Y}})
 and the actual evapotranspiration (\emph{\code{ET}}). The model is controlled by four parameters: retention
 efficiency (\eqn{\alpha-1}), evapotranspiration efficiency (\eqn{\alpha-2}),
@@ -69,8 +69,7 @@ set the initial conditions of the soil moisture and the groundwater storage, and
 
 # Load P and PET databases
 data(P_sogamoso, PET_sogamoso)
-# Not run {meteo <- upForcing(path_p = "./precip/", path_pet = "./pet/", file_type = "raster", format = "NCDF")}
-
+ 
 # Verify that the coordinates of the databases match
 Coord_comparison(P_sogamoso, PET_sogamoso)
 # Load geographic info of GRU and parameters per cell
@@ -83,8 +82,6 @@ smax_v <- GRU.maps$smax
 d_v <- GRU.maps$d
 
 # Establish the initial modeling conditions
-# if you would like to upload the initial state variables provided in this example, create a "/in_state/" directory and print the following files in that path
-# writeRaster(In_storage, "./in_state/in_storage.tif", format = "GTiff"); writeRaster(In_ground,"./in_state/in_groundwater.tif", format = "GTiff")
 init <- init_state(GRU.maps$smaxR, "/in_state/")
 g_v <- init$In_ground
 s_v <- init$In_storage
@@ -92,9 +89,11 @@ rm(init)
 
 # Load general characteristics of modeling
 setup_data <- readSetup(Read = TRUE)
-Dates <- seq(as.Date(colnames(P_sogamoso)[3],format = "\%Y.\%m.\%d"), as.Date(tail(colnames(P_sogamoso),1),format="\%Y.\%m.\%d"), by = "month")
+Dates <- seq(as.Date(colnames(P_sogamoso)[3],format = "\%Y.\%m.\%d"), 
+             as.Date(tail(colnames(P_sogamoso),1),format="\%Y.\%m.\%d"), by = "month")
 Start.sim <- which(Dates == setup_data[8,1]); End.sim <- which(Dates == setup_data[10,1])
-Sim.Period <- c(Start.sim:End.sim)+2  # the first two columns of the P and PET are the coordinates of the cells
+# Sim.Period: the 1st two columns of the P and PET are the coordinates of the cells
+Sim.Period <- c(Start.sim:End.sim)+2  
 
 # Run DWB model
 DWB.sogamoso <- DWBCalculator(P_sogamoso[ ,Sim.Period], 

@@ -36,8 +36,10 @@ a complete path that includes the name and extension of the file.
 }
 \examples{
 #Not run
-meteo <- upForcing(path_p = "./precip/", path_pet = "./pet/", file_type = "raster", format = "NCDF")
-meteo <- upForcing(path_p = "./precip/", path_pet = "./pet/", file_type = "csv")
+# meteo <- upForcing(path_p = "./precip/", path_pet = "./pet/",
+# file_type = "raster", format = "NCDF")
+# meteo <- upForcing(path_p = "./precip/", path_pet = "./pet/",
+# file_type = "csv")
 
 }
 \author{
