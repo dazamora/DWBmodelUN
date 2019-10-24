@@ -26,12 +26,15 @@
 #' David Zamora <dazamoraa@unal.edu.co> \cr
 #'  
 #' Water Resources Engineering Research Group - GIREH
-#' Universidad Nacional de Colombia - sede Bogotá
+#' Universidad Nacional de Colombia - sede Bogota
 #' 
 #' @export
 #' 
 #' @examples
 #' setup <- readSetup(Read = TRUE)  # run if you would like to upload the example setup
+#' 
+#' data(setup_data)
+#' setup <- readSetup(Read = TRUE, setup_data)
 #' 
 #' # example on how to create your own setup
 #' a <- rep("no",7)
