@@ -75,5 +75,5 @@ David Zamora <dazamoraa@unal.edu.co> \cr
 Nicolas Duque Gardeazabal <nduqueg@unal.edu.co> \cr
 
 Water Resources Engineering Research Group - GIREH
-Universidad Nacional de Colombia - sede Bogotá
+Universidad Nacional de Colombia - sede Bogota
 }

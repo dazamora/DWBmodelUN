@@ -21,7 +21,7 @@
 #' David Zamora <dazamoraa@unal.edu.co> \cr
 #' 
 #' Water Resources Engineering Research Group - GIREH
-#' Universidad Nacional de Colombia - sede Bogotá
+#' Universidad Nacional de Colombia - sede Bogota
 #'
 #' @return It saves in a folder previously created a set of raster files with the results of the 
 #' variable of interest.

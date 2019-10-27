@@ -44,5 +44,5 @@ Carolina Vega Viviescas <cvegav@unal.edu.co> \cr
 David Zamora <dazamoraa@unal.edu.co> \cr
 
 Water Resources Engineering Research Group - GIREH
-Universidad Nacional de Colombia - sede Bogotá
+Universidad Nacional de Colombia - sede Bogota
 }

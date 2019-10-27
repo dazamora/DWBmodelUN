@@ -21,7 +21,7 @@
 #' David Zamora <dazamoraa@unal.edu.co> \cr
 #' 
 #' Water Resources Engineering Research Group - GIREH
-#' Universidad Nacional de Colombia - sede Bogotá
+#' Universidad Nacional de Colombia - sede Bogota
 #' 
 #' @references 
 #' Zhang, L., Potter, N., Hickel, K., Zhang, Y., & Shao, Q. (2008). 

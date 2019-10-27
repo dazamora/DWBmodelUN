@@ -29,7 +29,7 @@
 #' David Zamora <dazamoraa@unal.edu.co> \cr
 #' 
 #' Water Resources Engineering Research Group - GIREH
-#' Universidad Nacional de Colombia - sede Bogotá
+#' Universidad Nacional de Colombia - sede Bogota
 #' 
 #' @examples
 #' data(P_sogamoso, PET_sogamoso)
