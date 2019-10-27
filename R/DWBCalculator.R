@@ -46,7 +46,7 @@
 #' be effective in calibrating models with several GRUs.
 #' 
 #' To start the model one should set the model features using the (\code{\link{readSetup}}) function, load the precipitation
-#' and evapotranspiration forcings with the (\code{\link{upload_forings}}) function, build the GRU and parameter maps with the
+#' and evapotranspiration forcings with the (\code{\link{upload_forcings}}) function, build the GRU and parameter maps with the
 #' (\code{\link{buildGRUmaps}}) function, compare the coordinates of the uploaded datasets (i.e. the forcings and GRU cells),
 #' set the initial conditions of the soil moisture and the groundwater storage, and run the model with \code{DWBCalculator} function.
 #' 
