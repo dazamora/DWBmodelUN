@@ -36,6 +36,6 @@
 #'          format as the P_sogamoso variable.}
 #'   \item{r.cells}{Raster, data frame Cells converted to raster format.}
 #'    \item{setup_data}{Data frame, set-up and print options to run DWB model.}
-#'    \item{EscSogObs}{}
-#'    \item{simDWB.sogamoso}{}
+#'    \item{EscSogObs}{Mean runoff at discharge station}
+#'    \item{simDWB.sogamoso}{Simulation results from Sogamoso using the model}
 #' }
