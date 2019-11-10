@@ -1,5 +1,6 @@
+#' @name 
 #' Sogamoso
-#'
+#' @title
 #' A list with multiple feautures from the Sogamoso River Basin (Colombia)
 #'
 #' @format The list contains
