@@ -91,7 +91,6 @@ graphDWB <- function(var, tp, main, ...){
     plot <- dygraphs::dySeries(dygraph = plot, "V1", label = names(var)[1], strokeWidth = 1.7, color= "#2c7fb8")
     plot <- dygraphs::dyLegend(dygraph = plot, show = "follow", hideOnMouseOut = FALSE)
     plot <- dygraphs::dyRangeSelector(dygraph = plot)
-    plot <- dygraphs::dyCSS(dygraph = plot, system.file("data", "dygraph.css", package = "DWBmodelUN"))
     
   } else if (tp == 2){
     if (nvar < 2){
@@ -107,7 +106,6 @@ graphDWB <- function(var, tp, main, ...){
     plot <- dygraphs::dyHighlight(dygraph = plot, highlightCircleSize = 3, highlightSeriesBackgroundAlpha = 0.2,
                                   hideOnMouseOut = FALSE)
     plot <- dygraphs::dyRangeSelector(dygraph = plot, height = 30)
-    plot <- dygraphs::dyCSS(dygraph = plot, system.file("data", "dygraph.css", package = "DWBmodelUN"))
     
   } else if (tp == 3){
     if (nvar < 3){
@@ -121,7 +119,6 @@ graphDWB <- function(var, tp, main, ...){
     plot.1 <- dygraphs::dyLegend(dygraph = plot.1, show = "follow", width = 210, hideOnMouseOut = FALSE)
     plot.1 <- dygraphs::dyBarChart(dygraph = plot.1)
     plot.1 <- dygraphs::dyAxis(dygraph = plot.1, name = "y", label = "P [mm/mth]", valueRange = c(max(var[[1]] + 50, na.rm = TRUE),0))
-    plot.1 <- dygraphs::dyCSS(dygraph = plot.1, system.file("data", "dygraph.css", package = "DWBmodelUN"))
     
     plot.2 <- dygraphs::dygraph(cbind(var[[2]], var[[3]]), ylab = "Runoff [mm/mth]", group = "A", height = 300, width = "100%", ...)
     plot.2 <- dygraphs::dySeries(dygraph = plot.2, "var[[2]]", label = names(var)[2], strokeWidth = 1.7,  color= "#ef8a62")
@@ -148,7 +145,6 @@ graphDWB <- function(var, tp, main, ...){
     plot.1 <- dygraphs::dyLegend(dygraph = plot.1, show = "follow", width = 210) 
     plot.1 <- dygraphs::dyHighlight(dygraph = plot.1, highlightCircleSize = 3, highlightSeriesBackgroundAlpha = 0.2,
                                     hideOnMouseOut = FALSE) 
-    plot.1 <- dygraphs::dyCSS(dygraph = plot.1, system.file("data", "dygraph.css", package = "DWBmodelUN"))  
     
     plot.2 <- dygraphs::dygraph(var[[3]], ylab = "Runoff [mm/mth]", group = "A", height = 225, width = "92%", ...) 
     plot.2 <- dygraphs::dySeries(dygraph = plot.2, "V1", label = names(var)[3], strokeWidth = 1.7,  color= "#ef8a62") 
