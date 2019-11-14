@@ -52,8 +52,10 @@ readSetup <- function(Read = TRUE, setup){
     warning("Read and setup parameters are missing")
   }else{
     if (Read == TRUE){
-      setup <- data(setup_data, envir = environment())  # "setup_data" is a rdata file that is available in the "data" directory, which can be loaded by just typing the name of the variable
-      setup <- setup_data
+      setup <- data.frame(v1 = c(rep("no", 7), "2001-01-01", "2002-01-01", "2016-12-01", "2011-12-01"),
+                          stringsAsFactors = FALSE)  
+      rownames(setup) <- c("calibration", "print", "print_R", "print_S", "print_AET", "print_Qd",
+                           "print_Qb", "D.ini", "D.ini.cal", "D.end", "D.end.cal")
     }else{
       # asigns the dataframe created in the R environment
       # final date of simulation

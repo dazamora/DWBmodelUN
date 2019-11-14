@@ -46,13 +46,13 @@
 #' be effective in calibrating models with several GRUs.
 #' 
 #' To start the model one should set the model features using the (\code{\link{readSetup}}) function, load the precipitation
-#' and evapotranspiration forcings with the (\code{\link{upload_forcings}}) function, build the GRU and parameter maps with the
+#' and evapotranspiration forcings with the (\code{\link{upForcing}}) function, build the GRU and parameter maps with the
 #' (\code{\link{buildGRUmaps}}) function, compare the coordinates of the uploaded datasets (i.e. the forcings and GRU cells),
 #' set the initial conditions of the soil moisture and the groundwater storage, and run the model with \code{DWBCalculator} function.
 #' 
 #' @author Nicolas Duque Gardeazabal <nduqueg@unal.edu.co> \cr
 #' Pedro Felipe Arboleda Obando <pfarboledao@unal.edu.co> \cr
-#' David Andres Zamora Avila <dazamoraa@unal.edu.co> \cr
+#' David Zamora <dazamoraa@unal.edu.co> \cr
 #' Carolina Vega Viviescas <cvegav@unal.edu.co> \cr
 #' 
 #' Water Resources Engineering Research Group - GIREH
@@ -220,5 +220,4 @@ DWBCalculator <- function(p_v, pet_v, g_v, s_v, alpha1_v, alpha2_v, smax_v, d_v,
   #---- return ----
   dwb_aux <- list(q_total = q_total, aet = aet, r = r, qd = qd, qb = qb, s = s, g = g)
   return(dwb_aux)
-  
 }
