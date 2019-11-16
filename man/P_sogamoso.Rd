@@ -4,7 +4,7 @@
 \name{P_sogamoso}
 \alias{P_sogamoso}
 \title{P_sogamoso}
-\format{The list contains
+\format{A data frame
 \describe{
   \item{P_sogamoso}{Data frame, it should represent the cells in each row, and the precipitation
         info. by month in each column. The cell rank should match the cell ID in the cells data frame.}
@@ -13,7 +13,7 @@
 P_sogamoso
 }
 \description{
-XXX
+Distributed monthly precipitation in Sogamoso River Basin from January 2001 to December 2016
 }
 \references{
 Duque-Gardeazabal, N. (2018). Estimation of rainfall fields in data scarce colombian watersheds,

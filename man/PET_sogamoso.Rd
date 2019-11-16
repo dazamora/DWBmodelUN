@@ -4,7 +4,7 @@
 \name{PET_sogamoso}
 \alias{PET_sogamoso}
 \title{PET_sogamoso}
-\format{The list contains
+\format{A data frame
 \describe{
   \item{PET_sogamoso}{Data frame, it contains evapotranspiration data, following the same
          format as the P_sogamoso variable.}
@@ -13,7 +13,7 @@
 PET_sogamoso
 }
 \description{
-XXX
+Distributed monthly potential evapotranspiration in Sogamoso River Basin from January 2001 to December 2016
 }
 \references{
 Duque-Gardeazabal, N. (2018). Estimation of rainfall fields in data scarce colombian watersheds,

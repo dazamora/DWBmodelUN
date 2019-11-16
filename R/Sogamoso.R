@@ -185,7 +185,7 @@
 #' 
 #' @format XXX
 #' \describe{
-#'    \item{EscSogObs}{}
+#'    \item{EscSogObs}{Data frame, it contains the observed runoff data from Sogamoso Basin}
 #' }
 #' 
 #' @references
@@ -201,6 +201,6 @@
 #' 
 #' @format XXX
 #' \describe{
-#'    \item{simDWB.sogamoso}{}
+#'    \item{simDWB.sogamoso}{List, it contains the results of a calibrated model with Sogamoso data}
 #' }
 "simDWB.sogamoso"

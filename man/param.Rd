@@ -4,7 +4,7 @@
 \name{param}
 \alias{param}
 \title{param}
-\format{The list contains
+\format{A data frame
 \describe{
   \item{param}{Data frame, it should represent a GRU in each row, and parameter values in each
         column. GRU rank should match the GRU number used in the GRU raster.}
@@ -13,6 +13,6 @@
 param
 }
 \description{
-XXX
+Values to four parameters (\eqn{\alpha-1}, \eqn{\alpha-2}, \emph{\code{d}}, \emph{\code{S_max}}) of DWB model in each GRU
 }
 \keyword{datasets}

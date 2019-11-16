@@ -4,7 +4,7 @@
 \name{In_storage}
 \alias{In_storage}
 \title{In_storage}
-\format{The list contains
+\format{A raster 
 \describe{
   \item{In_storage}{Raster, initial conditions in the groundwater storage.}
 }}
@@ -12,6 +12,6 @@
 In_storage
 }
 \description{
-XXX
+Initial conditions in the groundwater storage in DWB model of Sogamoso River Basin
 }
 \keyword{datasets}

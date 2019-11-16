@@ -12,6 +12,6 @@
 In_ground
 }
 \description{
-XXX
+Initial conditions in the soil storage in DWB model of Sogamoso River Basin
 }
 \keyword{datasets}
