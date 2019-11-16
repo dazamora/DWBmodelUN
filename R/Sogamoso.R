@@ -42,43 +42,55 @@
 
 #' basins
 #' 
-#' XXXXX
+#' The polygons of the 23 subbasins accross the Sogamosos Basin
 #' 
-#' @format The list contains
+#' @format SpatialPolygonsDataFrame (S4)
 #' \describe{
 #'   \item{basins}{Shapefile featuring subbasins accross the Sogamosos Basin.}
 #' }
+#'
+#' @references
+#' Duque-Gardeazabal, N. (2018). Estimation of rainfall fields in data scarce colombian watersheds,
+#' by blending remote sensed and rain gauge data, using kernel functions. Master thesis.
+#' Universidad Nacional de Colombia, Bogotá, Colombia. 
+#'
 "basins"
 
 #' cells
 #' 
-#' XXX
+#' Coordinates (Latitud and Longitud) and ID number of cells in Sogamoso River Basin
 #' 
-#' @format The list contains
+#' @format Data frame 
 #' \describe{
-#'   \item{cells}{Data frame, cells coordinates and its ID number.}
+#'   \item{cells}{Data frame (3 colums by 677 rows), cells coordinates and its ID number.}
 #' }
+#'
+#' @references
+#' Duque-Gardeazabal, N. (2018). Estimation of rainfall fields in data scarce colombian watersheds,
+#' by blending remote sensed and rain gauge data, using kernel functions. Master thesis.
+#' Universidad Nacional de Colombia, Bogotá, Colombia. Retrieved from http://bdigital.unal.edu.co/71663/.
+#'
 "cells"
 
 #' dwb_results
 #' 
-#' XXX
+#' Results from DWB in Sogamoso River Basin
 #' 
-#' @format The list contains
+#' @format A list with seven output variables from DWB results
 #' \describe{
 #'   \item{dwb_results}{List, it contains the DWB model's outputs in matrix format, q_total- total runoff,
-#'         aet- real evapo-transpiration, r- recharge, qd- Surface runoff, qd- baseflow,
+#'         aet- real evapotranspiration, r- recharge, qd- Surface runoff, qd- baseflow,
 #'         s- soil storage, g- groundwater storage.}
 #' }
 "dwb_results"
 
 #' GRU
 #' 
-#' XXX
+#' Raster data of Group Response Units in Sogamoso River Basin
 #' 
-#' @format The list contains
+#' @format A raster 
 #' \describe{
-#'   \item{GRU}{Raster, it represents the Group Response Units across the Sogamoso Basin.}
+#'   \item{GRU}{Raster, it represents the ten (10) Group Response Units across the Sogamoso River Basin.}
 #' }
 "GRU"
 
@@ -86,7 +98,7 @@
 #' 
 #' XXX
 #' 
-#' @format The list contains
+#' @format A raster
 #' \describe{
 #'   \item{In_ground}{Raster, initial conditions in the soil storage.}
 #' }
@@ -111,6 +123,12 @@
 #'   \item{P_sogamoso}{Data frame, it should represent the cells in each row, and the precipitation
 #'         info. by month in each column. The cell rank should match the cell ID in the cells data frame.}
 #' }
+#'
+#' @references
+#' Duque-Gardeazabal, N. (2018). Estimation of rainfall fields in data scarce colombian watersheds,
+#' by blending remote sensed and rain gauge data, using kernel functions. Master thesis.
+#' Universidad Nacional de Colombia, Bogotá, Colombia. Retrieved from http://bdigital.unal.edu.co/71663/.
+#'
 "P_sogamoso"
 
 #' param
@@ -133,6 +151,12 @@
 #'   \item{PET_sogamoso}{Data frame, it contains evapotranspiration data, following the same
 #'          format as the P_sogamoso variable.}
 #' }
+#'
+#' @references
+#' Duque-Gardeazabal, N. (2018). Estimation of rainfall fields in data scarce colombian watersheds,
+#' by blending remote sensed and rain gauge data, using kernel functions. Master thesis.
+#' Universidad Nacional de Colombia, Bogotá, Colombia. Retrieved from http://bdigital.unal.edu.co/71663/.
+#'
 "PET_sogamoso"
 
 #' r.cells
@@ -163,6 +187,12 @@
 #' \describe{
 #'    \item{EscSogObs}{}
 #' }
+#' 
+#' @references
+#' Duque-Gardeazabal, N. (2018). Estimation of rainfall fields in data scarce colombian watersheds,
+#' by blending remote sensed and rain gauge data, using kernel functions. Master thesis.
+#' Universidad Nacional de Colombia, Bogotá, Colombia. Retrieved from http://bdigital.unal.edu.co/71663/.
+#'
 "EscSogObs"
 
 #' simDWB.sogamoso
