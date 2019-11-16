@@ -140,7 +140,7 @@ graphDWB <- function(var, tp, main, ...){
     }
     plot.1 <- dygraphs::dygraph(var[[1]], group = "A", height = 160, width = "100%",  main = main, ...) 
     plot.1 <- dygraphs::dySeries(dygraph = plot.1,name = "V1", label = names(var)[1], axis = "y", color = "#2c7fb8") 
-    plot.2 <- dygraphs::dyLegend(dygraph = plot.1, show = "follow", width = 210, hideOnMouseOut = FALSE)
+    plot.1 <- dygraphs::dyLegend(dygraph = plot.1, show = "follow", width = 210, hideOnMouseOut = FALSE)
     plot.1 <- dygraphs::dyBarChart(dygraph = plot.1) 
     plot.1 <- dygraphs::dyAxis(dygraph = plot.1, name = "y", label = "P [mm/mth]", valueRange = c(max(var[[1]] + 50, na.rm = TRUE), 0)) 
     
