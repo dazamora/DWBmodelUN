@@ -60,7 +60,7 @@
 #' 
 #' Coordinates (Latitud and Longitud) and ID number of cells in Sogamoso River Basin
 #' 
-#' @format Data frame 
+#' @format A data frame 
 #' \describe{
 #'   \item{cells}{Data frame (3 colums by 677 rows), cells coordinates and its ID number.}
 #' }
@@ -96,7 +96,7 @@
 
 #' In_ground
 #' 
-#' XXX
+#' Initial conditions in the soil storage in DWB model of Sogamoso River Basin
 #' 
 #' @format A raster
 #' \describe{
@@ -106,9 +106,9 @@
 
 #' In_storage
 #' 
-#' XXX
+#' Initial conditions in the groundwater storage in DWB model of Sogamoso River Basin
 #' 
-#' @format The list contains
+#' @format A raster 
 #' \describe{
 #'   \item{In_storage}{Raster, initial conditions in the groundwater storage.}
 #' }
@@ -116,9 +116,9 @@
 
 #' P_sogamoso
 #' 
-#' XXX
+#' Distributed monthly precipitation in Sogamoso River Basin from January 2001 to December 2016
 #' 
-#' @format The list contains
+#' @format A data frame
 #' \describe{
 #'   \item{P_sogamoso}{Data frame, it should represent the cells in each row, and the precipitation
 #'         info. by month in each column. The cell rank should match the cell ID in the cells data frame.}
@@ -133,9 +133,9 @@
 
 #' param
 #' 
-#' XXX
+#' Values to four parameters (\eqn{\alpha-1}, \eqn{\alpha-2}, \emph{\code{d}}, \emph{\code{S_max}}) of DWB model in each GRU 
 #' 
-#' @format The list contains
+#' @format A data frame
 #' \describe{
 #'   \item{param}{Data frame, it should represent a GRU in each row, and parameter values in each
 #'         column. GRU rank should match the GRU number used in the GRU raster.}
@@ -144,9 +144,9 @@
 
 #' PET_sogamoso
 #' 
-#' XXX
+#' Distributed monthly potential evapotranspiration in Sogamoso River Basin from January 2001 to December 2016
 #' 
-#' @format The list contains
+#' @format A data frame
 #' \describe{
 #'   \item{PET_sogamoso}{Data frame, it contains evapotranspiration data, following the same
 #'          format as the P_sogamoso variable.}
