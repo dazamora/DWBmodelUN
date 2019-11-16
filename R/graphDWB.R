@@ -138,22 +138,24 @@ graphDWB <- function(var, tp, main, ...){
     } else if (nvar > 3){
       warning('Only the first three variables in the list will be compared, assumed as 1. Precipitation 2. Evapotranspiration 3. Runoff')
     }
-    var.1 <- var[[1]]; var.2 <- var[[2]]
-    plot.1 <- dygraphs::dygraph(cbind(var.1, var.2), group = "A", height = 225, width = "100%",  main = main, ...) 
-    plot.1 <- dygraphs::dyStackedBarGroup(dygraph = plot.1,name = "var.1", label = names(var)[1], axis = "y", color = "#2c7fb8") 
+    plot.1 <- dygraphs::dygraph(var[[1]], group = "A", height = 160, width = "100%",  main = main, ...) 
+    plot.1 <- dygraphs::dySeries(dygraph = plot.1,name = "V1", label = names(var)[1], axis = "y", color = "#2c7fb8") 
+    plot.2 <- dygraphs::dyLegend(dygraph = plot.1, show = "follow", width = 210, hideOnMouseOut = FALSE)
+    plot.1 <- dygraphs::dyBarChart(dygraph = plot.1) 
     plot.1 <- dygraphs::dyAxis(dygraph = plot.1, name = "y", label = "P [mm/mth]", valueRange = c(max(var[[1]] + 50, na.rm = TRUE), 0)) 
-    plot.1 <- dygraphs::dyStackedBarGroup(dygraph = plot.1, name = "var.2", label = names(var)[2], axis = "y2", color = "#1a9850") 
-    plot.1 <- dygraphs::dyAxis(dygraph = plot.1, name = "y2", label = "ET [mm/mth]", valueRange = c(0, max(var[[1]] + 50))) 
-    plot.1 <- dygraphs::dyLegend(dygraph = plot.1, show = "follow", width = 210) 
-    plot.1 <- dygraphs::dyHighlight(dygraph = plot.1, highlightCircleSize = 3, highlightSeriesBackgroundAlpha = 0.2,
-                                    hideOnMouseOut = FALSE) 
     
-    plot.2 <- dygraphs::dygraph(var[[3]], ylab = "Runoff [mm/mth]", group = "A", height = 225, width = "92%", ...) 
-    plot.2 <- dygraphs::dySeries(dygraph = plot.2, "V1", label = names(var)[3], strokeWidth = 1.7,  color= "#ef8a62") 
-    plot.2 <- dygraphs::dyLegend(dygraph = plot.2, show = "follow", width = 210, hideOnMouseOut = FALSE) 
-    plot.2 <-  dygraphs::dyRangeSelector(dygraph = plot.2, height = 25)
+    plot.2 <- dygraphs::dygraph(var[[2]], group = "A", height = 140, width = "100%", ...)
+    plot.2 <- dygraphs::dySeries(dygraph = plot.2, "V1", label = names(var)[2], strokeWidth = 1.7, axis = "y", color= "#1a9850")
+    plot.2 <- dygraphs::dyLegend(dygraph = plot.2, show = "follow", width = 210, hideOnMouseOut = FALSE)
+    plot.2 <- dygraphs::dyBarChart(dygraph = plot.2)
+    plot.2 <- dygraphs::dyAxis(dygraph = plot.2, name = "y", label = "ET [mm/mth]", valueRange = c(0, max(var[[2]] + 50, na.rm = TRUE)))
     
-    plot <- list(plot.1, plot.2)
+    plot.3 <- dygraphs::dygraph(var[[3]], ylab = "Runoff [mm/mth]", group = "A", height = 225, width = "100%", ...) 
+    plot.3 <- dygraphs::dySeries(dygraph = plot.3, "V1", label = names(var)[3], strokeWidth = 1.7,  color= "#ef8a62") 
+    plot.3 <- dygraphs::dyLegend(dygraph = plot.3, show = "follow", width = 210, hideOnMouseOut = FALSE) 
+    plot.3 <-  dygraphs::dyRangeSelector(dygraph = plot.3, height = 25)
+    
+    plot <- list(plot.1, plot.2, plot.3)
     plot <- htmltools::browsable(htmltools::tagList(plot))
     
   } else {
