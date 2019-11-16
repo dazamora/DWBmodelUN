@@ -4,7 +4,7 @@
 \name{basins}
 \alias{basins}
 \title{basins}
-\format{The list contains
+\format{SpatialPolygonsDataFrame (S4)
 \describe{
   \item{basins}{Shapefile featuring subbasins accross the Sogamosos Basin.}
 }}
@@ -12,6 +12,11 @@
 basins
 }
 \description{
-XXXXX
+The polygons of the 23 subbasins accross the Sogamosos Basin
+}
+\references{
+Duque-Gardeazabal, N. (2018). Estimation of rainfall fields in data scarce colombian watersheds,
+by blending remote sensed and rain gauge data, using kernel functions. Master thesis.
+Universidad Nacional de Colombia, Bogotá, Colombia.
 }
 \keyword{datasets}

@@ -4,14 +4,19 @@
 \name{cells}
 \alias{cells}
 \title{cells}
-\format{The list contains
+\format{Data frame 
 \describe{
-  \item{cells}{Data frame, cells coordinates and its ID number.}
+  \item{cells}{Data frame (3 colums by 677 rows), cells coordinates and its ID number.}
 }}
 \usage{
 cells
 }
 \description{
-XXX
+Coordinates (Latitud and Longitud) and ID number of cells in Sogamoso River Basin
+}
+\references{
+Duque-Gardeazabal, N. (2018). Estimation of rainfall fields in data scarce colombian watersheds,
+by blending remote sensed and rain gauge data, using kernel functions. Master thesis.
+Universidad Nacional de Colombia, Bogotá, Colombia. Retrieved from http://bdigital.unal.edu.co/71663/.
 }
 \keyword{datasets}

@@ -4,7 +4,7 @@
 \name{In_ground}
 \alias{In_ground}
 \title{In_ground}
-\format{The list contains
+\format{A raster
 \describe{
   \item{In_ground}{Raster, initial conditions in the soil storage.}
 }}

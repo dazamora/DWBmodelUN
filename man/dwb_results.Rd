@@ -4,16 +4,16 @@
 \name{dwb_results}
 \alias{dwb_results}
 \title{dwb_results}
-\format{The list contains
+\format{A list with seven output variables from DWB results
 \describe{
   \item{dwb_results}{List, it contains the DWB model's outputs in matrix format, q_total- total runoff,
-        aet- real evapo-transpiration, r- recharge, qd- Surface runoff, qd- baseflow,
+        aet- real evapotranspiration, r- recharge, qd- Surface runoff, qd- baseflow,
         s- soil storage, g- groundwater storage.}
 }}
 \usage{
 dwb_results
 }
 \description{
-XXX
+Results from DWB in Sogamoso River Basin
 }
 \keyword{datasets}

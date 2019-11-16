@@ -4,14 +4,14 @@
 \name{GRU}
 \alias{GRU}
 \title{GRU}
-\format{The list contains
+\format{A raster 
 \describe{
-  \item{GRU}{Raster, it represents the Group Response Units across the Sogamoso Basin.}
+  \item{GRU}{Raster, it represents the ten (10) Group Response Units across the Sogamoso River Basin.}
 }}
 \usage{
 GRU
 }
 \description{
-XXX
+Raster data of Group Response Units in Sogamoso River Basin
 }
 \keyword{datasets}
