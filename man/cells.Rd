@@ -4,7 +4,7 @@
 \name{cells}
 \alias{cells}
 \title{cells}
-\format{A data frame 
+\format{data.frame
 \describe{
   \item{cells}{Data frame (3 colums by 677 rows), cells coordinates and its ID number.}
 }}

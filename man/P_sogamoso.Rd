@@ -4,7 +4,7 @@
 \name{P_sogamoso}
 \alias{P_sogamoso}
 \title{P_sogamoso}
-\format{A data frame
+\format{data.frame
 \describe{
   \item{P_sogamoso}{Data frame, it should represent the cells in each row, and the precipitation
         info. by month in each column. The cell rank should match the cell ID in the cells data frame.}

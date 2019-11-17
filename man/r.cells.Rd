@@ -4,7 +4,7 @@
 \name{r.cells}
 \alias{r.cells}
 \title{r.cells}
-\format{The list contains
+\format{RasterLayer
 \describe{
   \item{r.cells}{Raster, data frame Cells converted to raster format.}
 }}
@@ -12,6 +12,6 @@
 r.cells
 }
 \description{
-XXX
+Sogamoso basin raster, which lists the number of total cells
 }
 \keyword{datasets}

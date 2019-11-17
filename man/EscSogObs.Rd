@@ -4,15 +4,16 @@
 \name{EscSogObs}
 \alias{EscSogObs}
 \title{EscSogObs}
-\format{XXX
+\format{data.frame
 \describe{
-   \item{EscSogObs}{}
+   \item{EscSogObs}{Data frame, it contains runoff time series measured at 32 stations within the basin.
+   These gauges belong to the IDEAM monitoring network.}
 }}
 \usage{
 EscSogObs
 }
 \description{
-XXX
+Flow rates observed in Sogamoso River Basin at 32 gauges from January 2001 to December 2016
 }
 \references{
 Duque-Gardeazabal, N. (2018). Estimation of rainfall fields in data scarce colombian watersheds,

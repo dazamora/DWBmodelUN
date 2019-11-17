@@ -4,7 +4,7 @@
 \name{GRU}
 \alias{GRU}
 \title{GRU}
-\format{A raster 
+\format{RasterLayer
 \describe{
   \item{GRU}{Raster, it represents the ten (10) Group Response Units across the Sogamoso River Basin.}
 }}

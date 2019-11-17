@@ -4,7 +4,7 @@
 \name{In_storage}
 \alias{In_storage}
 \title{In_storage}
-\format{A raster 
+\format{RasterLayer 
 \describe{
   \item{In_storage}{Raster, initial conditions in the groundwater storage.}
 }}

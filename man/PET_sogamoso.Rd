@@ -4,10 +4,11 @@
 \name{PET_sogamoso}
 \alias{PET_sogamoso}
 \title{PET_sogamoso}
-\format{A data frame
+\format{data.frame
 \describe{
-  \item{PET_sogamoso}{Data frame, it contains evapotranspiration data, following the same
-         format as the P_sogamoso variable.}
+  \item{PET_sogamoso}{Data frame, it contains evapotranspiration data, representing the cells in each row, 
+                 and the evapotranspiration info. by month in each column. 
+                 The cell rank should match the cell ID in the cells data frame.}
 }}
 \usage{
 PET_sogamoso
