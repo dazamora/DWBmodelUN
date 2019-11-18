@@ -4,7 +4,7 @@
 #' \itemize{
 #'   \item{basins:}{Shapefile featuring subbasins accross the Sogamosos Basin.}
 #'   \item{cells:}{Data frame (3 colums by 677 rows), cells coordinates and its ID number.}
-#'   \item{dwb_results:}{{List, it contains the DWB model's outputs in matrix format, q_total- total runoff,
+#'   \item{dwb_results:}{List, it contains the DWB model's outputs in matrix format, q_total- total runoff,
 #'         aet- real evapotranspiration, r- recharge, qd- Surface runoff, qd- baseflow,
 #'         s- soil storage, g- groundwater storage.}
 #'   \item{GRU:}{Raster, it represents the ten (10) Group Response Units across the Sogamoso River Basin.}
