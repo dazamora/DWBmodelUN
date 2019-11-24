@@ -1,13 +1,14 @@
 Package: DWBmodelUN
 Title: R native implementation of the DWB hydrologic model from Zhang et al. (2008)
-Version: 0.0.0.9000
+Version: 1.0.0.9000
 Authors@R: c(person("Nicolas", "Duque", email = "nduqueg@unal.edu.co", role = c("aut", "cre")),
              person("Carolina", "Vega", email = "cvegav@unal.edu.co", role = c("aut")),
              person("Pedro", "Arboleda", email = "pfarboledao@unal.edu.co", role = c("aut")),
              person("David", "Zamora", email = "dazamoraa@unal.edu.co", role = c("ctb")))
 Description: A tool to hydrologic modelling using the Budyko Framework and the 
     Dynamic Water Balance Model, with other tools to calibrate the model and 
-    analyze de outputs.
+    analyze the outputs. It allows to calculate the water availability in basins and
+    also some water fluxes represented by the structure of the model.
 Depends: R (>= 3.4.1)
 Imports: 
     dygraphs,
