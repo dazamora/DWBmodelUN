@@ -9,21 +9,23 @@
   \item{basins:}{Shapefile featuring subbasins accross the Sogamosos Basin.}
   \item{cells:}{Data frame (3 colums by 677 rows), cells coordinates and its ID number.}
   \item{dwb_results:}{List, it contains the DWB model's outputs in matrix format, q_total- total runoff,
-        aet- real evapotranspiration, r- recharge, qd- Surface runoff, qd- baseflow,
+        aet- actual evapotranspiration, r- recharge, qd- Surface runoff, qd- baseflow,
         s- soil storage, g- groundwater storage.}
-  \item{GRU:}{Raster, it represents the ten (10) Group Response Units across the Sogamoso River Basin.}
-  \item{In_ground:}{Raster, initial conditions in the soil storage.}
-  \item{In_storage:}{Raster, initial conditions in the groundwater storage.}
+  \item{GRU:}{Raster, it represents the ten (10) Grouped Response Units across the Sogamoso River Basin.}
+  \item{In_ground:}{Raster, initial conditions in the groundwater storage.}
+  \item{In_storage:}{Raster, initial conditions in the soil storage.}
   \item{P_sogamoso:}{Data frame, it should represent the cells in each row, and the precipitation
-        info. by month in each column. The cell rank should match the cell ID in the cells data frame.}
+        info. by month in each column. The cell rank should match the cell ID in the cells data frame. The
+        first two columns are the coordinates of the cells}
   \item{param:}{Data frame, it should represent a GRU in each row, and parameter values in each
         column. GRU rank should match the GRU number used in the GRU raster.}
   \item{PET_sogamoso:}{Data frame, it contains evapotranspiration data, representing the cells in each row, 
                  and the evapotranspiration info. by month in each column. 
-                 The cell rank should match the cell ID in the cells data frame.}
+                 The cell rank should match the cell ID in the cells data frame.The
+                 first two columns are the coordinates of the cells}
   \item{r.cells:}{Raster, data frame Cells converted to raster format.}
-  \item{setup_data:}{Data frame, contains the set-up and print options to run the DWBmodelUN.
-   t consists of 11 parameters: the first seven are configurations of orders whose values can be 
+  \item{setup_data:}{Data frame, it contains the set-up and printing options to run the DWBmodelUN.
+   It consists of 11 parameters: the first seven are configurations of orders whose values can be 
    'yes' or 'no', indicating 1) If the model must be calibrated, 
    2) If the variables must be saved in raster format and which variables 3) R - Total runoff , 
    4) S - Soil moisture storage, 5) AET - Actual evapotranspiration, 6) Qd - Surface runoff , 

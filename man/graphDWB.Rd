@@ -14,7 +14,7 @@ followed by the simulated runoff series and finally the observed runoff. \cr
 For (\emph{tp = 4}), it must first contain the observed precipitation series, 
 followed by the evapotranspiration series and finally the runoff time series. \cr}
 
-\item{tp}{Variable to choose the type of graph.}
+\item{tp}{Variable which is defined to choose the type of graph.}
 
 \item{main}{Main title for the graph.}
 
@@ -25,11 +25,13 @@ Prints a dynamic graph according to the requirements.
 }
 \description{
 This function dynamically graphs the inputs and results of the DWBmodelUN.
+}
+\details{
 It has three types of graphs: \cr
 \itemize{
   \item (\emph{tp = 1}): Plots any variable in a continuous format.\cr
   \item (\emph{tp = 2}): Compares the runoff result of the model, with the observations.\cr
-  \item (\emph{tp = 3}): It allows showing a comparison between the observed and simulated runoff, as well as, with a dataset of precipitation.\cr
+  \item (\emph{tp = 3}): It allows to show a comparison between the observed and simulated runoff, as well as, with a dataset of precipitation.\cr
   \item (\emph{tp = 4}): It presents a comparison between a set of precipitation, actual or potential evapotranspiration and runoff.
   }
 }

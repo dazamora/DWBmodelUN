@@ -3,14 +3,16 @@
 #' 
 #' @title
 #' Fu's function for relationship between precipitation and potential evapotranspiration
+#' 
+#' @description It is a model based on the postulates of Budyko, which stated that not only does the actual
+#' evapotranspiration depend on potential evapotranspiration, but it is also constrained by water availability
+#' \cite{(Budyko, 1974)}.
 #'
-#' @param PET is the variable which will be inserted as the numerator in Fu's function. In Fu's original
-#' function, the variable used is the potential evapotranspiration. It can be a value or a numeric vector,
+#' @param PET is the variable which will be inserted as the numerator in Fu's function. It can be a value or a numeric vector,
 #' in which case it must have the same length as the denominator vector.
-#' @param P is the variable which will be inserted as the numerator in Fu's function. In Fu's original
-#' function, the variable used is precipitation. It can be a value or a numeric vector,
+#' @param P is the variable which will be inserted as the numerator in Fu's function. It can be a value or a numeric vector,
 #' in which case it must have the same length as the numerator vector.
-#' @param alpha parameter of Fu model which controls the evapotranspiration efficiency, yet it is named depending
+#' @param alpha parameter of Fu's model which controls the evapotranspiration efficiency, yet it is named depending
 #' on the variables used as numerator and denominator. It must be a unique value of type double.
 #'
 #' @return a value or a vector (depending on which kind of data was introduced for numerator and denominator).
@@ -28,6 +30,8 @@
 #' Water balance modeling over variable time scales based on the 
 #' Budyko framework – Model development and testing. Journal of Hydrology, 
 #' 360(1-4), 117–131. doi:10.1016/j.jhydrol.2008.07.021 
+#' 
+#' Budyko. (1974). Climate and life. New York: Academic Press, INC.
 #' 
 #' @export
 #'

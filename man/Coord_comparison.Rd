@@ -7,23 +7,23 @@
 Coord_comparison(r1, r2)
 }
 \arguments{
-\item{r1}{raster or data frame. If it is a data frame, it should put in the two first columns, the X, Y 
+\item{r1}{raster or data frame. If it is a data frame, it should contain in the first two columns, the X, Y 
 coordinates for every point, in GEOGRAPHIC COORDINATES, the third column and so on should have the variable values,
 and optionally, the header should have the date, using the format \code{\%m/\%Y}.}
 
-\item{r2}{raster or data frame. If it is a data frame, it should put in the two first columns, the X, Y 
+\item{r2}{raster or data frame. If it is a data frame, it should contain in the first two columns, the X, Y 
 coordinates for every point, in GEOGRAPHIC COORDINATES, the third column and so on should have the variable values,
 and optionally, the header should have the date, using the format \code{\%m/\%Y}.}
 }
 \value{
-It prints to console if the two rasters are on the same coordinates or not, and return
+It prints on console whether the two rasters are on the same coordinates or not, and return
 a boolean, TRUE if the rasters are on the same coordinates, and FALSE if not.
 }
 \description{
 This function compares three characteristics from two rasters:
 coordinates, resolution, and number of layers (if the rasters have more than one) 
 from two different rasters stacks, and let to know if they are using the same geographical information,
-or if new set-up should be done.
+or if a new set-up should be done.
 }
 \examples{
 data(P_sogamoso, PET_sogamoso)

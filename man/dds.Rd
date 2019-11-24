@@ -9,13 +9,13 @@ dds(xBounds.df, numIter, iniPar = NA, r = 0.2, OBJFUN, ...)
 \arguments{
 \item{xBounds.df}{must be a dataframe which defines the parameter range for searching, with 1st column as the minimum and 2nd column as the maximum of the parameter space.}
 
-\item{numIter}{is an integer that defines the total number of simulations so as to calibrate de model.}
+\item{numIter}{is an integer that defines the total number of simulations so as to calibrate the model.}
 
 \item{iniPar}{is a vector which contains an optional initial parameter set.}
 
 \item{r}{is a double between 0 and 1 which defines the range of searching in the DDS algorithm, the default value is 0.2.}
 
-\item{OBJFUN}{is a function which returns a scalar value, for which we are trying to minimize. In this case, the scalar is
+\item{OBJFUN}{is a function which returns a scalar value which one is trying to minimize. In this case, the scalar is
 the Objective Function used to evaluate the model performance.}
 
 \item{...}{other variables and datasets needed to run the model.}
@@ -27,7 +27,7 @@ the Objective Function used to evaluate the model performance.}
 }
 \description{
 This function allows the user to calibrate the DWB or other models with the Dynamical Dimension Search (DDS) algorithm \cite{(Tolson & Shoemaker, 2007)}.
-As the calibration is performed based on a single value, one should average or create a scalar with the evaluation made in all
+As the calibration is performed based on a single value, one should average or create a scalar to evalauate the model's perfomenace. The evaluation can be made using all
 the streamflow stations, or other variables, between the observed and the simulated values.
 }
 \examples{

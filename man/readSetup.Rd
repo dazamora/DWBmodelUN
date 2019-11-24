@@ -11,7 +11,7 @@ readSetup(Read = TRUE, setup)
 the setup is read from file previously written in the \code{data} directory. An example of the file is contained in the package.
 The default value is \emph{\code{TRUE}}, meaning that it will read the plain file from the \code{data} directory.}
 
-\item{setup}{is an optinal dataframe that contains the character strings which specifies dates and variables to be printed.
+\item{setup}{is an optional dataframe that contains the character strings which specifies dates and variables to be printed.
 The first seven rows must be character strings specifying the actions regarding if the modeller requires to print the
 simulated variables. The order is: calibration mode, print variables, print total runoff, print soil moisture, print actual ET, print direct runoff,
 print baseflow. Those strings must be \emph{YES} or \emph{NO}. The next four rows are: the initial date of simulation, the initial date for calibration,
@@ -19,7 +19,7 @@ the final date of simulation, and the final date of calibration. This dates must
 required, those dates are ignored.}
 }
 \value{
-An organized dataframe which defines the model setups.
+An organized dataframe which defines the model setup.
 }
 \description{
 This function reads the setup features of the model. These include the dates that define the simulated time period, and also the variables

@@ -8,12 +8,12 @@
 #' Grouped Response Units (\code{GRUs}) are defined. This raster must have the same resolution as the forcing files
 #' (i.e., for each cell that is planned to be simulated, there must be forcing time series and a cell assigned to a \code{GRU}).
 #' 
-#' @param gruLoc raster file that is comprised by numbers from 1 to the number of total \code{GRUs} that were defined.
+#' @param gruLoc raster file that is comprised by numbers from 1 to the total number of \code{GRUs} that were defined.
 #' @param parsValues data frame that has the values of the four parameters of each \code{GRU}. It must have equal number of
 #' rows as number of GRU that were defined, and must have four columns which define the \code{alpha1}, \code{alpha2}, \code{d}
-#' and \code{Smax}.
+#' and \code{Smax} parameters.
 #' 
-#' @return a list which is comprised by four vectors and four raster, each one of them has the values of a parameter spatialized according with
+#' @return a list which consists of four vectors and four raster, each one of them has the values of a parameter spatialized according with
 #' the GRU raster layer.
 #' 
 #' @author 

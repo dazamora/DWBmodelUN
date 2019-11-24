@@ -6,6 +6,8 @@
 #' 
 #' @description
 #' This function uploads or creates the initial conditions of the two-state variables present in the DWB model, in raster format.
+#' 
+#' @details
 #' It requires the raster composed of the Srmax values that were created using the \code{\link{buildGRUmaps}} function
 #' and a path from where the function can read two rasters previously created. If the path or those rasters cannot
 #' be found, the function creates those two rasters using the value of the Srmax reduced by half.

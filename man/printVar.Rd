@@ -2,7 +2,7 @@
 % Please edit documentation in R/printVar.R
 \name{printVar}
 \alias{printVar}
-\title{Print variables of interest}
+\title{Print or write variables of interest}
 \usage{
 printVar(variable, coor_cells, var, coord_sys, dates, as)
 }
@@ -10,11 +10,11 @@ printVar(variable, coor_cells, var, coord_sys, dates, as)
 \item{variable}{corresponds to the results of a specific variable of the DWBCalculator.}
 
 \item{coor_cells}{coordinates of the cells in the same order that were simulated and that will be used to
-create the results in raster format from the data frames which contain the simulated results}
+create the results in raster format, this is done from the data frames which contain the simulated results}
 
-\item{var}{name of the variable that will be print (e.g., q_total, aet, r, qd, qb, s, g)}
+\item{var}{name of the variable that will be printed (e.g., q_total, aet, r, qd, qb, s, g)}
 
-\item{coord_sys}{geographic coordinate system.}
+\item{coord_sys}{geographic or projected coordinate system.}
 
 \item{dates}{dates that were simulated.}
 
@@ -25,7 +25,7 @@ It saves in a folder previously created a set of raster files with the results o
 variable of interest.
 }
 \description{
-This function that allows to print some of the variables simulated by the DWB model.
+This function allows to print or write some of the variables simulated by the DWB model.
 }
 \examples{
 data(dwb_results)

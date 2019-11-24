@@ -8,9 +8,9 @@ DWBCalculator(p_v, pet_v, g_v, s_v, alpha1_v, alpha2_v, smax_v, d_v,
   calibration = F)
 }
 \arguments{
-\item{p_v}{matrix comprised by the precipitation records and that has as raws the number of cells that will be simulated and as columns the number of time steps to be simulated.}
+\item{p_v}{matrix comprised by the precipitation records, that has as raws the number of cells that will be simulated and as columns the number of time steps to be simulated.}
 
-\item{pet_v}{matrix comprised by the potential evapotranspiration records and that has as raws the number of cells that will be simulated and as columns the number of time steps to be simulated.}
+\item{pet_v}{matrix comprised by the potential evapotranspiration records, that has as raws the number of cells that will be simulated and as columns the number of time steps to be simulated.}
 
 \item{g_v}{vector comprised of the initial values of the groundwater storage, it must have as many values as cells defined to simulate.}
 
@@ -38,7 +38,7 @@ The time series have the same length as the forcings that were employed to run t
     \item \code{qd} a numeric matrix of surface runoff - units  (mm/month).
     \item \code{qb} a numeric matrix of baseflow - units  (mm/month).
     \item \code{s} a numeric matrix of soil water storage - units  (mm).
-    \item \code{g} a numeric matrixof groundwater storage - units (mm).
+    \item \code{g} a numeric matrix of groundwater storage - units (mm).
  }
 }
 \description{
@@ -57,12 +57,12 @@ storage that controls the baseflow (\emph{\code{d}}).
 \details{
 \code{DWBCalculator} only performs one simulation of the distributed hydrological model. The decision to perform
 other kinds of procedure, such as calibration or assimilation, is entirely on modelers' requirements and necessities.
-A complementary function is available in the package to calibrate the model (\code{\link{dds}}), which has proved to
+A complementary function is available in the package to calibrate the model using the (\code{\link{dds}}) algorithm, which has proved to
 be effective in calibrating models with several GRUs.
 
-To start the model one should set the model features using the (\code{\link{readSetup}}) function, load the precipitation
-and evapotranspiration forcings with the (\code{\link{upForcing}}) function, build the GRU and parameter maps with the
-(\code{\link{buildGRUmaps}}) function, compare the coordinates of the uploaded datasets (i.e. the forcings and GRU cells),
+To start the model one should set the model features using the \code{\link{readSetup}} function, load the precipitation
+and evapotranspiration forcings with the \code{\link{upForcing}} function, build the GRU and parameter maps with the
+\code{\link{buildGRUmaps}} function, compare the coordinates of the uploaded datasets with the \code{\link{Coord_comparison}} (i.e. the forcings and GRU cells),
 set the initial conditions of the soil moisture and the groundwater storage, and run the model with \code{DWBCalculator} function.
 }
 \examples{

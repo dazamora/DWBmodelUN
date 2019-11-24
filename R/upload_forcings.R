@@ -19,10 +19,10 @@
 #' 
 #' @details The character strings that control the location of the forcing files are as default "\emph{./precip/}"
 #' and "\emph{./pet/}" for precipitation and potential evapotranspiration, but can be change to other directories.
-#' However, if one intention is to upload them from NetCDF files, the \bold{strings must be completely changed} to
+#' However, if one's intention is to upload them from NetCDF files, the \bold{strings must be completely changed} to
 #' a complete path that includes the name and extension of the file.
 #'
-#' @return a list containing the two Zoos (P and PET).
+#' @return a list containing the two objects (P and PET).
 #' 
 #' @author
 #' Nicolas Duque Gardeazabal <nduqueg@unal.edu.co> \cr

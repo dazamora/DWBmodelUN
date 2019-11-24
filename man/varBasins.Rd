@@ -18,7 +18,7 @@ list of dataframes each one of them contains the time series of each of the cell
 }
 \description{
 This function retrieves the value of a variable in each of the cells that are within a basin boudary.
-It also returns the time serie average value of the variable.
+It also returns the average time serie value of the variable.
 }
 \examples{
 data(dwb_results,GRU,basins)
