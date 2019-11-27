@@ -1,4 +1,8 @@
 
+
+
+
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 DWBmodelUN
 ==========
@@ -10,10 +14,9 @@ Concepts behind DWBmodelUN
 
 Two physical laws are taken into account in Dynamic Water Balance model (DWB), mass balance and energy balance. To represent the mass conservation, DWB is based on the equilibrium of water balance shown in equation (1).
 
-$$ \frac{4z^3}{16} $$
-*X*<sub>*i*, *j*</sub>
+$$ \frac{d}{dt}S_{c}(t)= $$
 
-Where S is the total stored water in the basin, P is the precipitation, ET is actual evapotranspiration, Q corresponds to surface runoff and Q to aquifers recharge. To evaluate the water balance of a basin is necessary to know several kind information like climatic variables, catchment physical characteristics and further uniqueness relationships of each study. In the case of water balance models, some information can be replaced by equations and mathematical relations physically based, which makes the models much simpler but functional. To represent energy conservation the model includes a conceptualization made by Budyko (1958) where the energy availability influences over the atmospheric water demand which is represented by potential evapotranspiration (PET). The conceptualization also states that the dominant control of the water balance is atmospheric demand and water availability (P), which impose a limit to how much water can be evapotranspirated. Zhang et al (2008) worked on the mathematical assumption presented by Fu (1981) (equation 2) that is a continuation of Budyko framework.
+Where S is the total stored water in the basin, P is the precipitation, ET is actual evapotranspiration, R corresponds to surface runoff and Q to aquifers recharge. To evaluate the water balance of a basin is necessary to know several kind information like climatic variables, catchment physical characteristics and further uniqueness relationships of each study. In the case of water balance models, some information can be replaced by equations and mathematical relations physically based, which makes the models much simpler but functional. To represent energy conservation the model includes a conceptualization made by Budyko (1958) where the energy availability influences over the atmospheric water demand which is represented by potential evapotranspiration (PET). The conceptualization also states that the dominant control of the water balance is atmospheric demand and water availability (P), which impose a limit to how much water can be evapotranspirated. L. Zhang et al. (2008) worked on the mathematical assumption presented by Fu (1981) (equation 2) that is a continuation of Budyko framework.
 
 Installation
 ------------
