@@ -1,0 +1,55 @@
+---
+output: github_document
+bibliography: "`r here::here('README-references.bib')`"
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-",
+  out.width = "100%"
+)
+```
+# DWBmodelUN
+
+The R package DWBmodelUN aims to implement Dynamic Water Balance model proposed by @Zhang2008 in a monthly time step. It is a tool for hydrologic modelling using the Budyko Framework and the Dynamic Water Balance Model, with other tools to calibrate the model and analyze de outputs.
+
+## Concepts behind DWBmodelUN
+Two physical laws are taken into account in Dynamic Water Balance model (DWB), mass balance and energy balance. To represent the mass conservation, DWB is based on the equilibrium of water balance shown in equation (1).
+
+$$ \frac{4z^3}{16} $$ 
+$$ X_{i,j} $$
+
+Where S is the total stored water in the basin, P is the precipitation, ET is actual evapotranspiration, Q corresponds to surface runoff and Q to aquifers recharge. To evaluate the water balance of a basin is necessary to know several kind information like climatic variables, catchment physical characteristics and further uniqueness relationships of each study. In the case of water balance models, some information can be replaced by equations and mathematical relations physically based, which makes the models much simpler but functional.
+To represent energy conservation the model includes a conceptualization made by Budyko (1958) where the energy availability influences over the atmospheric water demand which is represented by potential evapotranspiration (PET). The conceptualization also states that the dominant control of the water balance is atmospheric demand and water availability (P), which impose a limit to how much water can be evapotranspirated. Zhang et al (2008) worked on the mathematical assumption presented by Fu (1981) (equation 2) that is a continuation of Budyko framework.
+
+## Installation
+
+You can install the released version of DWBmodelUN from [CRAN](https://CRAN.R-project.org) with:
+
+``` r
+install.packages("DWBmodelUN")
+```
+
+## Example
+
+This is a basic example which shows you how to solve a common problem:
+
+```{r example}
+## basic example code
+```
+
+What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
+
+```{r cars}
+summary(cars)
+```
+
+You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date.
+
+You can also embed plots, for example:
+
+In that case, don't forget to commit and push the resulting figure files, so they display on GitHub!
