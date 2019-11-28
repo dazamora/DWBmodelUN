@@ -7,7 +7,7 @@
 DWBmodelUN
 ==========
 
-The R package Modelling aims to implement Dynamic Water Balance model proposed by L. Zhang et al. (2008) in a monthly time step. It is a tool for hydrologic modelling using the Budyko Framework and the Dynamic Water Balance Model, with other tools to calibrate the model and analyze the outputs.
+The R package Modelling aims to implement Dynamic Water Balance model proposed by L. Zhang et al. (2008) in a monthly time step. It is a tool for hydrologic modelling using the Budyko Framework and the Dynamic Water Balance Model, with DDS Tolson and Shoemaker (2007) algorithm to calibrate the model and analyze the outputs.
 
 Instalation
 -----------
@@ -65,20 +65,20 @@ DWBmodelUN package contains 12 functions, most of them have a practical example 
 Datasets
 --------
 
-DWBmodelUN also contains 11 data that allow to run the practical examples:
+DWBmodelUN also contains 11 data that allow to run the practical examples (Duque (2018)):
 
--   `basins`:
--   `cells`:
--   `dwb_results`:
--   `EscSogObs`:
--   `GRU`:
--   `param`:
--   `PET_sogamoso`
--   `setup_data`
--   `simDWB.sogamoso`
--   `sogamoso`: Sogamoso River Basin data
--   `P_sogamoso`:
--   `r.cells`:
+-   `basins`: The polygons of the 23 subbasins accross the Sogamosos Basin.
+-   `cells`: Coordinates (Latitud and Longitud) and ID number of cells in Sogamoso River Basin.
+-   `dwb_results`: Results from DWB in Sogamoso River Basin.
+-   `EscSogObs`: Flow rates observed in Sogamoso River Basin at 32 gauges from January 2001 to December 2016.
+-   `GRU`: Raster data of Group Response Units in Sogamoso River Basin
+-   `param`: Values to four parameters *alpha\_{1}*, *alpha\_{2}* *d*, *S\_{max}* of DWB model in each GRU.
+-   `PET_sogamoso`: Distributed monthly potential evapotranspiration in Sogamoso River Basin from January 2001 to December 2016.
+-   `setup_data`: Data.frame with the initial configuration of the model run.
+-   `simDWB.sogamoso`: Simulated runoff by the DWBmodelUN in the same stations where there were observed data from the Sogamoso basin.
+-   `sogamoso`: Sogamoso River Basin data.
+-   `P_sogamoso`: Distributed monthly precipitation in Sogamoso River Basin from January 2001 to December 2016.
+-   `r.cells`: Data.frame with the initial configuration of the model run.
 
 References
 ----------
@@ -86,6 +86,8 @@ References
 Baw-Puh, Fuh. 1981. “On the Calculation of the Evaporation from Land Surface \[J\].” *Chinese Journal of Atmospheric Sciences* 1.
 
 Budyko, Mikhail Ivanovich. 1961. “The Heat Balance of the Earth’s Surface.” *Soviet Geography* 2 (4). Taylor & Francis: 3–13.
+
+Duque, Nicolás. 2018. “Estimación de Campos de Precipitación En Cuencas Hidrográficas Colombianas Con Escasez de Datos, Combinando Datos Teledetectados Y de Estaciones En Tierra, Utilizando Funciones de Kernel.” Master’s thesis, Universidad Nacional de Colombia - Sede Bogotá. <http://bdigital.unal.edu.co/71663/>.
 
 Tolson, Bryan A, and Christine A Shoemaker. 2007. “Dynamically dimensioned search algorithm for computationally efficient watershed model calibration” 43: 1–16. doi:[10.1029/2005WR004723](https://doi.org/10.1029/2005WR004723).
 

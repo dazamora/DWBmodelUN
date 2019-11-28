@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 )
 ```
 # DWBmodelUN
-The R package Modelling aims to implement Dynamic Water Balance model proposed by @Zhang2008 in a monthly time step. It is a tool for hydrologic modelling using the Budyko Framework and the Dynamic Water Balance Model, with other tools to calibrate the model and analyze the outputs.
+The R package Modelling aims to implement Dynamic Water Balance model proposed by @Zhang2008 in a monthly time step. It is a tool for hydrologic modelling using the Budyko Framework and the Dynamic Water Balance Model, with DDS @Tolson2007 algorithm to calibrate the model and analyze the outputs.
 
 ## Instalation
 Currently, you can install the version under development from [Github](https://github.com/dazamora/DWBmodelUN), using these commands:
@@ -81,23 +81,19 @@ DWBmodelUN package contains 12 functions, most of them have a practical example 
 * `varBasins`: This function retrieves the value of a variable in each of the cells that are within a basin boundary. It also returns the time series average value of the variable.
 
 ## Datasets
-DWBmodelUN also contains 11 data that allow to run the practical examples:
+DWBmodelUN also contains 11 data that allow to run the practical examples (@Duque2018): 
 
-* `basins`: 
-*	`cells`: 
-*	`dwb_results`:
-* `EscSogObs`: 
-* `GRU`: 
-*	`param`: 
-*	`PET_sogamoso`
-* `setup_data`	
-* `simDWB.sogamoso`	
-*	`sogamoso`: Sogamoso River Basin data
-*	`P_sogamoso`:
-*	`r.cells`:
-
-
-
+* `basins`: The polygons of the 23 subbasins accross the Sogamosos Basin.
+*	`cells`: Coordinates (Latitud and Longitud) and ID number of cells in Sogamoso River Basin.
+*	`dwb_results`: Results from DWB in Sogamoso River Basin.
+* `EscSogObs`: Flow rates observed in Sogamoso River Basin at 32 gauges from January 2001 to December 2016.
+* `GRU`: Raster data of Group Response Units in Sogamoso River Basin  
+*	`param`: Values to four parameters *alpha_{1}*, *alpha_{2}* *d*, *S_{max}* of DWB model in each GRU. 
+*	`PET_sogamoso`: Distributed monthly potential evapotranspiration in Sogamoso River Basin from January 2001 to December 2016.
+* `setup_data`: Data.frame with the initial configuration of the model run.
+* `simDWB.sogamoso`: Simulated runoff by the DWBmodelUN in the same stations where there were observed data from the Sogamoso basin.	
+*	`sogamoso`: Sogamoso River Basin data.
+*	`P_sogamoso`: Distributed monthly precipitation in Sogamoso River Basin from January 2001 to December 2016.
+*	`r.cells`: Data.frame with the initial configuration of the model run.
 
 ## References
-
