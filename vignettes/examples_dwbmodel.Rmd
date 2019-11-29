@@ -57,9 +57,9 @@ DWB.sogamoso <- DWBCalculator(P_sogamoso[ ,Sim.Period],
                     g_v, s_v, alpha1_v, alpha2_v, smax_v, d_v)
 ```
 
-## Calibration DWB model with Dynamical Dimension Search algorith
+## Calibration DWB model with Dynamical Dimension Search algorithm
 
-```{r eval=FALSE, include=FALSE}
+```{r echo=TRUE}
 library(DWBmodelUN)
 library(raster)
 # Load P and PET databases
