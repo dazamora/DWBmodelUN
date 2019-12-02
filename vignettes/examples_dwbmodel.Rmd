@@ -2,7 +2,7 @@
 title: "Examples DWB model"
 author: "Camila Garcia and David Zamora"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: rmarkdown::html_document
 vignette: >
   %\VignetteIndexEntry{Examples DWB model}
   %\VignetteEngine{knitr::rmarkdown}
@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 
 
 ## DWBCalculator function
-```{r echo=TRUE}
+```{r echo=TRUE, results='hide'}
 library(DWBmodelUN)
 library(raster)
 # Load P and PET databases
@@ -59,7 +59,7 @@ DWB.sogamoso <- DWBCalculator(P_sogamoso[ ,Sim.Period],
 
 ## Calibration DWB model with Dynamical Dimension Search algorithm
 
-```{r echo=TRUE}
+```{r echo=TRUE, results='hide'}
 library(DWBmodelUN)
 library(raster)
 # Load P and PET databases
@@ -137,7 +137,7 @@ result <- dds(xBounds.df = xBounds.df, numIter=200, OBJFUN=NSE_Sogamoso_DWB,
 
 ### First: Example with precipitation time series
 
-```{r echo=TRUE, fig.align= "center", fig.height=4, fig.width=6}
+```{r echo=TRUE, fig.align= "center", fig.height= 4, fig.width= 8}
 library(DWBmodelUN)
 library(dygraphs)
 data(P_sogamoso)
