@@ -3,6 +3,7 @@ title: "Examples DWB model"
 author: "Camila Garcia and David Zamora"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_document
+bibliography: "`r here::here('README-references.bib')`"
 vignette: >
   %\VignetteIndexEntry{Examples DWB model}
   %\VignetteEngine{knitr::rmarkdown}
@@ -18,8 +19,16 @@ knitr::opts_chunk$set(
 
 # DWBmodelUN examples in a tropical basin
 
-
 ## DWBCalculator function
+
+`DWBCalculator` is the function responsible for incorporating the DWB model calculations into the **DWBmodelUN** package. In this connection, the following example corresponds to an ungauged modeling exercise developed for the Sogamoso river basin (SRB) by @Duque2018.
+
+```{r rstudio-create-pkg, echo = FALSE, fig.align= "center", fig.height=7, fig.width=7, dpi = 600}
+knitr::include_graphics("Sogamoso_Basin.png", dpi = 600)
+```
+
+As a first step, the example starts with loading datasets generated for SRB that are required by DWB model and subsequently, the coordinates system of the input data are verified. The last step is to run `DWBCalculator` function in order to obtain a monthly streamflow simulated.
+
 ```{r echo=TRUE, results='hide'}
 library(DWBmodelUN)
 library(raster)
@@ -58,6 +67,8 @@ DWB.sogamoso <- DWBCalculator(P_sogamoso[ ,Sim.Period],
 ```
 
 ## Calibration DWB model with Dynamical Dimension Search algorithm
+
+`dds` is the function that implements the calibration algorithm Dynamical Dimension Search by @Tolson2007. In the example, the DWB model parameters are calibrated in the SRB with 10 Group Response Unit (GRU). The Nash-Sutcliffe efficiency (`nse.cof`) is created as an objective function between simulated and observed streamflow data, with the treatment of missing values and its couplated with the `DWBCalculator` function. Finally, the calibration is done with 200 iterations using the databases of the sample basin.
 
 ```{r echo=TRUE, results='hide'}
 library(DWBmodelUN)
@@ -134,6 +145,13 @@ result <- dds(xBounds.df = xBounds.df, numIter=200, OBJFUN=NSE_Sogamoso_DWB,
 ```
 
 ## Interactive graphics to represent outputs from the DWB model
+`graphDWB` is the function in charge of creating the graphical inputs and outputs of **DWBmodelUN**. The function has four types of graphs to be generated:
+
+1. The first one corresponds to a hydrograph of the precipitation entries. 
+2. The second one generates a combined chart of a rain hydrograph and streamflow hydrograph.
+3. The third one involves the graphic number 3  plus an hydrograph of evapotranspiration.
+
+The present example shows how to generate each chart type, using the datasets included in **DWBmodelUN** for the SRB. To draw one of the four chart types it is necessary to load the variables involved in each one, to adjust the input series to a time vector and assign them to a list element. Finally to run `graphDWB`.
 
 ### First: Example with precipitation time series
 
@@ -172,5 +190,6 @@ var <- list("P" = P,"PET" = PET, "Runoff.sim" = runoff.sim)
 graphDWB(var, tp = 4, main = "General Comparison Sogamoso Basin")
 ```
 
+## References
 
 
