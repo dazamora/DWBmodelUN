@@ -92,9 +92,15 @@
 #' 
 #' # model evaluation; in case of possible NA results in the simulation, 
 #' # add a conditional assingment to a very high value
-#' sim <- Esc.Sogamoso$varAverage[Cal.Period, 1]
-#' obs <- EscSogObs[Cal.Period, 1]
-#' nse.cof <- 1-sum((sim - obs)^2, na.rm = TRUE)/sum((obs - mean(obs, na.rm = TRUE))^2, na.rm = TRUE)
+#' sim <- Esc.Sogamoso$varAverage[Cal.Period - 2, ]
+#' obs <- EscSogObs[Cal.Period - 2, ]
+#' 
+#' if (sum(!is.na(sim)) == prod(dim(sim))){
+#'   nse.cof <- 1-apply((sim - obs)^2, 2, sum, na.rm = TRUE)/apply((obs - apply(obs, 2, mean, na.rm = TRUE))^2, 2, sum, na.rm = TRUE)
+#' } else {
+#'   nse.cof <- NA
+#' }
+#' 
 #' Perf <- (-1)*nse.cof
 #' if(!is.na(mean(Perf))){ 
 #'   Mean.Perf <- mean(Perf)
