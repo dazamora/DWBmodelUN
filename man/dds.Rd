@@ -91,7 +91,9 @@ sim <- Esc.Sogamoso$varAverage[Cal.Period - 2, ]
 obs <- EscSogObs[Cal.Period - 2, ]
 
 if (sum(!is.na(sim)) == prod(dim(sim))){
-  nse.cof <- 1-apply((sim - obs)^2, 2, sum, na.rm = TRUE)/apply((obs - apply(obs, 2, mean, na.rm = TRUE))^2, 2, sum, na.rm = TRUE)
+  numer <- apply((sim - obs)^2, 2, sum, na.rm = TRUE)
+  demom <- apply((obs - apply(obs, 2, mean, na.rm = TRUE))^2, 2, sum, na.rm = TRUE)
+  nse.cof <- 1 - numer / demom
 } else {
   nse.cof <- NA
 }
