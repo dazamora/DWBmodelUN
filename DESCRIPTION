@@ -1,5 +1,5 @@
 Package: DWBmodelUN
-Title: R native implementation of the DWB hydrologic model from Zhang et al. (2008)
+Title: R Native Implementation of the DWB Hydrologic Model from Budyko Framework
 Version: 1.0.0
 Authors@R: c(person("Nicolas", "Duque", email = "nduqueg@unal.edu.co", role = c("aut", "cre")),
              person("Carolina", "Vega", email = "cvegav@unal.edu.co", role = c("aut")),
