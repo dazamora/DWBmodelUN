@@ -19,6 +19,8 @@ create the results in raster format, this is done from the data frames which con
 \item{dates}{dates that were simulated.}
 
 \item{as}{option to print the results as independent 'raster' (\emph{\code{.tif}}) or in a 'NetCDF' file (\emph{\code{.nc}}).}
+
+\item{path_var}{path of the directory where one wants to print the files}
 }
 \value{
 It saves in a folder previously created a set of raster files with the results of the 

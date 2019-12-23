@@ -13,6 +13,7 @@
 #' @param coord_sys geographic or projected coordinate system.
 #' @param dates dates that were simulated.
 #' @param as option to print the results as independent 'raster' (\emph{\code{.tif}}) or in a 'NetCDF' file (\emph{\code{.nc}}).
+#' @param path_var path of the directory where one wants to print the files
 #'
 #' @author 
 #' Carolina Vega Viviescas <cvegav@unal.edu.co>  \cr
