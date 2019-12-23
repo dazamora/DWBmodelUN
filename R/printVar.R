@@ -33,11 +33,14 @@
 #' data(cells)
 #' dates <- seq(as.Date("2001-01-01"), as.Date("2016-12-01"), by="month")
 #' coord_sys <- "+init=epsg:4326"
-#' printVar(dwb_results[[3]], cells, var = "r", coord_sys, dates, "NetCDF")
+#' tempVar <- tempdir()
+#' printVar(dwb_results[[3]], cells, var = "r", coord_sys, dates, "NetCDF", path_var = tempVar)
 #' 
-printVar <- function(variable, coor_cells, var, coord_sys, dates, as){
+printVar <- function(variable, coor_cells, var, coord_sys, dates, as, path_var=""){
   var_name <- var
-  path_var <- paste("./", var_name, "/", sep="")
+  if(path_var ==""){
+    path_var <- paste("./", var_name, "/", sep="")
+  }
 
   if(dir.exists(path_var)){
   } else {
