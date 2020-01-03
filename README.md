@@ -15,8 +15,8 @@ Instalation
 Currently, you can install the version under development from [Github](https://github.com/dazamora/DWBmodelUN), using these commands:
 
 ``` r
-# install.packages("devtools")
-# devtools::install_github("dazamora/DWBmodelUN")
+install.packages("devtools")
+devtools::install_github("dazamora/DWBmodelUN")
 ```
 
 Concepts behind DWBmodelUN
