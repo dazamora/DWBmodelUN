@@ -1,5 +1,5 @@
+^\.travis\.yml$
 ^README\.Rmd$
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^README-.*\.png$
-^README\.Rmd$
