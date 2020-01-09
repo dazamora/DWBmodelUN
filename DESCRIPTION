@@ -10,7 +10,7 @@ Description: A tool to hydrologic modelling using the Budyko Framework and the
     Dynamic Water Balance Model, with Dynamical Dimension Search algorithm to calibrate the model and 
     analyze the outputs from interactive graphics. It allows to calculate the water availability in basins and
     also some water fluxes represented by the structure of the model.
-Depends: R (>= 3.4.1)
+Depends: R (>= 3.4)
 Imports: 
     dygraphs,
     htmltools,
