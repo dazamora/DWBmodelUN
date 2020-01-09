@@ -3,3 +3,5 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^README-.*\.png$
+^DWB_diagram\.png$
+^README-references\.bib$
