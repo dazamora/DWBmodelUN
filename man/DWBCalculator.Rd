@@ -107,7 +107,7 @@ Budyko. (1974). Climate and life. New York: Academic Press, INC.
 Zhang, L., Potter, N., Hickel, K., Zhang, Y., & Shao, Q. (2008). 
 Water balance modeling over variable time scales based on the 
 Budyko framework – Model development and testing. Journal of Hydrology, 
-360(1-4), 117–131. doi:10.1016/j.jhydrol.2008.07.021.
+360(1-4), 117–131.
 }
 \author{
 Nicolas Duque Gardeazabal <nduqueg@unal.edu.co> \cr
