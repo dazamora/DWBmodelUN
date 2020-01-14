@@ -9,6 +9,7 @@ header-includes:
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 [![Build Status](https://travis-ci.com/dazamora/DWBmodelUN.svg?branch=master)](https://travis-ci.com/dazamora/DWBmodelUN)
+[![codecov](https://codecov.io/gh/dazamora/DWBmodelUN/branch/master/graph/badge.svg)](https://codecov.io/gh/dazamora/DWBmodelUN)
 
 
 ```{r setup, include = FALSE}
