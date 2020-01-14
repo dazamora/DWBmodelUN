@@ -9,4 +9,8 @@ before_install:
   - sudo apt-get --yes --force-yes update -qq
   - sudo apt-get install --yes libgdal-dev
   
+r_packages:
+  - covr
   
+after_success:
+  - Rscript -e 'library(covr); codecov()'

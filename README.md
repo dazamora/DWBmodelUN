@@ -4,6 +4,8 @@
 
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+[![Build Status](https://travis-ci.com/dazamora/DWBmodelUN.svg?branch=master)](https://travis-ci.com/dazamora/DWBmodelUN)
+
 DWBmodelUN
 ==========
 
