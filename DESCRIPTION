@@ -5,9 +5,10 @@ Authors@R: c(person("Nicolas", "Duque", email = "nduqueg@unal.edu.co", role = c(
              person("Carolina", "Vega", email = "cvegav@unal.edu.co", role = c("aut")),
              person("Pedro", "Arboleda", email = "pfarboledao@unal.edu.co", role = c("aut")),
              person("David", "Zamora", email = "dazamoraa@unal.edu.co", comment = c(ORCID = "0000-0002-2256-7054"), role = c("aut")),
-             person("Camila", "Garcia", email = "cagarciae@unal.edu.co", role = c("aut")))
+             person("Camila", "Garcia", email = "cagarciae@unal.edu.co", role = c("cot")))
 Description: A tool to hydrologic modelling using the Budyko framework and the 
-    Dynamic Water Balance Model, with Dynamical Dimension Search algorithm to calibrate the model and 
+    Dynamic Water Balance Model Zhang et al 2008 <DOI: 10.1016/j.jhydrol.2008.07.021>, with Dynamical Dimension Search 
+    (Tolson and Shoemaker, 2007, <DOI: 10.1029/2005WR004723>) algorithm to calibrate the model and 
     analyze the outputs from interactive graphics. It allows to calculate the water availability in basins and
     also some water fluxes represented by the structure of the model.
 Depends: R (>= 3.4)
