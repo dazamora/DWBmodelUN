@@ -23,7 +23,7 @@ knitr::opts_chunk$set(
 `DWBCalculator` is the function responsible for incorporating the DWB model calculations into the **DWBmodelUN** package. In this connection, the following example corresponds to an ungauged modeling exercise developed for the Sogamoso river basin (SRB) by (Duque, 2018).
 
 ```{r rstudio-create-pkg, echo = FALSE, fig.align= "center", fig.height=7, fig.width=7, dpi = 600}
-knitr::include_graphics("Sogamoso_Basin.png", dpi = 600)
+knitr::include_graphics("Sogamoso_Basin.png", dpi = NA)
 ```
 
 As a first step, the example starts with loading datasets generated for SRB that are required by DWB model and subsequently, the coordinates system of the input data are verified. The last step is to run `DWBCalculator` function in order to obtain a monthly streamflow simulated.
