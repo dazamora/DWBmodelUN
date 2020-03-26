@@ -45,8 +45,7 @@
 #' P.est <- ts(c(t(P_sogamoso[1, -2:-1])), star = c(2001, 1), frequency = 12)
 #' var <- list("Precipitation" = P.est)
 #' 
-#' if(interactive()){
-#' graphDWB(var, tp = 1, main = "Precipitation Lat:7.0 Lon:-72.94")}
+#' graphDWB(var, tp = 1, main = "Precipitation Lat:7.0 Lon:-72.94")
 #' 
 #' # Example 2
 #' data(simDWB.sogamoso, EscSogObs)
@@ -54,8 +53,7 @@
 #' runoff.obs <- ts(EscSogObs[ ,1] , star = c(2001, 1), frequency = 12)
 #' var <- list("Runoff.sim" = runoff.sim, "Runoff.obs" = runoff.obs)
 #' 
-#' if(interactive()){ 
-#' graphDWB(var, tp = 2, main = "Runoff: Gauge 23147020")}
+#' graphDWB(var, tp = 2, main = "Runoff: Gauge 23147020")
 #' 
 #' # Example 3
 #' data(P_sogamoso, simDWB.sogamoso, EscSogObs)
@@ -63,9 +61,8 @@
 #' runoff.sim <- ts(simDWB.sogamoso[ ,1], star = c(2001, 1), frequency = 12)
 #' runoff.obs <- ts(EscSogObs[ ,1] , star = c(2001, 1), frequency = 12)
 #' var <- list("Precipitation" = P.est,"Runoff.sim" = runoff.sim, "Runoff.obs" = runoff.obs)
-#'  
-#' if(interactive()){
-#' graphDWB(var, tp = 3, main = "DWB results at Sogamoso Basin")}
+#' 
+#' graphDWB(var, tp = 3, main = "DWB results at Sogamoso Basin")
 #' 
 #' # Example 4
 #' data(P_sogamoso, PET_sogamoso, simDWB.sogamoso)
@@ -73,9 +70,8 @@
 #' PET <- ts(c(t(PET_sogamoso[1, -2:-1])), star = c(2001, 1), frequency = 12)
 #' runoff.sim <- ts(simDWB.sogamoso[ ,1], star = c(2001, 1), frequency = 12)
 #' var <- list("P" = P,"PET" = PET, "Runoff.sim" = runoff.sim)
-#'  
-#' if(interactive()){
-#' graphDWB(var, tp = 4, main = "General Comparison Sogamoso Basin")}
+#' 
+#' graphDWB(var, tp = 4, main = "General Comparison Sogamoso Basin")
 #' 
 graphDWB <- function(var, tp, main, ...){
   nvar <- length(var)
@@ -167,5 +163,6 @@ graphDWB <- function(var, tp, main, ...){
   } else {
     stop('Wrong type of graph')
   }
+  plot <- if(interactive()){plot}
   return(plot)
 }
