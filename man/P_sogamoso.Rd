@@ -13,7 +13,7 @@
 P_sogamoso
 }
 \description{
-Distributed monthly precipitation in Sogamoso River Basin from January 2001 to December 2016
+Distributed monthly precipitation in Sogamoso River Basin from January 2012 to December 2016
 }
 \references{
 Duque-Gardeazabal, N. (2018). Estimation of rainfall fields in data scarce colombian watersheds,
