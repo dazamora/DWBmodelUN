@@ -111,7 +111,7 @@
 
 #' P_sogamoso
 #' 
-#' Distributed monthly precipitation in Sogamoso River Basin from January 2001 to December 2016
+#' Distributed monthly precipitation in Sogamoso River Basin from January 2012 to December 2016
 #' 
 #' @format data.frame
 #' \describe{
@@ -139,7 +139,7 @@
 
 #' PET_sogamoso
 #' 
-#' Distributed monthly potential evapotranspiration in Sogamoso River Basin from January 2001 to December 2016
+#' Distributed monthly potential evapotranspiration in Sogamoso River Basin from January 2012 to December 2016
 #' 
 #' @format data.frame
 #' \describe{
@@ -183,7 +183,7 @@
 
 #' EscSogObs
 #' 
-#' Flow rates observed in Sogamoso River Basin at 32 gauges from January 2001 to December 2016
+#' Flow rates observed in Sogamoso River Basin at 32 gauges from January 2012 to December 2016
 #' 
 #' @format data.frame
 #' \describe{
