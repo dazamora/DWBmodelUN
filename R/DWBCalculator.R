@@ -87,7 +87,7 @@
 #' d_v <- GRU.maps$d
 #' 
 #' # Establish the initial modeling conditions
-#' init <- init_state(GRU.maps$smaxR, "/in_state/")
+#' init <- init_state(GRU.maps$smaxR)
 #' g_v <- init$In_ground
 #' s_v <- init$In_storage
 #' rm(init)

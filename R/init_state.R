@@ -9,11 +9,10 @@
 #' 
 #' @details
 #' It requires the raster composed of the Srmax values that were created using the \code{\link{buildGRUmaps}} function
-#' and a path from where the function can read two rasters previously created. If the path or those rasters cannot
-#' be found, the function creates those two rasters using the value of the Srmax reduced by half.
+#' or two rasters previously created with the initial conditions of the soil water and groundwater storage. If there is only
+#' be one raster found, the function creates those two rasters using the value of the provide raster reduced by half.
 #' 
-#' @param srmax Maximum storage in the root zone in Raster format.
-#' @param path_init Directory to read the raster files \emph{.tif} of initial storage conditions.
+#' @param raster It could be a raster cointaining the maximum storage in the root zone or two raster with the initial conditions of storage
 #'
 #' @return 
 #' A list cointaing initial conditions in storage and in ground.
@@ -37,18 +36,27 @@
 #' 
 #' @export
 #'
-init_state <- function(srmax, path_init){
-  if(length(list.files(path_init)) == 2){
-    dummy_f <- paste(path_init, "in_storage.tif", sep = '')
-    In_storage <- raster::raster(dummy_f)
-    dummy_f <- paste(path_init, "in_groundwater.tif", sep = '')
-    In_ground <- raster::raster( dummy_f)
+#' @examples
+#' library(raster)
+#' 
+#' # Example 1
+#' data(gru_maps)
+#' init <- init_state(gru_maps$smaxR)
+#' 
+#' # Example 2
+#' data(In_storage, In_ground)
+#' init <- init_state(stack(In_storage, In_ground))
+#' 
+init_state <- function(raster){
+  if(raster::nlayers(raster) == 2){
+    In_storage <- raster::raster(raster[[1]])
+    In_ground <- raster::raster(raster[[2]])
   } else{
-    if(length(list.files(path_init)) != 2){
-      cat("Strange number of initial state files\n Review files of initial states \n Creation by default from Srmax")
+    if(raster::nlayers(raster) != 2){
+      cat("Strange number of initial state files\n Review files of initial states \n Creation by default from first raster")
     }
-    In_storage <- srmax / 2
-    In_ground <- srmax / 2
+    In_storage <- raster[[1]] / 2
+    In_ground <- raster[[1]] / 2
   }
   g_v <- raster::rasterToPoints(In_ground)[ ,-c(1,2)]
   s_v <- raster::rasterToPoints(In_storage)[ ,-c(1,2)]
