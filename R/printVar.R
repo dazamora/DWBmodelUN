@@ -30,7 +30,8 @@
 #' @export 
 #' 
 #' @examples
-#' data(dwb_results)
+#' data(sogamoso)
+#' dwb_results <- sogamoso$dwb_results
 #' data(cells)
 #' dates <- seq(as.Date("2001-01-01"), as.Date("2016-12-01"), by="month")
 #' coord_sys <- "+init=epsg:4326"

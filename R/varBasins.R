@@ -25,7 +25,8 @@
 #' @export
 #'
 #' @examples
-#' data(dwb_results,GRU,basins)
+#' data(sogamoso,GRU,basins)
+#' dwb_results <- sogamoso$dwb_results
 #' Run <- dwb_results$q_total
 #' cellBasins <- cellBasins(GRU, basins)
 #' cellBasins <- cellBasins$cellBasins
