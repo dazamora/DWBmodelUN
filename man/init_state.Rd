@@ -4,12 +4,10 @@
 \alias{init_state}
 \title{Initial conditions of the model}
 \usage{
-init_state(srmax, path_init)
+init_state(raster)
 }
 \arguments{
-\item{srmax}{Maximum storage in the root zone in Raster format.}
-
-\item{path_init}{Directory to read the raster files \emph{.tif} of initial storage conditions.}
+\item{raster}{It could be a raster cointaining the maximum storage in the root zone or two raster with the initial conditions of storage}
 }
 \value{
 A list cointaing initial conditions in storage and in ground.
@@ -19,8 +17,20 @@ This function uploads or creates the initial conditions of the two-state variabl
 }
 \details{
 It requires the raster composed of the Srmax values that were created using the \code{\link{buildGRUmaps}} function
-and a path from where the function can read two rasters previously created. If the path or those rasters cannot
-be found, the function creates those two rasters using the value of the Srmax reduced by half.
+or two rasters previously created with the initial conditions of the soil water and groundwater storage. If there is only
+be one raster found, the function creates those two rasters using the value of the provide raster reduced by half.
+}
+\examples{
+library(raster)
+
+# Example 1
+data(gru_maps)
+init <- init_state(gru_maps$smaxR)
+
+# Example 2
+data(In_storage, In_ground)
+init <- init_state(stack(In_storage, In_ground))
+
 }
 \references{
 Budyko. (1974). Climate and life. New York: Academic Press, INC.

@@ -32,7 +32,7 @@ This function allows to print or write some of the variables simulated by the DW
 \examples{
 data(dwb_results)
 data(cells)
-dates <- seq(as.Date("2001-01-01"), as.Date("2016-12-01"), by="month")
+dates <- seq(as.Date("2012-01-01"), as.Date("2016-12-01"), by="month")
 coord_sys <- "+init=epsg:4326"
 tempVar <- tempdir()
 printVar(dwb_results[[3]], cells, var = "r", coord_sys, dates, "NetCDF", path_var = tempVar)
