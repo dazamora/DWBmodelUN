@@ -21,7 +21,8 @@ This function retrieves the value of a variable in each of the cells that are wi
 It also returns the average time serie value of the variable.
 }
 \examples{
-data(dwb_results,GRU,basins)
+data(sogamoso,GRU,basins)
+dwb_results <- sogamoso$dwb_results
 Run <- dwb_results$q_total
 cellBasins <- cellBasins(GRU, basins)
 cellBasins <- cellBasins$cellBasins

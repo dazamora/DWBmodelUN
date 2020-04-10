@@ -22,8 +22,8 @@ knitr::opts_chunk$set(
 
 `DWBCalculator` is the function responsible for incorporating the DWB model calculations into the **DWBmodelUN** package. In this connection, the following example corresponds to an ungauged modeling exercise developed for the Sogamoso river basin (SRB) by (Duque, 2018).
 
-```{r rstudio-create-pkg, echo = FALSE, fig.align= "center", fig.height=7, fig.width=7, dpi = 600}
-knitr::include_graphics("Sogamoso_Basin.png", dpi = NA)
+```{r rstudio-create-pkg, echo = FALSE, fig.align= "center", fig.height=6, fig.width=6, dpi = 600}
+knitr::include_graphics("Sogamoso_Basin.jpg", dpi = NA)
 ```
 
 As a first step, the example starts with loading datasets generated for SRB that are required by DWB model and subsequently, the coordinates system of the input data are verified. The last step is to run `DWBCalculator` function in order to obtain a monthly streamflow simulated.
@@ -31,9 +31,6 @@ As a first step, the example starts with loading datasets generated for SRB that
 ```{r echo=TRUE, results='hide'}
 library(DWBmodelUN)
 library(raster)
-# Load P and PET databases
-data(P_sogamoso, PET_sogamoso)
- 
 # Verify that the coordinates of the databases match
 Coord_comparison(P_sogamoso, PET_sogamoso)
 # Load geographic info of GRU and parameters per cell
@@ -46,7 +43,7 @@ smax_v <- GRU.maps$smax
 d_v <- GRU.maps$d
 
 # Establish the initial modeling conditions
-init <- init_state(GRU.maps$smaxR, "/in_state/")
+init <- init_state(GRU.maps$smaxR)
 g_v <- init$In_ground
 s_v <- init$In_storage
 rm(init)
@@ -61,13 +58,13 @@ Sim.Period <- c(Start.sim:End.sim)+2
 
 # Run DWB model
 DWB.sogamoso <- DWBCalculator(P_sogamoso[ ,Sim.Period], 
-                    PET_sogamoso[ ,Sim.Period],
-                    g_v, s_v, alpha1_v, alpha2_v, smax_v, d_v)
+                              PET_sogamoso[ ,Sim.Period],
+                              g_v, s_v, alpha1_v, alpha2_v, smax_v, d_v)
 ```
 
 ## Calibration DWB model with Dynamical Dimension Search algorithm
 
-`dds` is the function that implements the calibration algorithm Dynamical Dimension Search by (Tolson and Shoemaker, 2007). In the example, the DWB model parameters are calibrated in the SRB with 10 Group Response Unit (GRU). The Nash-Sutcliffe efficiency (`nse.cof`) is created as an objective function between simulated and observed streamflow data, with the treatment of missing values and its couplated with the `DWBCalculator` function. Finally, the calibration is done with 200 iterations using the databases of the sample basin.
+`dds` is the function that implements the calibration algorithm Dynamical Dimension Search by (Tolson and Shoemaker, 2007). In the example, the DWB model parameters are calibrated in the SRB with 10 Group Response Unit (GRU). The Nash-Sutcliffe efficiency (`nse.cof`) is created as an objective function between simulated and observed streamflow data, with the treatment of missing values and its couplated with the `DWBCalculator` function. Finally, the calibration is done with 20 iterations using the databases of the sample basin.
 
 ```{r echo=TRUE, results='hide'}
 library(DWBmodelUN)
@@ -84,7 +81,7 @@ cellBasins <- cellBasins(GRU, basins)
 
 # Establish the initial modeling conditions
 GRU.maps <- buildGRUmaps(GRU, param)
-init <- init_state(GRU.maps$smaxR, "/in_state/")
+init <- init_state(GRU.maps$smaxR)
 g_v <- init$In_ground
 s_v <- init$In_storage
 rm(init)
@@ -92,7 +89,8 @@ rm(init)
 # Load general characteristics of modeling
 setup_data <- readSetup(Read = TRUE)
 Dates <- seq(as.Date(colnames(P_sogamoso)[3], format = "%Y.%m.%d"), 
-             as.Date(tail(colnames(P_sogamoso),1), format = "%Y.%m.%d"), by = "month")
+             as.Date(tail(colnames(P_sogamoso),1), format = "%Y.%m.%d"), 
+             by = "month")
 
 # For this calibration exercise, the last date of simulation is 
 # the same as the final date of calibration
@@ -101,7 +99,7 @@ End.sim <- which(Dates == setup_data[11,1])
 # the first two columns of the P and PET are the coordinates of the cells
 Sim.Period <- c(Start.sim:End.sim)+2 
 Start.cal <- which(Dates == setup_data[9,1])
-End.cal <- which(Dates == "2004-12-01")
+End.cal <- which(Dates == setup_data[11,1])
 # the first two columns of the P and PET are the coordinates of the cells
 Cal.Period <- c(Start.cal:End.cal)+2  
 
@@ -110,43 +108,46 @@ data(EscSogObs)
 
 # Function that runs the DWB model
 NSE_Sogamoso_DWB <- function(parameters, P, PET, g_v,s_v, Sim.Period, EscObs, Cal.Period){
-
-parameters <- as.vector(parameters)
-# Transform the parameters to the format that the model needs
-param <- matrix(parameters, nrow = raster::cellStats(GRU,stat="max"))  
-
-# Construction of parameter maps from values by GRU
-GRU.maps <- buildGRUmaps(GRU, param)
-alpha1_v <- GRU.maps$alpha1
-alpha2_v <- GRU.maps$alpha2
-smax_v <- GRU.maps$smax
-d_v <- GRU.maps$d
-DWB.sogamoso <- DWBCalculator(P_sogamoso[ ,Sim.Period], PET_sogamoso[ ,Sim.Period],
-                              g_v,s_v, alpha1_v, alpha2_v, smax_v,d_v, calibration = TRUE)
-Esc.Sogamoso <- varBasins(DWB.sogamoso$q_total, cellBasins$cellBasins)
-
-# model evaluation; in case of possible NA results in the simulation, 
-# add a conditional assingment to a very high value
-sim <- Esc.Sogamoso$varAverage[Cal.Period - 2, ]
-obs <- EscSogObs[Cal.Period - 2, ]
-
-if (sum(!is.na(sim)) == prod(dim(sim))){
-  nse.cof <- 1-apply((sim - obs)^2, 2, sum, na.rm = TRUE)/apply((obs - apply(obs, 2, mean, na.rm = TRUE))^2, 2, sum, na.rm = TRUE)
-} else {
-  nse.cof <- NA
-}
-
-Perf <- (-1)*nse.cof
-if(!is.na(mean(Perf))){ 
-  Mean.Perf <- mean(Perf)
+  
+  parameters <- as.vector(parameters)
+  # Transform the parameters to the format that the model needs
+  param <- matrix(parameters, nrow = raster::cellStats(GRU,stat="max"))  
+  
+  # Construction of parameter maps from values by GRU
+  GRU.maps <- buildGRUmaps(GRU, param)
+  alpha1_v <- GRU.maps$alpha1
+  alpha2_v <- GRU.maps$alpha2
+  smax_v <- GRU.maps$smax
+  d_v <- GRU.maps$d
+  DWB.sogamoso <- DWBCalculator(P_sogamoso[ ,Sim.Period], PET_sogamoso[ ,Sim.Period],
+                                g_v,s_v, alpha1_v, alpha2_v, smax_v,d_v, calibration = TRUE)
+  Esc.Sogamoso <- varBasins(DWB.sogamoso$q_total, cellBasins$cellBasins)
+  
+  # model evaluation; in case of possible NA results in the simulation, 
+  # add a conditional assingment to a very high value
+  sim <- Esc.Sogamoso$varAverage[Cal.Period - 2, ]
+  obs <- EscSogObs[Cal.Period - 2, ]
+  
+  if (sum(!is.na(sim)) == prod(dim(sim))){
+    numer <- apply((sim - obs)^2, 2, sum, na.rm = TRUE)
+    demom <- apply((obs - apply(obs, 2, mean, na.rm = TRUE))^2, 2, sum, na.rm = TRUE)
+    nse.cof <- 1 - numer / demom
+  } else {
+    nse.cof <- NA
+  }
+  
+  Perf <- (-1)*nse.cof
+  if(!is.na(mean(Perf))){ 
+    Mean.Perf <- mean(Perf)
   } else {Mean.Perf <- 1e100}
-     return(Mean.Perf)
+  return(Mean.Perf)
 }
 
 # coupling with the DDS algorithm
 xBounds.df <- data.frame(lower = rep(0, times = 40), upper = rep(c(1, 2000), times = c(30, 10)))
-result <- dds(xBounds.df = xBounds.df, numIter=2, OBJFUN=NSE_Sogamoso_DWB,
-              P = P_sogamoso, PET = PET_sogamoso, g_v = g_v, s_v = s_v, Sim.Period = Sim.Period, EscObs = EscSogObs, Cal.Period = Cal.Period)
+result <- dds(xBounds.df = xBounds.df, numIter=20, OBJFUN=NSE_Sogamoso_DWB,
+              P = P_sogamoso, PET = PET_sogamoso, g_v = g_v, s_v = s_v, Sim.Period = Sim.Period, 
+              EscObs = EscSogObs, Cal.Period = Cal.Period)
 ```
 
 ## Interactive graphics to represent outputs from the DWB model
@@ -164,7 +165,7 @@ The present example shows how to generate each chart type, using the datasets in
 library(DWBmodelUN)
 library(dygraphs)
 data(P_sogamoso)
-P.est <- ts(c(t(P_sogamoso[1, -2:-1])), star = c(2001, 1), frequency = 12)
+P.est <- ts(c(t(P_sogamoso[1, -2:-1])), star = c(2012, 1), frequency = 12)
 var <- list("Precipitation" = P.est)
  graphDWB(var, tp = 1, main = "Precipitation Lat:7.0 Lon:-72.94")
 ```
@@ -175,9 +176,9 @@ var <- list("Precipitation" = P.est)
 library(DWBmodelUN)
 library(dygraphs)
 data(P_sogamoso, simDWB.sogamoso, EscSogObs)
-P.est <- ts(c(t(P_sogamoso[1, -2:-1])), star = c(2001, 1), frequency = 12)
-runoff.sim <- ts(simDWB.sogamoso[ ,1], star = c(2001, 1), frequency = 12)
-runoff.obs <- ts(EscSogObs[ ,1] , star = c(2001, 1), frequency = 12)
+P.est <- ts(c(t(P_sogamoso[1, -2:-1])), star = c(2012, 1), frequency = 12)
+runoff.sim <- ts(simDWB.sogamoso[c(131:192) ,1], star = c(2012, 1), frequency = 12)
+runoff.obs <- ts(EscSogObs[c(131:192) ,1] , star = c(2012, 1), frequency = 12)
 var <- list("Precipitation" = P.est,"Runoff.sim" = runoff.sim, "Runoff.obs" = runoff.obs)
 graphDWB(var, tp = 3, main = "DWB results at Sogamoso Basin")
 ```
@@ -188,9 +189,9 @@ graphDWB(var, tp = 3, main = "DWB results at Sogamoso Basin")
 library(DWBmodelUN)
 library(dygraphs)
 data(P_sogamoso, PET_sogamoso, simDWB.sogamoso)
-P <- ts(c(t(P_sogamoso[1, -2:-1])), star = c(2001, 1), frequency = 12)
-PET <- ts(c(t(PET_sogamoso[1, -2:-1])), star = c(2001, 1), frequency = 12)
-runoff.sim <- ts(simDWB.sogamoso[ ,1], star = c(2001, 1), frequency = 12)
+P <- ts(c(t(P_sogamoso[1, -2:-1])), star = c(2012, 1), frequency = 12)
+PET <- ts(c(t(PET_sogamoso[1, -2:-1])), star = c(2012, 1), frequency = 12)
+runoff.sim <- ts(simDWB.sogamoso[c(131:192), 1], star = c(2012, 1), frequency = 12)
 var <- list("P" = P,"PET" = PET, "Runoff.sim" = runoff.sim)
 graphDWB(var, tp = 4, main = "General Comparison Sogamoso Basin")
 ```

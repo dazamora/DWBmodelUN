@@ -67,18 +67,6 @@
 #'
 "cells"
 
-#' dwb_results
-#' 
-#' Results from DWB in Sogamoso River Basin
-#' 
-#' @format A list with seven output variables from DWB results
-#' \describe{
-#'   \item{dwb_results}{List, it contains the DWB model's outputs in matrix format, q_total- total runoff,
-#'         aet- real evapotranspiration, r- recharge, qd- Surface runoff, qd- baseflow,
-#'         s- soil storage, g- groundwater storage.}
-#' }
-"dwb_results"
-
 #' GRU
 #' 
 #' Raster data of Group Response Units in Sogamoso River Basin
@@ -214,3 +202,21 @@
 #' Universidad Nacional de Colombia, Bogotá, Colombia. Retrieved from http://bdigital.unal.edu.co/71663/.
 #' 
 "simDWB.sogamoso"
+
+#' gru_maps
+#' 
+#' Spatial distribution of DWB model parameters in Sogamoso River basin
+#' 
+#' @format list and raster
+#' \describe{
+#'    \item{alpha1}{a vector with alpha1 values for each GRU}
+#'    \item{alpha2}{a vector with alpha2 values for each GRU}
+#'    \item{smax}{a vector with Smax values for each GRU}
+#'    \item{d}{a vector with d values for each GRU}
+#'    \item{alpha1R}{a raster with alpha1 values for each GRU}
+#'    \item{alpha2R}{a raster with alpha2 values for each GRU}
+#'    \item{smaxR}{a raster with Smax values for each GRU}
+#'    \item{dR}{a raster with d values for each GRU}
+#' }
+#' 
+"gru_maps" 

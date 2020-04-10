@@ -44,7 +44,7 @@ cellBasins <- cellBasins(GRU, basins)
 
 # Establish the initial modeling conditions
 GRU.maps <- buildGRUmaps(GRU, param)
-init <- init_state(GRU.maps$smaxR, "/in_state/")
+init <- init_state(GRU.maps$smaxR)
 g_v <- init$In_ground
 s_v <- init$In_storage
 rm(init)
@@ -57,11 +57,11 @@ Dates <- seq(as.Date(colnames(P_sogamoso)[3], format = "\%Y.\%m.\%d"),
 # For this calibration exercise, the last date of simulation is 
 # the same as the final date of calibration
 Start.sim <- which(Dates == setup_data[8,1])
-End.sim <- which(Dates == setup_data[11,1])
+End.sim <- which(Dates == setup_data[10,1])
 # the first two columns of the P and PET are the coordinates of the cells
 Sim.Period <- c(Start.sim:End.sim)+2 
 Start.cal <- which(Dates == setup_data[9,1])
-End.cal <- which(Dates == "2004-12-01")
+End.cal <- which(Dates == setup_data[11,1])
 # the first two columns of the P and PET are the coordinates of the cells
 Cal.Period <- c(Start.cal:End.cal)+2  
 

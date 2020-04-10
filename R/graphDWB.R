@@ -24,6 +24,7 @@
 #' followed by the evapotranspiration series and finally the runoff time series. \cr
 #' @param tp Variable which is defined to choose the type of graph. 
 #' @param main Main title for the graph.
+#' @param int logical. FALSE value to interactive vignette
 #' @param ... Other parameters of the \pkg{dygraphs} package.
 #'
 #' @return Prints a dynamic graph according to the requirements.
@@ -42,7 +43,7 @@
 #' @examples
 #' # Example 1
 #' data(P_sogamoso)
-#' P.est <- ts(c(t(P_sogamoso[1, -2:-1])), star = c(2001, 1), frequency = 12)
+#' P.est <- ts(c(t(P_sogamoso[1, -2:-1])), star = c(2012, 1), frequency = 12)
 #' var <- list("Precipitation" = P.est)
 #' 
 #' graphDWB(var, tp = 1, main = "Precipitation Lat:7.0 Lon:-72.94")
@@ -57,23 +58,23 @@
 #' 
 #' # Example 3
 #' data(P_sogamoso, simDWB.sogamoso, EscSogObs)
-#' P.est <- ts(c(t(P_sogamoso[1, -2:-1])), star = c(2001, 1), frequency = 12)
-#' runoff.sim <- ts(simDWB.sogamoso[ ,1], star = c(2001, 1), frequency = 12)
-#' runoff.obs <- ts(EscSogObs[ ,1] , star = c(2001, 1), frequency = 12)
+#' P.est <- ts(c(t(P_sogamoso[1, -2:-1])), star = c(2012, 1), frequency = 12)
+#' runoff.sim <- ts(simDWB.sogamoso[c(131:192) ,1], star = c(2012, 1), frequency = 12)
+#' runoff.obs <- ts(EscSogObs[c(131:192) ,1] , star = c(2012, 1), frequency = 12)
 #' var <- list("Precipitation" = P.est,"Runoff.sim" = runoff.sim, "Runoff.obs" = runoff.obs)
 #' 
 #' graphDWB(var, tp = 3, main = "DWB results at Sogamoso Basin")
 #' 
 #' # Example 4
 #' data(P_sogamoso, PET_sogamoso, simDWB.sogamoso)
-#' P <- ts(c(t(P_sogamoso[1, -2:-1])), star = c(2001, 1), frequency = 12)
-#' PET <- ts(c(t(PET_sogamoso[1, -2:-1])), star = c(2001, 1), frequency = 12)
-#' runoff.sim <- ts(simDWB.sogamoso[ ,1], star = c(2001, 1), frequency = 12)
+#' P <- ts(c(t(P_sogamoso[1, -2:-1])), star = c(2012, 1), frequency = 12)
+#' PET <- ts(c(t(PET_sogamoso[1, -2:-1])), star = c(2012, 1), frequency = 12)
+#' runoff.sim <- ts(simDWB.sogamoso[c(131:192), 1], star = c(2012, 1), frequency = 12)
 #' var <- list("P" = P,"PET" = PET, "Runoff.sim" = runoff.sim)
 #' 
 #' graphDWB(var, tp = 4, main = "General Comparison Sogamoso Basin")
 #' 
-graphDWB <- function(var, tp, main, ...){
+graphDWB <- function(var, tp, main, int = FALSE, ...){
   nvar <- length(var)
   if (nvar == 0){
     stop('The list must contain at least one time series variable')
@@ -163,6 +164,8 @@ graphDWB <- function(var, tp, main, ...){
   } else {
     stop('Wrong type of graph')
   }
-  plot <- if(interactive()){plot}
+  if(int){
+    if(interactive()){}
+  }
   return(plot)
 }

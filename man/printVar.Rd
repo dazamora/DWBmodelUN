@@ -30,7 +30,8 @@ variable of interest.
 This function allows to print or write some of the variables simulated by the DWB model.
 }
 \examples{
-data(dwb_results)
+data(sogamoso)
+dwb_results <- sogamoso$dwb_results
 data(cells)
 dates <- seq(as.Date("2012-01-01"), as.Date("2016-12-01"), by="month")
 coord_sys <- "+init=epsg:4326"
