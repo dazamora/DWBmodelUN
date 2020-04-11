@@ -64,7 +64,7 @@ DWB.sogamoso <- DWBCalculator(P_sogamoso[ ,Sim.Period],
 
 ## Calibration DWB model with Dynamical Dimension Search algorithm
 
-`dds` is the function that implements the calibration algorithm Dynamical Dimension Search by (Tolson and Shoemaker, 2007). In the example, the DWB model parameters are calibrated in the SRB with 10 Group Response Unit (GRU). The Nash-Sutcliffe efficiency (`nse.cof`) is created as an objective function between simulated and observed streamflow data, with the treatment of missing values and its couplated with the `DWBCalculator` function. Finally, the calibration is done with 20 iterations using the databases of the sample basin.
+`dds` is the function that implements the calibration algorithm Dynamical Dimension Search by (Tolson and Shoemaker, 2007). In the example, the DWB model parameters are calibrated in the SRB with 10 Group Response Unit (GRU). The Nash-Sutcliffe efficiency (`nse.cof`) is created as an objective function between simulated and observed streamflow data, with the treatment of missing values and its couplated with the `DWBCalculator` function. Finally, the calibration is done with 2 iterations using the databases of the sample basin.
 
 ```{r echo=TRUE, results='hide'}
 library(DWBmodelUN)
@@ -145,7 +145,7 @@ NSE_Sogamoso_DWB <- function(parameters, P, PET, g_v,s_v, Sim.Period, EscObs, Ca
 
 # coupling with the DDS algorithm
 xBounds.df <- data.frame(lower = rep(0, times = 40), upper = rep(c(1, 2000), times = c(30, 10)))
-result <- dds(xBounds.df = xBounds.df, numIter=20, OBJFUN=NSE_Sogamoso_DWB,
+result <- dds(xBounds.df = xBounds.df, numIter=2, OBJFUN=NSE_Sogamoso_DWB,
               P = P_sogamoso, PET = PET_sogamoso, g_v = g_v, s_v = s_v, Sim.Period = Sim.Period, 
               EscObs = EscSogObs, Cal.Period = Cal.Period)
 ```
@@ -167,7 +167,7 @@ library(dygraphs)
 data(P_sogamoso)
 P.est <- ts(c(t(P_sogamoso[1, -2:-1])), star = c(2012, 1), frequency = 12)
 var <- list("Precipitation" = P.est)
- graphDWB(var, tp = 1, main = "Precipitation Lat:7.0 Lon:-72.94")
+ graphDWB(var, tp = 1, main = "Precipitation Lat:7.0 Lon:-72.94",  int = FALSE)
 ```
 
 ### Second: Example with precipitation and runoff time series
@@ -180,7 +180,7 @@ P.est <- ts(c(t(P_sogamoso[1, -2:-1])), star = c(2012, 1), frequency = 12)
 runoff.sim <- ts(simDWB.sogamoso[c(131:192) ,1], star = c(2012, 1), frequency = 12)
 runoff.obs <- ts(EscSogObs[c(131:192) ,1] , star = c(2012, 1), frequency = 12)
 var <- list("Precipitation" = P.est,"Runoff.sim" = runoff.sim, "Runoff.obs" = runoff.obs)
-graphDWB(var, tp = 3, main = "DWB results at Sogamoso Basin")
+graphDWB(var, tp = 3, main = "DWB results at Sogamoso Basin", int = FALSE)
 ```
 
 ### Third: Example with precipitation and runoff time series
@@ -193,7 +193,7 @@ P <- ts(c(t(P_sogamoso[1, -2:-1])), star = c(2012, 1), frequency = 12)
 PET <- ts(c(t(PET_sogamoso[1, -2:-1])), star = c(2012, 1), frequency = 12)
 runoff.sim <- ts(simDWB.sogamoso[c(131:192), 1], star = c(2012, 1), frequency = 12)
 var <- list("P" = P,"PET" = PET, "Runoff.sim" = runoff.sim)
-graphDWB(var, tp = 4, main = "General Comparison Sogamoso Basin")
+graphDWB(var, tp = 4, main = "General Comparison Sogamoso Basin", int = FALSE)
 ```
 
 ## References

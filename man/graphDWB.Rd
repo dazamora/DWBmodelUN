@@ -4,7 +4,7 @@
 \alias{graphDWB}
 \title{Graph for DWB model results}
 \usage{
-graphDWB(var, tp, main, int = FALSE, ...)
+graphDWB(var, tp, main, int = TRUE, ...)
 }
 \arguments{
 \item{var}{It is a list that contains a time series of type \code{\link{ts}} which you want to graph. \cr

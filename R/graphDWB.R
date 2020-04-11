@@ -74,7 +74,7 @@
 #' 
 #' graphDWB(var, tp = 4, main = "General Comparison Sogamoso Basin")
 #' 
-graphDWB <- function(var, tp, main, int = FALSE, ...){
+graphDWB <- function(var, tp, main, int = TRUE, ...){
   nvar <- length(var)
   if (nvar == 0){
     stop('The list must contain at least one time series variable')
