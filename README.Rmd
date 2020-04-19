@@ -63,7 +63,7 @@ DWB is a lumped conceptual hydrological model developed for annual and monthly t
 5. The total monthly flow is the result of adding base flow and surface runoff.
 
 ```{r rstudio-create-pkg, echo = FALSE}
-knitr::include_graphics("DWB_diagram.png", dpi = 600)
+knitr::include_graphics("DWB_diagram.png", dpi = 200)
 ```
 
 All these processes are done under the Top Down approach consider only four parameters are added to the model structure: $\alpha_{1}$, precipitation catchment efficiency; $\alpha$, evapotranspiration efficiency; *d*, groundwater store time constant; $S_{max}$, maximum water holding capacity of soil store (@Zhang2008).
