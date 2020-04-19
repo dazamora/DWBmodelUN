@@ -34,7 +34,7 @@ devtools::install_github("dazamora/DWBmodelUN")
 ## Concepts behind DWBmodelUN
 Two physical laws are taken into account in Dynamic Water Balance model (DWB), mass balance and energy balance. To represent the mass conservation, DWB is based on the equilibrium of water balance shown in equation (1).
 
-```{r fig.1, echo=FALSE, fig.align= "center", fig.height=1, fig.width=6, dpi = 600}
+```{r fig.1, echo=FALSE, fig.align= "center", fig.height=1, fig.width=6, dpi = 200}
 par(mar=c(0.8,0.8,0.8,0.8)+0.1)
 plot(0,0, yaxt = "n", xaxt = "n", type = "n",bty= "n", ylab = "", xlab = "")
 text(0,0, labels = expression(italic(paste(frac("d","dt"),S[c],(t)," = ", "P(",S[c], ", t) - ",
