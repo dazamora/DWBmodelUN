@@ -4,7 +4,7 @@
 
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-[![Build Status](https://travis-ci.com/dazamora/DWBmodelUN.svg?branch=master)](https://travis-ci.com/dazamora/DWBmodelUN) [![codecov](https://codecov.io/gh/dazamora/DWBmodelUN/branch/master/graph/badge.svg)](https://codecov.io/gh/dazamora/DWBmodelUN)
+[![Build Status](https://travis-ci.com/dazamora/DWBmodelUN.svg?branch=master)](https://travis-ci.com/dazamora/DWBmodelUN) [![codecov](https://codecov.io/gh/dazamora/DWBmodelUN/branch/master/graph/badge.svg)](https://codecov.io/gh/dazamora/DWBmodelUN) [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3813037.svg)](https://doi.org/10.5281/zenodo.3813037)
 
 DWBmodelUN
 ==========
