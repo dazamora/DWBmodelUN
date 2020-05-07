@@ -24,7 +24,7 @@ knitr::opts_chunk$set(
 # DWBmodelUN
 The R package Modelling aims to implement Dynamic Water Balance model proposed by @Zhang2008 in a monthly time step. It is a tool for hydrologic modelling using the Budyko Framework and the Dynamic Water Balance Model, with DDS @Tolson2007 algorithm to calibrate the model and analyze the outputs.
 
-## Instalation
+## Installation
 Currently, you can install the version under development from [Github](https://github.com/dazamora/DWBmodelUN), using these commands:
 
 ```{r eval=FALSE, include=TRUE}
