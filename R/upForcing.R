@@ -42,7 +42,7 @@
 #' # meteo <- upForcing(path_p = "./precip/", path_pet = "./pet/",
 #' # file_type = "csv")
 #' 
-upForcing <- function(path_p = "./precip/", path_pet = "./pet/", file_type = "raster", format = "GTiff"){
+upForcing <- function(path_p = tempdir(), path_pet = tempdir(), file_type = "raster", format = "GTiff"){
   
   if (!exists("path_pet")){
     path_pet <- getwd()
@@ -75,9 +75,11 @@ upForcing <- function(path_p = "./precip/", path_pet = "./pet/", file_type = "ra
     p_v <- raster::rasterToPoints(p)
     pet_v <- raster::rasterToPoints(pet)
     # ---- print forcings ----
-    dir.create("./forcings", showWarnings = F)
-    write.csv(p_v, "./forcings/precip.csv")
-    write.csv(pet_v, "./forcings/pet.csv")
+    # dir.create("./forcings", showWarnings = F)
+    # write.csv(p_v, "./forcings/precip.csv")
+    # write.csv(pet_v, "./forcings/pet.csv")
+    write.csv(p_v, "precip.csv")
+    write.csv(pet_v, "pet.csv")
   } else {  # load forcings in csv files
     pet_files <- list.files(path_pet)
     p_files <- list.files(path_p)

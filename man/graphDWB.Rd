@@ -4,7 +4,7 @@
 \alias{graphDWB}
 \title{Graph for DWB model results}
 \usage{
-graphDWB(var, tp, main, int = TRUE, ...)
+graphDWB(var, tp, main, ...)
 }
 \arguments{
 \item{var}{It is a list that contains a time series of type \code{\link{ts}} which you want to graph. \cr
@@ -17,8 +17,6 @@ followed by the evapotranspiration series and finally the runoff time series. \c
 \item{tp}{Variable which is defined to choose the type of graph.}
 
 \item{main}{Main title for the graph.}
-
-\item{int}{logical. FALSE value to interactive vignette}
 
 \item{...}{Other parameters of the \pkg{dygraphs} package.}
 }

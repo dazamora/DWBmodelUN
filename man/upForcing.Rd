@@ -4,7 +4,7 @@
 \alias{upForcing}
 \title{Upload Forcings}
 \usage{
-upForcing(path_p = "./precip/", path_pet = "./pet/",
+upForcing(path_p = tempdir(), path_pet = tempdir(),
   file_type = "raster", format = "GTiff")
 }
 \arguments{

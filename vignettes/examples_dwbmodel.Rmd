@@ -22,10 +22,6 @@ knitr::opts_chunk$set(
 
 `DWBCalculator` is the function responsible for incorporating the DWB model calculations into the **DWBmodelUN** package. In this connection, the following example corresponds to an ungauged modeling exercise developed for the Sogamoso river basin (SRB) by (Duque, 2018).
 
-```{r rstudio-create-pkg, echo = FALSE, fig.align= "center", fig.height=6, fig.width=6, dpi = 600}
-knitr::include_graphics("Sogamoso_Basin.jpg", dpi = NA)
-```
-
 As a first step, the example starts with loading datasets generated for SRB that are required by DWB model and subsequently, the coordinates system of the input data are verified. The last step is to run `DWBCalculator` function in order to obtain a monthly streamflow simulated.
 
 ```{r echo=TRUE, results='hide'}
@@ -167,7 +163,7 @@ library(dygraphs)
 data(P_sogamoso)
 P.est <- ts(c(t(P_sogamoso[1, -2:-1])), star = c(2012, 1), frequency = 12)
 var <- list("Precipitation" = P.est)
- graphDWB(var, tp = 1, main = "Precipitation Lat:7.0 Lon:-72.94",  int = FALSE)
+ graphDWB(var, tp = 1, main = "Precipitation Lat:7.0 Lon:-72.94")
 ```
 
 ### Second: Example with precipitation and runoff time series
@@ -180,7 +176,7 @@ P.est <- ts(c(t(P_sogamoso[1, -2:-1])), star = c(2012, 1), frequency = 12)
 runoff.sim <- ts(simDWB.sogamoso[c(131:192) ,1], star = c(2012, 1), frequency = 12)
 runoff.obs <- ts(EscSogObs[c(131:192) ,1] , star = c(2012, 1), frequency = 12)
 var <- list("Precipitation" = P.est,"Runoff.sim" = runoff.sim, "Runoff.obs" = runoff.obs)
-graphDWB(var, tp = 3, main = "DWB results at Sogamoso Basin", int = FALSE)
+graphDWB(var, tp = 3, main = "DWB results at Sogamoso Basin")
 ```
 
 ### Third: Example with precipitation and runoff time series
@@ -193,7 +189,7 @@ P <- ts(c(t(P_sogamoso[1, -2:-1])), star = c(2012, 1), frequency = 12)
 PET <- ts(c(t(PET_sogamoso[1, -2:-1])), star = c(2012, 1), frequency = 12)
 runoff.sim <- ts(simDWB.sogamoso[c(131:192), 1], star = c(2012, 1), frequency = 12)
 var <- list("P" = P,"PET" = PET, "Runoff.sim" = runoff.sim)
-graphDWB(var, tp = 4, main = "General Comparison Sogamoso Basin", int = FALSE)
+graphDWB(var, tp = 4, main = "General Comparison Sogamoso Basin")
 ```
 
 ## References

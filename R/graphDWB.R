@@ -24,7 +24,6 @@
 #' followed by the evapotranspiration series and finally the runoff time series. \cr
 #' @param tp Variable which is defined to choose the type of graph. 
 #' @param main Main title for the graph.
-#' @param int logical. FALSE value to interactive vignette
 #' @param ... Other parameters of the \pkg{dygraphs} package.
 #'
 #' @return Prints a dynamic graph according to the requirements.
@@ -74,7 +73,7 @@
 #' 
 #' graphDWB(var, tp = 4, main = "General Comparison Sogamoso Basin")
 #' 
-graphDWB <- function(var, tp, main, int = TRUE, ...){
+graphDWB <- function(var, tp, main, ...){
   nvar <- length(var)
   if (nvar == 0){
     stop('The list must contain at least one time series variable')
@@ -164,8 +163,7 @@ graphDWB <- function(var, tp, main, int = TRUE, ...){
   } else {
     stop('Wrong type of graph')
   }
-  if(int){
-    if(interactive()){}
-  }
+  
+  if(interactive())
   return(plot)
 }
