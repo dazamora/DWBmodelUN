@@ -44,10 +44,10 @@ printVar <- function(variable, coor_cells, var, coord_sys, dates, as, path_var="
     path_var <- paste("./", var_name, "/", sep="")
   }
 
-  if(dir.exists(path_var)){
-  } else {
+  if(!dir.exists(path_var)){
     dir.create(path_var)
   }
+  
   var_r <- raster::rasterFromXYZ(cbind(coor_cells[ ,-3], variable), crs = coord_sys)
   if (as == 'raster'){
     # prints each time step in GTiff format, in the specified directory
@@ -56,7 +56,7 @@ printVar <- function(variable, coor_cells, var, coord_sys, dates, as, path_var="
     }
   }
   if (as == 'NetCDF'){
-    raster::writeRaster(var_r, filename = paste(path_var, var_name, ".nc", sep = ""), format = 'CDF', overwrite = TRUE)
+    raster::writeRaster(var_r, filename = paste(path_var,"/", var_name, ".nc", sep = ""), format = 'CDF', overwrite = TRUE)
   }else{ 
     stop("Invalid file extension")
   }

@@ -58,7 +58,7 @@ buildGRUmaps <- function(gruLoc, parsValues){
   alpha2_v <- raster::rasterToPoints(alpha2)[,-c(1,2)]
   smax_v <- raster::rasterToPoints(smax)[,-c(1,2)]
   d_v <- raster::rasterToPoints(d)[,-c(1,2)]
-  gruMaps <- list(alpha1 = alpha1_v, alpha2 = alpha2_v, smax = smax_v, d = d_v,
-                  alpha1R = alpha1, alpha2R = alpha2, smaxR = smax, dR = d)
+  gruMaps <- list(alpha1 = alpha1_v, alpha2 = alpha2_v, d = d_v, smax = smax_v, 
+                  alpha1R = alpha1, alpha2R = alpha2, dR = d, smaxR = smax)
   return(gruMaps)
 }
