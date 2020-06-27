@@ -52,7 +52,7 @@ readSetup <- function(Read = TRUE, setup){
     warning("Read and setup parameters are missing")
   }else{
     if (Read == TRUE){
-      setup <- data.frame(v1 = c(rep("no", 7), "2012-01-01", "2012-07-01", "2016-12-01", "2013-12-01"),
+      setup <- data.frame(v1 = c(rep("no", 7), "2001-01-01", "2001-07-01", "2010-12-01", "2007-12-01"),
                           stringsAsFactors = FALSE)  
       rownames(setup) <- c("calibration", "print", "print_R", "print_S", "print_AET", "print_Qd",
                            "print_Qb", "D.ini", "D.ini.cal", "D.end", "D.end.cal")
