@@ -57,18 +57,18 @@
 #' 
 #' # Example 3
 #' data(P_sogamoso, simDWB.sogamoso, EscSogObs)
-#' P.est <- ts(c(t(P_sogamoso[1, 63:120])), star = c(2001, 1), frequency = 12)
-#' runoff.sim <- ts(simDWB.sogamoso[61:118 ,25], star = c(2001, 1), frequency = 12)
-#' runoff.obs <- ts(EscSogObs[61:118 ,15] , star = c(2001, 1), frequency = 12)
+#' P.est <- ts(c(t(P_sogamoso[1, 63:120])), star = c(2006, 1), frequency = 12)
+#' runoff.sim <- ts(simDWB.sogamoso[61:118 ,25], star = c(2006, 1), frequency = 12)
+#' runoff.obs <- ts(EscSogObs[61:118 ,25] , star = c(2006, 1), frequency = 12)
 #' var <- list("Precipitation" = P.est,"Runoff.sim" = runoff.sim, "Runoff.obs" = runoff.obs)
 #' 
 #' graphDWB(var, tp = 3, main = "DWB results at Sogamoso Basin closure point")
 #' 
 #' # Example 4
 #' data(P_sogamoso, PET_sogamoso, simDWB.sogamoso)
-#' P <- ts(c(t(P_sogamoso[1, 63:120])), star = c(2012, 1), frequency = 12)
-#' PET <- ts(c(t(PET_sogamoso[1, 63:120])), star = c(2012, 1), frequency = 12)
-#' runoff.sim <- ts(simDWB.sogamoso[61:118 ,25], star = c(2012, 1), frequency = 12)
+#' P <- ts(c(t(P_sogamoso[1, -2:-1])), star = c(2001, 1), frequency = 12)
+#' PET <- ts(c(t(PET_sogamoso[1, -2:-1])), star = c(2001, 1), frequency = 12)
+#' runoff.sim <- ts(simDWB.sogamoso[ ,25], star = c(2001, 1), frequency = 12)
 #' var <- list("P" = P,"PET" = PET, "Runoff.sim" = runoff.sim)
 #' 
 #' graphDWB(var, tp = 4, main = "General Comparison Sogamoso Basin")

@@ -51,8 +51,8 @@ rm(init)
 
 # Load general characteristics of modeling
 setup_data <- readSetup(Read = TRUE)
-Dates <- seq(as.Date(colnames(P_sogamoso)[3], format = "\%Y.\%m.\%d"), 
-             as.Date(tail(colnames(P_sogamoso),1), format = "\%Y.\%m.\%d"), by = "month")
+Dates <- seq(as.Date( gsub('[^0-9.]','',colnames(P_sogamoso)[3]), format = "\%Y.\%m.\%d"), 
+             as.Date(gsub('[^0-9.]','',tail(colnames(P_sogamoso),1)) , format = "\%Y.\%m.\%d"), by = "month")
 
 # For this calibration exercise, the last date of simulation is 
 # the same as the final date of calibration
@@ -107,9 +107,9 @@ if(!is.na(mean(Perf))){
 
 # coupling with the DDS algorithm
 xBounds.df <- data.frame(lower = rep(0, times = 40), upper = rep(c(1, 2000), times = c(30, 10)))
-result <- dds(xBounds.df = xBounds.df, numIter=2, OBJFUN=NSE_Sogamoso_DWB,
-              P = P_sogamoso, PET = PET_sogamoso, g_v = g_v, s_v = s_v, Sim.Period = Sim.Period, 
-              EscObs = EscSogObs, Cal.Period = Cal.Period)
+result <- dds(xBounds.df=xBounds.df, numIter=2, OBJFUN=NSE_Sogamoso_DWB,
+              P=P_sogamoso, PET=PET_sogamoso, g_v=g_v, s_v=s_v, Sim.Period=Sim.Period, 
+              EscObs=EscSogObs, Cal.Period=Cal.Period)
 
 }
 \references{

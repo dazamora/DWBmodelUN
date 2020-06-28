@@ -27,7 +27,7 @@ Run <- dwb_results$q_total
 cellBasins <- cellBasins(GRU, basins)
 cellBasins <- cellBasins$cellBasins
 
-Runfoff.Sogamoso <- varBasins(Run, cellBasins)
+Runoff.Sogamoso <- varBasins(Run, cellBasins)
 
 }
 \author{
