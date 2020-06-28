@@ -94,8 +94,8 @@
 #' 
 #' # Load general characteristics of modeling
 #' setup_data <- readSetup(Read = TRUE)
-#' Dates <- seq(as.Date(colnames(P_sogamoso)[3],format = "%Y.%m.%d"), 
-#'              as.Date(tail(colnames(P_sogamoso),1),format="%Y.%m.%d"), by = "month")
+#' Dates <- seq(as.Date( gsub('[^0-9.]','',colnames(P_sogamoso)[3]), format = "%Y.%m.%d"), 
+#'              as.Date(gsub('[^0-9.]','',tail(colnames(P_sogamoso),1)) , format = "%Y.%m.%d"), by = "month")
 #' Start.sim <- which(Dates == setup_data[8,1]); End.sim <- which(Dates == setup_data[10,1])
 #' # Sim.Period: the 1st two columns of the P and PET are the coordinates of the cells
 #' Sim.Period <- c(Start.sim:End.sim)+2  

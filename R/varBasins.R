@@ -31,7 +31,7 @@
 #' cellBasins <- cellBasins(GRU, basins)
 #' cellBasins <- cellBasins$cellBasins
 #' 
-#' Runfoff.Sogamoso <- varBasins(Run, cellBasins)
+#' Runoff.Sogamoso <- varBasins(Run, cellBasins)
 #' 
 varBasins<-function(var, cellBasins){
   

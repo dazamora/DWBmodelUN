@@ -112,9 +112,9 @@
 #' 
 #' # coupling with the DDS algorithm
 #' xBounds.df <- data.frame(lower = rep(0, times = 40), upper = rep(c(1, 2000), times = c(30, 10)))
-#' result <- dds(xBounds.df = xBounds.df, numIter=2, OBJFUN=NSE_Sogamoso_DWB,
-#'               P = P_sogamoso, PET = PET_sogamoso, g_v = g_v, s_v = s_v, Sim.Period = Sim.Period, 
-#'               EscObs = EscSogObs, Cal.Period = Cal.Period)
+#' result <- dds(xBounds.df=xBounds.df, numIter=2, OBJFUN=NSE_Sogamoso_DWB,
+#'               P=P_sogamoso, PET=PET_sogamoso, g_v=g_v, s_v=s_v, Sim.Period=Sim.Period, 
+#'               EscObs=EscSogObs, Cal.Period=Cal.Period)
 #' 
 dds <- function(xBounds.df, numIter,iniPar=NA, r = 0.2, OBJFUN, ...){
   # Format xBounds.df colnames
