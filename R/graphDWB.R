@@ -57,9 +57,9 @@
 #' 
 #' # Example 3
 #' data(P_sogamoso, simDWB.sogamoso, EscSogObs)
-#' P.est <- ts(c(t(P_sogamoso[1, 63:120])), star = c(2006, 1), frequency = 12)
-#' runoff.sim <- ts(simDWB.sogamoso[61:118 ,25], star = c(2006, 1), frequency = 12)
-#' runoff.obs <- ts(EscSogObs[61:118 ,25] , star = c(2006, 1), frequency = 12)
+#' P.est <- ts(c(t(P_sogamoso[1, 15:110])), star = c(2002, 1), frequency = 12)
+#' runoff.sim <- ts(simDWB.sogamoso[13:108 ,25], star = c(2002, 1), frequency = 12)
+#' runoff.obs <- ts(EscSogObs[13:108 ,25] , star = c(2002, 1), frequency = 12)
 #' var <- list("Precipitation" = P.est,"Runoff.sim" = runoff.sim, "Runoff.obs" = runoff.obs)
 #' 
 #' graphDWB(var, tp = 3, main = "DWB results at Sogamoso Basin closure point")
