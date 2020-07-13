@@ -4,11 +4,13 @@
 \name{EscSogObs}
 \alias{EscSogObs}
 \title{EscSogObs}
-\format{data.frame
+\format{
+data.frame
 \describe{
    \item{EscSogObs}{Data frame, it contains runoff time series measured at 32 stations within the basin.
    These gauges belong to the IDEAM monitoring network.}
-}}
+}
+}
 \usage{
 EscSogObs
 }

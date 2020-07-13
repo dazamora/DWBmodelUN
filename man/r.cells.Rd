@@ -4,10 +4,12 @@
 \name{r.cells}
 \alias{r.cells}
 \title{r.cells}
-\format{RasterLayer
+\format{
+RasterLayer
 \describe{
   \item{r.cells}{Raster, data frame Cells converted to raster format.}
-}}
+}
+}
 \usage{
 r.cells
 }

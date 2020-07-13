@@ -4,7 +4,8 @@
 \name{gru_maps}
 \alias{gru_maps}
 \title{gru_maps}
-\format{list and raster
+\format{
+list and raster
 \describe{
    \item{alpha1}{a vector with alpha1 values for each GRU}
    \item{alpha2}{a vector with alpha2 values for each GRU}
@@ -14,7 +15,8 @@
    \item{alpha2R}{a raster with alpha2 values for each GRU}
    \item{smaxR}{a raster with Smax values for each GRU}
    \item{dR}{a raster with d values for each GRU}
-}}
+}
+}
 \usage{
 gru_maps
 }

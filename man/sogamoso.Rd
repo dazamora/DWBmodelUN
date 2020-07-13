@@ -4,7 +4,8 @@
 \name{sogamoso}
 \alias{sogamoso}
 \title{Sogamoso River Basin data}
-\format{The list contains
+\format{
+The list contains
 \itemize{
   \item{basins:}{Shapefile featuring subbasins accross the Sogamosos Basin.}
   \item{cells:}{Data frame (3 colums by 677 rows), cells coordinates and its ID number.}
@@ -35,7 +36,8 @@
    These gauges belong to the IDEAM monitoring network.}
    \item{simDWB.sogamoso:}{Data frame, it contains simulated runoff time series at the same 32 
    stations within the basin.}
-}}
+}
+}
 \usage{
 sogamoso
 }

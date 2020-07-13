@@ -4,8 +4,17 @@
 \alias{DWBCalculator}
 \title{DWB model function}
 \usage{
-DWBCalculator(p_v, pet_v, g_v, s_v, alpha1_v, alpha2_v, smax_v, d_v,
-  calibration = F)
+DWBCalculator(
+  p_v,
+  pet_v,
+  g_v,
+  s_v,
+  alpha1_v,
+  alpha2_v,
+  smax_v,
+  d_v,
+  calibration = F
+)
 }
 \arguments{
 \item{p_v}{matrix comprised by the precipitation records, that has as raws the number of cells that will be simulated and as columns the number of time steps to be simulated.}
@@ -89,8 +98,10 @@ rm(init)
 
 # Load general characteristics of modeling
 setup_data <- readSetup(Read = TRUE)
-Dates <- seq(as.Date( gsub('[^0-9.]','',colnames(P_sogamoso)[3]), format = "\%Y.\%m.\%d"), 
-             as.Date(gsub('[^0-9.]','',tail(colnames(P_sogamoso),1)) , format = "\%Y.\%m.\%d"), by = "month")
+Dates <- seq(as.Date( gsub('[^0-9.]','',colnames(P_sogamoso)[3]), 
+format = "\%Y.\%m.\%d"), 
+             as.Date(gsub('[^0-9.]','',tail(colnames(P_sogamoso),1)) , 
+             format = "\%Y.\%m.\%d"), by = "month")
 Start.sim <- which(Dates == setup_data[8,1]); End.sim <- which(Dates == setup_data[10,1])
 # Sim.Period: the 1st two columns of the P and PET are the coordinates of the cells
 Sim.Period <- c(Start.sim:End.sim)+2  

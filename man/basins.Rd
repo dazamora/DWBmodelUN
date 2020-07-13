@@ -4,10 +4,12 @@
 \name{basins}
 \alias{basins}
 \title{basins}
-\format{SpatialPolygonsDataFrame (S4)
+\format{
+SpatialPolygonsDataFrame (S4)
 \describe{
   \item{basins}{Shapefile featuring subbasins accross the Sogamosos Basin.}
-}}
+}
+}
 \usage{
 basins
 }

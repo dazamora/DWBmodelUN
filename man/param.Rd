@@ -4,11 +4,13 @@
 \name{param}
 \alias{param}
 \title{param}
-\format{data.frame
+\format{
+data.frame
 \describe{
   \item{param}{Data frame, it should represent a GRU in each row, and parameter values in each
         column. GRU rank should match the GRU number used in the GRU raster.}
-}}
+}
+}
 \usage{
 param
 }

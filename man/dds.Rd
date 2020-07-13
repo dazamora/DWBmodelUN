@@ -51,8 +51,10 @@ rm(init)
 
 # Load general characteristics of modeling
 setup_data <- readSetup(Read = TRUE)
-Dates <- seq(as.Date( gsub('[^0-9.]','',colnames(P_sogamoso)[3]), format = "\%Y.\%m.\%d"), 
-             as.Date(gsub('[^0-9.]','',tail(colnames(P_sogamoso),1)) , format = "\%Y.\%m.\%d"), by = "month")
+Dates <- seq(as.Date( gsub('[^0-9.]','',colnames(P_sogamoso)[3]), 
+format = "\%Y.\%m.\%d"), 
+             as.Date(gsub('[^0-9.]','',tail(colnames(P_sogamoso),1)) , 
+             format = "\%Y.\%m.\%d"), by = "month")
 
 # For this calibration exercise, the last date of simulation is 
 # the same as the final date of calibration

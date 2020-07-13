@@ -4,7 +4,8 @@
 \name{setup_data}
 \alias{setup_data}
 \title{setup_data}
-\format{data.frame
+\format{
+data.frame
 \describe{
    \item{setup_data}{Data frame, contains the set-up and print options to run the DWBmodelUN.
    t consists of 11 parameters: the first seven are configurations of orders whose values can be 
@@ -13,7 +14,8 @@
    4) S - Soil moisture storage, 5) AET - Actual evapotranspiration, 6) Qd - Surface runoff , 
    and 7) Qb - Base flow.  The last four variables are dates and refer to the times of the 
    input series, and the start and end times of the simulation and calibration of the model.}
-}}
+}
+}
 \usage{
 setup_data
 }

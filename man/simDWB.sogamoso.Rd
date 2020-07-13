@@ -4,11 +4,13 @@
 \name{simDWB.sogamoso}
 \alias{simDWB.sogamoso}
 \title{simDWB.sogamoso}
-\format{data.frame
+\format{
+data.frame
 \describe{
    \item{simDWB.sogamoso}{Data frame, it contains simulated runoff time series at the same 32 
    stations within the basin.}
-}}
+}
+}
 \usage{
 simDWB.sogamoso
 }

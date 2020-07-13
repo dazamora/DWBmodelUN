@@ -4,8 +4,12 @@
 \alias{upForcing}
 \title{Upload Forcings}
 \usage{
-upForcing(path_p = tempdir(), path_pet = tempdir(),
-  file_type = "raster", format = "GTiff")
+upForcing(
+  path_p = tempdir(),
+  path_pet = tempdir(),
+  file_type = "raster",
+  format = "GTiff"
+)
 }
 \arguments{
 \item{path_p}{is a character string that specifies the directory where the precipitation rasters or

@@ -4,10 +4,12 @@
 \name{In_storage}
 \alias{In_storage}
 \title{In_storage}
-\format{RasterLayer 
+\format{
+RasterLayer 
 \describe{
   \item{In_storage}{Raster, initial conditions in the groundwater storage.}
-}}
+}
+}
 \usage{
 In_storage
 }
