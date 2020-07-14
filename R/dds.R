@@ -143,7 +143,7 @@ dds <- function(xBounds.df, numIter,iniPar=NA, r = 0.2, OBJFUN, ...){
   peturbIdx <- apply(t(apply(Prob,1, function(x) as.logical(rbinom(xDims, 1, x)))), 1, which)
   # identify where it is not changing any parameter and assign one ramdomly
   Correct.Peturb <- which(unlist(lapply(peturbIdx,sum)) == 0)
-  peturbIdx[Correct.Peturb] <- sample(1:xDims, length(Correct.Peturb), replace = T)
+  peturbIdx[Correct.Peturb] <- sample(1:xDims, length(Correct.Peturb), replace = TRUE)
   
   # Peturb each entry by N(0,1)*r(x_max - x_min) reflecting if @ boundaries
   sigma <- xBounds.df$max - xBounds.df$min

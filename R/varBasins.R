@@ -42,7 +42,7 @@ varBasins<-function(var, cellBasins){
   
   for (i in 1:length(cellBasins)){
     if(length(cellBasins[[i]])>1){
-      varAverage[,i] <- colMeans(varCells[[i]], na.rm = T)
+      varAverage[,i] <- colMeans(varCells[[i]], na.rm = TRUE)
     }else{
       varAverage[,i] <- varCells[[i]]
     }
