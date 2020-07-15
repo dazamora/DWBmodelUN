@@ -19,7 +19,7 @@ DWBCalculator(
 \arguments{
 \item{p_v}{matrix comprised by the precipitation records, that has as rows the number of cells that will be simulated and as columns the number of time steps to be simulated.}
 
-\item{pet_v}{matrix comprised by the potential evapotranspiration records, that has as raws the number of cells that will be simulated and as columns the number of time steps to be simulated.}
+\item{pet_v}{matrix comprised by the potential evapotranspiration records, that has as rows the number of cells that will be simulated and as columns the number of time steps to be simulated.}
 
 \item{g_v}{vector comprised of the initial values of the groundwater storage, it must have as many values as cells defined to simulate.}
 

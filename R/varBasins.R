@@ -5,7 +5,7 @@
 #' value of a variable in each subbasin
 #'
 #' @description This function retrieves the value of a variable in each of the cells that are within a basin boundary.
-#' It also returns the average time serie value of the variable.
+#' It also returns the average time series value of the variable.
 #' 
 #' @param var one of the dataframe results returned from the DWBcalculator function
 #' @param cellBasins first entry of the cellBasins function that consists of a list of vectors. Each one of the vectors

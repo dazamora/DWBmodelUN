@@ -18,7 +18,7 @@ list of dataframes each one of them contains the time series of each of the cell
 }
 \description{
 This function retrieves the value of a variable in each of the cells that are within a basin boundary.
-It also returns the average time serie value of the variable.
+It also returns the average time series value of the variable.
 }
 \examples{
 data(sogamoso,GRU,basins)
