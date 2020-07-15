@@ -88,7 +88,7 @@ DWBmodelUN package contains 12 functions, most of them have a practical example 
 ## Datasets
 DWBmodelUN also contains 11 data that allow to run the practical examples (@Duque2018): 
 
-* `basins`: The polygons of the 23 subbasins accross the Sogamosos Basin.
+* `basins`: The polygons of the 23 subbasins across the Sogamosos Basin.
 *	`cells`: Coordinates (Latitud and Longitud) and ID number of cells in Sogamoso River Basin.
 *	`dwb_results`: Results from DWB in Sogamoso River Basin.
 * `EscSogObs`: Flow rates observed in Sogamoso River Basin at 32 gauges from January 2001 to December 2016.

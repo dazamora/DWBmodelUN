@@ -14,7 +14,7 @@
 #' the csv file are stored. The csv file must have nrows= N° of cells and ncol= N° of time steps.
 #' @param file_type Character string that specifies the forcing file formats, it should be "raster" or "csv",
 #' the default value is "raster".
-#' @param format Character string that specifies the format file of the Rasters, posible values are "GTiff"
+#' @param format Character string that specifies the format file of the Rasters, possible values are "GTiff"
 #' and "NetCDF". Default value is "GTiff".
 #' 
 #' @details The character strings that control the location of the forcing files are as default "\emph{./precip/}"

@@ -12,10 +12,10 @@
 #' or two rasters previously created with the initial conditions of the soil water and groundwater storage. If there is only
 #' be one raster found, the function creates those two rasters using the value of the provide raster reduced by half.
 #' 
-#' @param raster It could be a raster cointaining the maximum storage in the root zone or two raster with the initial conditions of storage
+#' @param raster It could be a raster containing the maximum storage in the root zone or two raster with the initial conditions of storage
 #'
 #' @return 
-#' A list cointaing initial conditions in storage and in ground.
+#' A list containing initial conditions in storage and in ground.
 #' 
 #' @references 
 #' Budyko. (1974). "Climate and life". New York: Academic Press, INC.

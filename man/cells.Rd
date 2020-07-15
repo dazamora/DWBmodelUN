@@ -7,14 +7,14 @@
 \format{
 data.frame
 \describe{
-  \item{cells}{Data frame (3 colums by 677 rows), cells coordinates and its ID number.}
+  \item{cells}{Data frame (3 columns by 677 rows), cells coordinates and its ID number.}
 }
 }
 \usage{
 cells
 }
 \description{
-Coordinates (Latitud and Longitud) and ID number of cells in Sogamoso River Basin
+Coordinates (Latitude and Longitude) and ID number of cells in Sogamoso River Basin
 }
 \references{
 Duque-Gardeazabal, N. (2018). "Estimation of rainfall fields in data scarce colombian watersheds,

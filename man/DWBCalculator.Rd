@@ -17,7 +17,7 @@ DWBCalculator(
 )
 }
 \arguments{
-\item{p_v}{matrix comprised by the precipitation records, that has as raws the number of cells that will be simulated and as columns the number of time steps to be simulated.}
+\item{p_v}{matrix comprised by the precipitation records, that has as rows the number of cells that will be simulated and as columns the number of time steps to be simulated.}
 
 \item{pet_v}{matrix comprised by the potential evapotranspiration records, that has as raws the number of cells that will be simulated and as columns the number of time steps to be simulated.}
 

@@ -7,8 +7,8 @@
 \format{
 The list contains
 \itemize{
-  \item{basins:}{Shapefile featuring subbasins accross the Sogamosos Basin.}
-  \item{cells:}{Data frame (3 colums by 677 rows), cells coordinates and its ID number.}
+  \item{basins:}{Shapefile featuring subbasins across the Sogamoso Basin.}
+  \item{cells:}{Data frame (3 columns by 677 rows), cells coordinates and its ID number.}
   \item{dwb_results:}{List, it contains the DWB model's outputs in matrix format, q_total- total runoff,
         aet- actual evapotranspiration, r- recharge, qd- Surface runoff, qd- baseflow,
         s- soil storage, g- groundwater storage.}

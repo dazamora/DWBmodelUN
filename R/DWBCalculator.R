@@ -16,7 +16,7 @@
 #' soil water storage capacity (\emph{\code{S_max}}), and a recession parameter in the groundwater
 #' storage that controls the baseflow (\emph{\code{d}}). 
 #'
-#' @param p_v matrix comprised by the precipitation records, that has as raws the number of cells that will be simulated and as columns the number of time steps to be simulated.
+#' @param p_v matrix comprised by the precipitation records, that has as rows the number of cells that will be simulated and as columns the number of time steps to be simulated.
 #' @param pet_v matrix comprised by the potential evapotranspiration records, that has as raws the number of cells that will be simulated and as columns the number of time steps to be simulated.
 #' @param g_v vector comprised of the initial values of the groundwater storage, it must have as many values as cells defined to simulate.
 #' @param s_v vector comprised of the initial values of the soil water storage, it must have as many values as cells defined to simulate.

@@ -7,10 +7,10 @@
 init_state(raster)
 }
 \arguments{
-\item{raster}{It could be a raster cointaining the maximum storage in the root zone or two raster with the initial conditions of storage}
+\item{raster}{It could be a raster containing the maximum storage in the root zone or two raster with the initial conditions of storage}
 }
 \value{
-A list cointaing initial conditions in storage and in ground.
+A list containing initial conditions in storage and in ground.
 }
 \description{
 This function uploads or creates the initial conditions of the two-state variables present in the DWB model, in raster format.

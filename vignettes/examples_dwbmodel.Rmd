@@ -60,7 +60,7 @@ DWB.sogamoso <- DWBCalculator(P_sogamoso[ ,Sim.Period],
 
 ## Calibration DWB model with Dynamical Dimension Search algorithm
 
-`dds` is the function that implements the calibration algorithm Dynamical Dimension Search by (Tolson and Shoemaker, 2007). In the example, the DWB model parameters are calibrated in the SRB with 10 Group Response Unit (GRU). The Nash-Sutcliffe efficiency (`nse.cof`) is created as an objective function between simulated and observed streamflow data, with the treatment of missing values and its couplated with the `DWBCalculator` function. Finally, the calibration is done with 2 iterations using the databases of the sample basin.
+`dds` is the function that implements the calibration algorithm Dynamical Dimension Search by (Tolson and Shoemaker, 2007). In the example, the DWB model parameters are calibrated in the SRB with 10 Group Response Unit (GRU). The Nash-Sutcliffe efficiency (`nse.cof`) is created as an objective function between simulated and observed streamflow data, with the treatment of missing values and its coupled with the `DWBCalculator` function. Finally, the calibration is done with 2 iterations using the databases of the sample basin.
 
 ```{r echo=TRUE, results='hide'}
 library(DWBmodelUN)

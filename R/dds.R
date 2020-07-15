@@ -1,11 +1,10 @@
-#' @name 
 #' dds
 #'  
 #' @title
 #' DDS algorithm to calibrate the model
 #'
 #' @description This function allows the user to calibrate the DWB or other models with the Dynamical Dimension Search (DDS) algorithm \cite{(Tolson & Shoemaker, 2007)}.
-#' As the calibration is performed based on a single value, one should average or create a scalar to evalauate the model's perfomenace. The evaluation can be made using all
+#' As the calibration is performed based on a single value, one should average or create a scalar to evaluate the model's performance. The evaluation can be made using all
 #' the streamflow stations, or other variables, between the observed and the simulated values.
 #' 
 #' @param xBounds.df must be a dataframe which defines the parameter range for searching, with 1st column as the minimum and 2nd column as the maximum of the parameter space.

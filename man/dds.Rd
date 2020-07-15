@@ -27,8 +27,11 @@ the Objective Function used to evaluate the model performance.}
 }
 \description{
 This function allows the user to calibrate the DWB or other models with the Dynamical Dimension Search (DDS) algorithm \cite{(Tolson & Shoemaker, 2007)}.
-As the calibration is performed based on a single value, one should average or create a scalar to evalauate the model's perfomenace. The evaluation can be made using all
+As the calibration is performed based on a single value, one should average or create a scalar to evaluate the model's performance. The evaluation can be made using all
 the streamflow stations, or other variables, between the observed and the simulated values.
+}
+\details{
+dds
 }
 \examples{
 

@@ -21,7 +21,7 @@ the csv file are stored. The csv file must have nrows= NÂ° of cells and ncol= NÂ
 \item{file_type}{Character string that specifies the forcing file formats, it should be "raster" or "csv",
 the default value is "raster".}
 
-\item{format}{Character string that specifies the format file of the Rasters, posible values are "GTiff"
+\item{format}{Character string that specifies the format file of the Rasters, possible values are "GTiff"
 and "NetCDF". Default value is "GTiff".}
 }
 \value{

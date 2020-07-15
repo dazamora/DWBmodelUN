@@ -17,7 +17,7 @@ a list of two elements. The first one is the time series average value of the va
 list of dataframes each one of them contains the time series of each of the cells that are within a basin
 }
 \description{
-This function retrieves the value of a variable in each of the cells that are within a basin boudary.
+This function retrieves the value of a variable in each of the cells that are within a basin boundary.
 It also returns the average time serie value of the variable.
 }
 \examples{

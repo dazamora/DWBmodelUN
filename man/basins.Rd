@@ -7,14 +7,14 @@
 \format{
 SpatialPolygonsDataFrame (S4)
 \describe{
-  \item{basins}{Shapefile featuring subbasins accross the Sogamosos Basin.}
+  \item{basins}{Shapefile featuring subbasins across the Sogamoso Basin.}
 }
 }
 \usage{
 basins
 }
 \description{
-The polygons of the 23 subbasins accross the Sogamosos Basin
+The polygons of the 23 subbasins across the Sogamoso Basin
 }
 \references{
 Duque-Gardeazabal, N. (2018). Estimation of rainfall fields in data scarce colombian watersheds,
