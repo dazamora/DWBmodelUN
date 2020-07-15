@@ -130,7 +130,7 @@ example about their usage. The functions are:
 DWBmodelUN also contains 11 data that allow to run the practical
 examples (Duque (2018)):
 
-  - `basins`: The polygons of the 23 subbasins across the Sogamosos
+  - `basins`: The polygons of the 23 subbasins across the Sogamoso
     Basin.
   - `cells`: Coordinates (Latitud and Longitud) and ID number of cells
     in Sogamoso River Basin.
