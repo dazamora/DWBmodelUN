@@ -115,10 +115,9 @@ result <- dds(xBounds.df=xBounds.df, numIter=2, OBJFUN=NSE_Sogamoso_DWB,
 
 }
 \references{
-Tolson, B. A., & Shoemaker, C. A. (2007). Dynamically
+Tolson, B. A., & Shoemaker, C. A. (2007). "Dynamically
 dimensioned search algorithm for computationally efficient watershed
-model calibration. Water Resources Research, 43(1), 1-16.
-https://doi.org/10.1029/2005WR004723
+model calibration". Water Resources Research, 43(1), 1-16.
 }
 \author{
 Nicolas Duque Gardeazabal <nduqueg@unal.edu.co>  \cr

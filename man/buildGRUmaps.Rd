@@ -23,15 +23,10 @@ Grouped Response Units (\code{GRUs}) are defined. This raster must have the same
 (i.e., for each cell that is planned to be simulated, there must be forcing time series and a cell assigned to a \code{GRU}).
 }
 \examples{
-# library(raster)
 data(GRU)    
 data(param)
 gru_maps <- buildGRUmaps(GRU, param)
 
-# Not run, this an example on how to upload your own files
-# GRU <- raster("./directory/gru2_cober_location.tif")
-# param <- read.csv("./directory/param_dwb.csv")
-# gru_maps <- buildGRUmaps(GRU, param)
 
 }
 \author{

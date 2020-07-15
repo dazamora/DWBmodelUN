@@ -32,7 +32,7 @@ setup <- readSetup(Read = TRUE)  # run if you would like to upload the example s
 data(setup_data)
 setup <- readSetup(Read = TRUE, setup_data)
 
-# example on how to create your own setup
+# Create your own setup
 a <- rep("no",7)
 b <- "1990-01-01"
 c <- "1991-01-01"

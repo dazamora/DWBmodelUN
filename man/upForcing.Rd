@@ -38,14 +38,6 @@ and "\emph{./pet/}" for precipitation and potential evapotranspiration, but can 
 However, if one's intention is to upload them from NetCDF files, the \bold{strings must be completely changed} to
 a complete path that includes the name and extension of the file.
 }
-\examples{
-#Not run
-# meteo <- upForcing(path_p = "./precip/", path_pet = "./pet/",
-# file_type = "raster", format = "NCDF")
-# meteo <- upForcing(path_p = "./precip/", path_pet = "./pet/",
-# file_type = "csv")
-
-}
 \author{
 Nicolas Duque Gardeazabal <nduqueg@unal.edu.co> \cr
 Pedro Felipe Arboleda <pfarboledao@unal.edu.co> \cr

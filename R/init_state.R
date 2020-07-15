@@ -37,6 +37,8 @@
 #' @export
 #'
 #' @examples
+#' library(raster)
+#' 
 #' # Example 1
 #' data(gru_maps)
 #' init <- init_state(gru_maps$smaxR)

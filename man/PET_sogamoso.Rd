@@ -19,8 +19,8 @@ PET_sogamoso
 Distributed monthly potential evapotranspiration in Sogamoso River Basin from January 2012 to December 2016
 }
 \references{
-Duque-Gardeazabal, N. (2018). Estimation of rainfall fields in data scarce colombian watersheds,
-by blending remote sensed and rain gauge data, using kernel functions. Master thesis.
-Universidad Nacional de Colombia, Bogotá, Colombia. Retrieved from http://bdigital.unal.edu.co/71663/.
+Duque-Gardeazabal, N. (2018). "Estimation of rainfall fields in data scarce colombian watersheds,
+by blending remote sensed and rain gauge data, using kernel functions". Master thesis.
+Universidad Nacional de Colombia, Bogotá, Colombia.
 }
 \keyword{datasets}
