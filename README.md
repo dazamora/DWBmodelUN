@@ -152,9 +152,39 @@ examples (Duque (2018)):
   - `r.cells`: Data.frame with the initial configuration of the model
     run.
 
+## Disclaimer
+
+DWBmodelUN is a public R library that is made freely available by the
+voluntary work of the researchers/authors of the Grupo de Investigación
+en Recursos Hídricos (GIREH) at the Universidad Nacional de Colombia
+(UNAL), hereafter call as creators, so as to promote the environmental
+modelling of the water cycle.
+
+The representations of the physical world within the software are widely
+known. The codification and use of them are offered through this R
+library as a public service and are no cause of action against the
+creators. The user of this software/information is responsible for
+verifying the suitability, accuracy, completeness and quality for the
+particular use of it and hence the user asumes all liability and waives
+any claims or actions against the creators. Creators do not make any
+claim, guarantee or warranty the, expressed or implied, suitability,
+accuracy, completeness and quality for the particular use of the
+library. The creators disclaim any and all liability for any claims or
+damages that may result from the application of the information/software
+contained in the library. The information/software is provided as a
+guide.
+
+Regarding other information contained in the library. The links or
+information that are accessed through external sites, which are not
+maintained by the creators, do not make the creators responsible for
+that content or the any claims or damages that may result from the use
+of these external sites. Information within this library is considered
+to be accurate with the considerations of uncertainties associated with
+hydrological modelling.
+
 ## References
 
-<div id="refs" class="references hanging-indent">
+<div id="refs" class="references">
 
 <div id="ref-baw1981">
 
