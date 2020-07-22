@@ -66,7 +66,7 @@ End.sim <- which(Dates == setup_data[10,1])
 # the first two columns of the P and PET are the coordinates of the cells
 Sim.Period <- c(Start.sim:End.sim)+2 
 Start.cal <- which(Dates == setup_data[9,1])
-End.cal <- which(Dates == setup_data[11,1])
+End.cal <- which(Dates == as.Date("2004-12-01"))
 # the first two columns of the P and PET are the coordinates of the cells
 Cal.Period <- c(Start.cal:End.cal)+2  
 
