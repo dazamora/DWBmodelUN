@@ -13,7 +13,7 @@ DWBCalculator(
   alpha2_v,
   smax_v,
   d_v,
-  calibration = F
+  calibration = FALSE
 )
 }
 \arguments{

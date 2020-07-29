@@ -1,9 +1,9 @@
 Package: DWBmodelUN
 Title: Dynamic Water Balance a Hydrological Model 
 Version: 1.0.0
-Authors@R: c(person("Nicolas", "Duque", email = "nduqueg@unal.edu.co",comment = c(ORCID = "0000-0002-2631-8573"), role = c("aut")),
+Authors@R: c(person("Nicolas", "Duque", email = "nduqueg@unal.edu.co", comment = c(ORCID = "0000-0002-2631-8573"), role = c("aut")),
              person("Carolina", "Vega", email = "cvegav@unal.edu.co", comment = c(ORCID = "0000-0001-7138-0862"), role = c("aut")),
-             person("Pedro", "Arboleda", email = "pfarboledao@unal.edu.co", role = c("aut")),
+             person("Pedro", "Arboleda", email = "pfarboledao@unal.edu.co", comment = c(ORCID = "0000-0002-7620-825X"), role = c("aut")),
              person("David", "Zamora", email = "dazamoraa@unal.edu.co", comment = c(ORCID = "0000-0002-2256-7054"), role = c("aut", "cre")),
              person("Camila", "Garcia", email = "cagarciae@unal.edu.co", comment = c(ORCID = "0000-0001-8227-7684"), role = c("cot")))
 Description: A tool to hydrologic modelling using the Budyko 
