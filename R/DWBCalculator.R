@@ -107,7 +107,7 @@
 #'                     PET_sogamoso[ ,Sim.Period],
 #'                     g_v, s_v, alpha1_v, alpha2_v, smax_v, d_v)
 #'                     
-DWBCalculator <- function(p_v, pet_v, g_v, s_v, alpha1_v, alpha2_v, smax_v, d_v, calibration = F){
+DWBCalculator <- function(p_v, pet_v, g_v, s_v, alpha1_v, alpha2_v, smax_v, d_v, calibration = FALSE){
   
   if (!calibration){
     # total number of cells and time steps to be simulated
