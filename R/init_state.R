@@ -53,7 +53,7 @@ init_state <- function(raster){
     In_ground <- raster::raster(raster[[2]])
   } else{
     if(raster::nlayers(raster) != 2){
-      cat("Strange number of initial state files\n Review files of initial states \n Creation by default from first raster")
+      warning("Strange number of initial state files\n Review files of initial states \n Creation by default from first raster")
     }
     In_storage <- raster[[1]] / 2
     In_ground <- raster[[1]] / 2

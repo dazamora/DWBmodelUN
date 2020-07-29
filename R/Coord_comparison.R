@@ -38,7 +38,7 @@
 Coord_comparison <- function(r1, r2){
   #Verify if r1 is data frame, if it is, convert to raster
   if(is.data.frame(r1)) {
-    print("First data file is a data frame - Converting to raster")
+    message("First data file is a data frame - Converting to raster")
     rummy <- raster::rasterFromXYZ(r1[ ,1:3])
     a1 <- r1
     r1 <- rummy
@@ -46,7 +46,7 @@ Coord_comparison <- function(r1, r2){
   
   #Verify if r2 is data frame, if it is, convert to raster
   if(is.data.frame(r2)) {
-    print("Second data file is a data frame - Converting to raster")
+    message("Second data file is a data frame - Converting to raster")
     rummy <- raster::rasterFromXYZ(r2[ ,1:3])
     a2 <- r2
     r2 <- rummy
@@ -58,19 +58,19 @@ Coord_comparison <- function(r1, r2){
   # This code also compares number of columns. If the first date match, and the number of columns match
   # the code assumes that the final data match too
   if(is.data.frame(a2) & is.data.frame(a1)){
-    print("Two data frames - Comparing headers")
+    message("Two data frames - Comparing headers")
     d1 <- colnames(a1)[-(1:2)]
     d2 <- colnames(a2)[-(1:2)]
     if(d1[1] == d2[1]) {
-      print("First date matches")
+      message("First date matches")
       if(d1[length(d1)] == d2[length(d2)]){
-        print("First date and final date match")
+        message("First date and final date match")
       }else{
-        print("First date matches, but final date does not match - Please verify")
+        warning("First date matches, but final date does not match - Please verify")
       }
     }else{
-      print("First date does not match according to the header")
-      print("The model will run, but WARNING - Please verify dates")
+      message("First date does not match according to the header")
+      warning("The model will run, but WARNING - Please verify dates")
     }
   }
   ## Rasters are compared in extent, number of layers, and number of row - columns
@@ -78,12 +78,12 @@ Coord_comparison <- function(r1, r2){
   er1 <- raster::extent(r1)
   er2 <- raster::extent(r2)
   if(er1 == er2){
-    print("Extent verified")
+    message("Extent verified")
     if(raster::res(r1)[1] == raster::res(r2)[1] & raster::res(r1)[2] == raster::res(r2)[2]){
-      print("Resolution verified")
+      message("Resolution verified")
       if(raster::nlayers(r1) > 1 | raster::nlayers(r2) > 1){
         if(raster::nlayers(r1) == raster::nlayers(r2)){
-          print("Number of layers verified")
+          message("Number of layers verified")
           return(TRUE)
         }else{
           warning("Please verify number of layers in raster")
