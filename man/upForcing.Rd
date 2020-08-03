@@ -29,8 +29,8 @@ a list containing the two objects (P and PET).
 }
 \description{
 This function loads the precipitation and evapotranspiration estimates that will be used
-to run or force the DWB model (\code{\link{DWBCalculator}}). It also creates a directory where stores csv files if the original forcing
-files are in raster format.
+to run or force the DWB model (\code{\link{DWBCalculator}}). If files are in raster format, it save a variable 
+cointaining the inputs in table format.
 }
 \details{
 The character strings that control the location of the forcing files are as default "\emph{./precip/}"
