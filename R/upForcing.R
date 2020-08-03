@@ -39,14 +39,10 @@
 upForcing <- function(path_p = tempdir(), path_pet = tempdir(), file_type = "raster", format = "GTiff"){
   
   if (!exists("path_pet")){
-    path_pet <- getwd()
+    stop("Not filepath to read evapotranspiration data")
   } else if (!exists("path_p")){
-    path_p <- getwd()
-  } else if (!exists("path_p") | !exists("path_pet")){
-    path_pet <- getwd()
-    path_p <- getwd()
-  }
-  
+    stop("Not filepath to read precipitation data")
+  } 
   if (file_type == "raster"){
     # ---- identify raster format and loading----
     if (format == "GTiff"){
@@ -69,11 +65,8 @@ upForcing <- function(path_p = tempdir(), path_pet = tempdir(), file_type = "ras
     p_v <- raster::rasterToPoints(p)
     pet_v <- raster::rasterToPoints(pet)
     # ---- print forcings ----
-    # dir.create("./forcings", showWarnings = F)
-    # write.csv(p_v, "./forcings/precip.csv")
-    # write.csv(pet_v, "./forcings/pet.csv")
-    write.csv(p_v, "precip.csv")
-    write.csv(pet_v, "pet.csv")
+    write.csv(p_v, paste0(tempdir(),"/precip.csv"))
+    write.csv(pet_v, paste0(tempdir(),"/pet.csv"))
   } else {  # load forcings in csv files
     pet_files <- list.files(path_pet)
     p_files <- list.files(path_p)
