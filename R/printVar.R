@@ -9,7 +9,7 @@
 #' @param variable corresponds to the results of a specific variable of the DWBCalculator.
 #' @param coor_cells coordinates of the cells in the same order that were simulated and that will be used to
 #' create the results in raster format, this is done from the data frames which contain the simulated results
-#' @param var name of the variable that will be printed (e.g., q_total, aet, r, qd, qb, s, g)
+#' @param var_name name of the variable that will be printed (e.g., q_total, aet, r, qd, qb, s, g)
 #' @param coord_sys geographic or projected coordinate system.
 #' @param dates dates that were simulated.
 #' @param as option to print the results as independent 'raster' (\emph{\code{.tif}}) or in a 'NetCDF' file (\emph{\code{.nc}}).
@@ -38,16 +38,12 @@
 #' tempVar <- tempdir()
 #' printVar(dwb_results[[3]], cells, var = "r", coord_sys, dates, "NetCDF", path_var = tempVar)
 #' 
-printVar <- function(variable, coor_cells, var, coord_sys, dates, as, path_var=""){
-  var_name <- var
+printVar <- function(variable, coor_cells, var_name, coord_sys, dates, as, path_var=""){
   if(path_var ==""){
-    path_var <- paste("./", var_name, "/", sep="")
+    warning("There is no path_var, files are going to be stored in a temporary directory")
+    path_var <- paste(tempdir(), "/", var_name, "/", sep="")
   }
 
-  if(!dir.exists(path_var)){
-    dir.create(path_var)
-  }
-  
   var_r <- raster::rasterFromXYZ(cbind(coor_cells[ ,-3], variable), crs = coord_sys)
   if (as == 'raster'){
     # prints each time step in GTiff format, in the specified directory
@@ -56,7 +52,7 @@ printVar <- function(variable, coor_cells, var, coord_sys, dates, as, path_var="
     }
   }
   if (as == 'NetCDF'){
-    raster::writeRaster(var_r, filename = paste(path_var,"/", var_name, ".nc", sep = ""), format = 'CDF', overwrite = TRUE)
+    raster::writeRaster(var_r, filename = paste(path_var, var_name, ".nc", sep = ""), format = 'CDF', overwrite = TRUE)
   }else{ 
     stop("Invalid file extension")
   }
