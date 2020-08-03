@@ -35,13 +35,11 @@
 #' data(cells)
 #' dates <- seq(as.Date("2001-01-01"), as.Date("2010-12-01"), by="month")
 #' coord_sys <- "+init=epsg:4326"
-#' tempVar <- tempdir()
-#' printVar(dwb_results[[3]], cells, var = "r", coord_sys, dates, "NetCDF", path_var = tempVar)
+#' printVar(dwb_results[[3]], cells, var_name = "r", coord_sys, dates, "NetCDF", path_var = tempdir())
 #' 
-printVar <- function(variable, coor_cells, var_name, coord_sys, dates, as, path_var=""){
+printVar <- function(variable, coor_cells, var_name, coord_sys, dates, as, path_var= ""){
   if(path_var ==""){
-    warning("There is no path_var, files are going to be stored in a temporary directory")
-    path_var <- paste(tempdir(), "/", var_name, "/", sep="")
+    stop("There is no path_var, files can not be stored")
   }
 
   var_r <- raster::rasterFromXYZ(cbind(coor_cells[ ,-3], variable), crs = coord_sys)

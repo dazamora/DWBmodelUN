@@ -4,7 +4,7 @@
 \alias{printVar}
 \title{Print or write variables of interest}
 \usage{
-printVar(variable, coor_cells, var, coord_sys, dates, as, path_var = "")
+printVar(variable, coor_cells, var_name, coord_sys, dates, as, path_var = "")
 }
 \arguments{
 \item{variable}{corresponds to the results of a specific variable of the DWBCalculator.}
@@ -12,7 +12,7 @@ printVar(variable, coor_cells, var, coord_sys, dates, as, path_var = "")
 \item{coor_cells}{coordinates of the cells in the same order that were simulated and that will be used to
 create the results in raster format, this is done from the data frames which contain the simulated results}
 
-\item{var}{name of the variable that will be printed (e.g., q_total, aet, r, qd, qb, s, g)}
+\item{var_name}{name of the variable that will be printed (e.g., q_total, aet, r, qd, qb, s, g)}
 
 \item{coord_sys}{geographic or projected coordinate system.}
 
@@ -35,8 +35,7 @@ dwb_results <- sogamoso$dwb_results
 data(cells)
 dates <- seq(as.Date("2001-01-01"), as.Date("2010-12-01"), by="month")
 coord_sys <- "+init=epsg:4326"
-tempVar <- tempdir()
-printVar(dwb_results[[3]], cells, var = "r", coord_sys, dates, "NetCDF", path_var = tempVar)
+printVar(dwb_results[[3]], cells, var_name = "r", coord_sys, dates, "NetCDF", path_var = tempdir())
 
 }
 \author{
