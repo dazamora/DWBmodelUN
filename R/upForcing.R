@@ -5,8 +5,8 @@
 #' Upload Forcings
 #'
 #' @description This function loads the precipitation and evapotranspiration estimates that will be used
-#' to run or force the DWB model (\code{\link{DWBCalculator}}). It also creates a directory where stores csv files if the original forcing
-#' files are in raster format.
+#' to run or force the DWB model (\code{\link{DWBCalculator}}). If files are in raster format, it save a variable 
+#' cointaining the inputs in table format.
 #'
 #' @param path_p is a character string that specifies the directory where the precipitation rasters or
 #' the csv file are stored. The csv file must have nrows = N° of cells and ncol= N° of time steps.
@@ -64,10 +64,7 @@ upForcing <- function(path_p = tempdir(), path_pet = tempdir(), file_type = "ras
     # ---- transformation to dataframes ----
     p_v <- raster::rasterToPoints(p)
     pet_v <- raster::rasterToPoints(pet)
-    # ---- print forcings ----
-    write.csv(p_v, paste0(tempdir(),"/precip.csv"))
-    write.csv(pet_v, paste0(tempdir(),"/pet.csv"))
-  } else {  # load forcings in csv files
+    } else {  # load forcings in csv files
     pet_files <- list.files(path_pet)
     p_files <- list.files(path_p)
     p_v <- read.csv(paste(path_p, p_files,sep = ""))
