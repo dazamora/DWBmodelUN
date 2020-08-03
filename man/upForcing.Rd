@@ -29,7 +29,7 @@ a list containing the two objects (P and PET).
 }
 \description{
 This function loads the precipitation and evapotranspiration estimates that will be used
-to run or force the DWB model (\code{\link{DWBCalculator}}). If files are in raster format, it save a variable 
+to run or force the DWB model (\code{\link{DWBCalculator}}). If files are in raster format, it saves a variable 
 cointaining the inputs in table format.
 }
 \details{
