@@ -4,7 +4,8 @@
 \alias{printVar}
 \title{Print or write variables of interest}
 \usage{
-printVar(variable, coor_cells, var_name, coord_sys, dates, as, path_var = "")
+printVar(variable, coor_cells, var_name, coord_sys, dates, as,
+  path_var = "")
 }
 \arguments{
 \item{variable}{corresponds to the results of a specific variable of the DWBCalculator.}
@@ -35,7 +36,8 @@ dwb_results <- sogamoso$dwb_results
 data(cells)
 dates <- seq(as.Date("2001-01-01"), as.Date("2010-12-01"), by="month")
 coord_sys <- "+init=epsg:4326"
-printVar(dwb_results[[3]], cells, var_name = "r", coord_sys, dates, "NetCDF", path_var = tempdir())
+r <- dwb_results[[3]][,1:20]
+printVar(r, cells, var_name = "r", coord_sys, dates, "NetCDF", path_var = tempdir())
 
 }
 \author{
