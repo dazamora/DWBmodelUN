@@ -35,10 +35,9 @@
 #' data(cells)
 #' dates <- seq(as.Date("2001-01-01"), as.Date("2010-12-01"), by="month")
 #' coord_sys <- "+init=epsg:4326"
-#' r <- dwb_results[[3]][,1:20]
-#' printVar(r, cells, var_name = "r", coord_sys, dates, "NetCDF", path_var = tempdir())
+#' printVar(dwb_results[[3]], cells, var_name = "r", coord_sys, dates, "NetCDF", path_var = tempdir())
 #' 
-printVar <- function(variable, coor_cells, var_name, coord_sys, dates, as, path_var= ""){
+printVar <- function(variable, coor_cells, var_name, coord_sys, dates, as, path_var= tempdir()){
   if(path_var ==""){
     stop("There is no path_var, files can not be stored")
   }
@@ -51,7 +50,7 @@ printVar <- function(variable, coor_cells, var_name, coord_sys, dates, as, path_
     }
   }
   if (as == 'NetCDF'){
-    raster::writeRaster(var_r, filename = paste(path_var,"\\", var_name, ".nc", sep = ""), format = 'CDF', overwrite = TRUE)
+    raster::writeRaster(var_r, filename = paste(path_var, var_name, ".nc", sep = ""), format = 'CDF', overwrite = TRUE)
   }else{ 
     stop("Invalid file extension")
   }
