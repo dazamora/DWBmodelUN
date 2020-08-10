@@ -35,9 +35,10 @@
 #' data(cells)
 #' dates <- seq(as.Date("2001-01-01"), as.Date("2010-12-01"), by="month")
 #' coord_sys <- "+init=epsg:4326"
-#' printVar(dwb_results[[3]], cells, var_name = "r", coord_sys, dates, "NetCDF", path_var = tempdir())
+#' r <- dwb_results[[3]][,1:20]
+#' printVar(r, cells, var_name = "r", coord_sys, dates, as = "NetCDF", path_var = tempdir())
 #' 
-printVar <- function(variable, coor_cells, var_name, coord_sys, dates, as, path_var= tempdir()){
+printVar <- function(variable, coor_cells, var_name, coord_sys, dates, as, path_var= ""){
   if(path_var ==""){
     stop("There is no path_var, files can not be stored")
   }
@@ -46,11 +47,11 @@ printVar <- function(variable, coor_cells, var_name, coord_sys, dates, as, path_
   if (as == 'raster'){
     # prints each time step in GTiff format, in the specified directory
     for (i in 1:raster::nlayers(var_r)){
-      raster::writeRaster(var_r[[i]], filename = paste(path_var, var_name, "_", as.character(dates[i]), ".tif", sep = ""), format = "GTiff", overwrite = TRUE)
+      raster::writeRaster(var_r[[i]], filename = paste(path_var,"/", var_name, "_", as.character(dates[i]), ".tif", sep = ""), format = "GTiff", overwrite = TRUE)
     }
   }
   if (as == 'NetCDF'){
-    raster::writeRaster(var_r, filename = paste(path_var, var_name, ".nc", sep = ""), format = 'CDF', overwrite = TRUE)
+    raster::writeRaster(var_r, filename = paste(path_var, "/",var_name, ".nc", sep = ""), format = 'CDF', overwrite = TRUE)
   }else{ 
     stop("Invalid file extension")
   }
