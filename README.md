@@ -22,7 +22,7 @@ calibrate the model and analyze the outputs.
 Installing the latest stable version from CRAN:
 
 ``` r
-install.packages("hydroTSM")
+install.packages("DWBmodelUN")
 ``` 
 
 Or, you can install the version under development from
