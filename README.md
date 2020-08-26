@@ -19,8 +19,13 @@ Balance Model, with DDS Tolson and Shoemaker (2007) algorithm to
 calibrate the model and analyze the outputs.
 
 ## Installation
+Installing the latest stable version from CRAN:
 
-Currently, you can install the version under development from
+``` r
+install.packages("hydroTSM")
+``` 
+
+Or, you can install the version under development from
 [Github](https://github.com/dazamora/DWBmodelUN), using these commands:
 
 ``` r
