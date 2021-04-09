@@ -139,7 +139,8 @@ DWBCalculator <- function(p_v, pet_v, g_v, s_v, alpha1_v, alpha2_v, smax_v, d_v,
     y[, 1]  <- w[, 1] * funFU(PET = yo[, 1], P = w[, 1], alpha = alpha2_v)
     r[, 1]  <- w[, 1] - y[, 1]
     aet[, 1] <- w[, 1] * funFU(PET = pet_v[, 1], P = w[, 1], alpha = alpha2_v)
-    s[, 1]  <- y[, 1] - aet[, 1]
+    s[, 1]  <- ifelse((y[, 1] - aet[, 1])>smax_v, smax_v, 
+                      ifelse((y[, 1] - aet[, 1])<0,0, (y[, 1] - aet[, 1])))
     qb[, 1] <- d_v * g_v
     g[, 1]  <- (1 - d_v) * g_v + r[, 1]
     q_total[, 1] <- qb[, 1] + qd[, 1]
@@ -157,7 +158,8 @@ DWBCalculator <- function(p_v, pet_v, g_v, s_v, alpha1_v, alpha2_v, smax_v, d_v,
       y[, i]  <- w[, i] * funFU(PET = yo[, i], P = w[, i], alpha = alpha2_v)
       r[, i]  <- w[, i] - y[, i]
       aet[, i] <- w[, i] * funFU(PET = pet_v[, i], P = w[, i], alpha = alpha2_v)
-      s[, i]  <- y[, i] - aet[, i]
+      s[, i]  <- ifelse((y[, i] - aet[, i])>smax_v, smax_v, 
+                        ifelse((y[, i] - aet[, i])<0,0, (y[, i] - aet[, i])))
       qb[, i] <- d_v * g[, (i-1)]
       g[, i] <- (1-d_v) * g_v + r[, i]
       q_total[, i] <- qb[, i] + qd[, i]
