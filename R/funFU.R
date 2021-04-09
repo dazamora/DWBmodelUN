@@ -44,5 +44,12 @@
 funFU <- function(PET, P, alpha){
   F_FU <- 1 + PET/P - (1 + (PET/P)^(1/(1 - alpha)))^(1 - alpha)
   F_FU[P == 0] <- 1  # it identifies where the limit of the function is not fulfilled and assigns the limit value
+  F_FU[P <= 0] <- 1  # it identifies where the limit of the function is not fulfilled and assigns the limit value
+  #two options set W(t) as 0 when W(t)<=0 or set a conditional in Fu's function
+  F_FU[F_FU < 0] <- 0
+  F_FU[F_FU > 1] <- 1
+  
+  
+  
   return(F_FU)
 }
