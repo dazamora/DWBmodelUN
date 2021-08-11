@@ -47,7 +47,8 @@
 #' @param int_func Optional. An integral function that has as inputs domain and range of the data to be
 #' integrated. By defult a Gaussian cuadrature with 2 points is set.
 #'
-#' @return A 1 column matrix with the CDC signatures.
+#' @return A 2 dimensioned list. First entry the values of the FDCs. Second entry the values of de
+#' FDC sigantures.
 #'
 #' @author Christian David Rodríguez <chdrodriguezca@unal.edu.co> \cr
 #' David Zamora <dazamoraa@unal.edu.co> \cr
