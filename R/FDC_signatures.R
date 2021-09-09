@@ -3,12 +3,16 @@
 #' FDC_signatures
 #' 
 #' @title 
-#' Values of Flow Duration Curve and Casper et al's Flow Duration Curve signatures.
+#' Values and plot of Flow Duration Curve and Casper et al's Flow Duration Curve signatures.
 #'
 #' @description 
-#' This function retrieves the Flow Duration Curve of observed and simulated values of streamflow.
-#' Flow Duration Curves are computed with the following equation:
+#' This function retrieves a three dimensioned list with the following content:
+#'   1. The tabulated Flow Duration Curve of observed and simulated values of streamflow,
+#'   2. The plotted Flow Duration Curve of observed and simulated values of streamflow,
+#'   3. The computated Casper et al's Flow Duration Curve signatures of observed and simulated values of streamflow
 #' 
+#' Flow Duration Curves are computed with the following equation:
+#'
 #' \deqn{F(i) = \frac{m_{i} - a}{N + 1 - 2*a}}{%
 #' F(i) = (m_i - a)/(N + 1 - 2*a)}
 #' 
@@ -40,15 +44,15 @@
 #' *ecuación*
 #'
 #'
-#' @param data A data frame with 4 columns. The first must be the observed values of the streamflow, 
-#' the second must be the simulated values of the stream flow, the third must be the ordinal value of
-#' the streamflow when ordered from greater to lower and the forth column must be the probability of
-#' excedence of the streamflow.
+#' @param data A data frame with 2 columns. The first must be the observed values of the streamflow, 
+#' the second must be the simulated values of the stream flow. 
+#' @param a Is the a parámeter in the excedence probability eqation.
+#' @param plot.p Optional. Is a string that contains the path where the user wnats to save the plotted
+#' Flow Duration Curve as an image. If not provided the image will not be saved into computers memory.
 #' @param int_func Optional. An integral function that has as inputs domain and range of the data to be
 #' integrated. By defult a Gaussian cuadrature with 2 points is set.
 #'
-#' @return A 2 dimensioned list. First entry the values of the FDCs. Second entry the values of de
-#' FDC sigantures.
+#' @return A 3 dimensioned list. 
 #'
 #' @author Christian David Rodríguez <chdrodriguezca@unal.edu.co> \cr
 #' David Zamora <dazamoraa@unal.edu.co> \cr
@@ -59,7 +63,48 @@
 #' @export
 #'
 #' @examples 
-#' CDC_signatures(data)
+#' library(DWBmodelUN)
+#'library(raster)
+#'library(tidyverse)
+#'rm(list=ls())
+#'# Load GRU and parameters
+#'data(GRU, param)
+#'cellBasins <- cellBasins(GRU, basins)
+#'# Construction of parameter maps from values by GRU
+#'GRU.maps <- buildGRUmaps(GRU, param)
+#'alpha1_v <- GRU.maps$alpha1
+#'alpha2_v <- GRU.maps$alpha2
+#'smax_v <- GRU.maps$smax
+#'d_v <- GRU.maps$d
+#'# Establish the initial modeling conditions
+#'init <- init_state(GRU.maps$smaxR)
+#'g_v <- init$In_ground
+#'s_v <- init$In_storage
+#'rm(init)
+#'# Load general characteristics of modeling
+#'setup_data <- readSetup(Read = TRUE)
+#'Dates <- seq(as.Date( gsub('[^0-9.]','',colnames(P_sogamoso)[3]), format = "%Y.%m.%d"), 
+#'             as.Date(gsub('[^0-9.]','',tail(colnames(P_sogamoso),1)) , format = "%Y.%m.%d"), by = "month")
+#'Start.sim <- which(Dates == setup_data[8,1]); End.sim <- which(Dates == setup_data[10,1])
+#'# Sim.Period: the 1st two columns of the P and PET are the coordinates of the cells
+#'Sim.Period <- c(Start.sim:End.sim)+2  
+#'# Run DWB model
+#'DWB.sogamoso <- DWBCalculator(P_sogamoso[ ,Sim.Period], 
+#'                              PET_sogamoso[ ,Sim.Period],
+#'                              g_v, s_v, alpha1_v, alpha2_v, smax_v, d_v)
+#'# Compute monthly simulated runoff at stations
+#'Esc.Sogamoso <- varBasins(DWB.sogamoso$q_total, cellBasins$cellBasins)
+#'# Get area of El Tablazo subbasin
+#'area       <- basins$AREAKM[which(basins$CODIGO_CAT == 24067010)]
+#'# Compute monthly simulated and observed streamflow at ElTablazo
+#'esc.sim <- Esc.Sogamoso$varAverage$`24067010`
+#'caudal.sim <- esc.sim*area*(100/(3*86400))
+#'esc.obs    <- EscSogObs$X24067010
+#'caudal.obs <- esc.obs*area*(100/(3*86400))
+#'# Acomodate data
+#'data <- data.frame(Observed = caudal.obs, Simulated = caudal.sim)
+#'# Get signatures
+#'signatures <- FDC_signatures(data=data, a=3/8)
 #' 
 FDC_signatures <- function(data, a, plot.p=1, int_func=1) {
   # If there is no integral function, use defalut.
@@ -91,11 +136,16 @@ FDC_signatures <- function(data, a, plot.p=1, int_func=1) {
   FDCs <- data.frame(Obs = sorted[, 1], Sim = sorted[, 2], m = rankings, F_i = F_i)
   
   ## Plot FDC
+  sf <- pivot_longer(FDCs, cols=c(1,2), names_to="Leyend", values_to="streamflow")
+  plot <-ggplot(data = sf, aes(x=F_i, y=streamflow, col=Leyend)) +
+    geom_line() + 
+    scale_y_log10() +
+    labs(title="Static Flow Duration Curve - Trial1", 
+         subtitle="Station: El Tablazo") + 
+    xlab("Excedence Probability") + 
+    ylab("Streamflow (m3/s)")
+    
   if (plot.p!=1){
-    sf <- pivot_longer(FDCs, cols=c(1,2), names_to="Leyend", values_to="streamflow")
-    ggplot(data = sf, aes(x=F_i, y=streamflow, col=Leyend)) + 
-      geom_line() + 
-      scale_y_log10()
     ggsave(file=plot.p, width = 4.5, height = 3.5)
   }
   
@@ -144,7 +194,7 @@ FDC_signatures <- function(data, a, plot.p=1, int_func=1) {
   signatures <- matrix(c(biasrr, midslope, fhv, flv, biasmm), ncol=1)
   rownames(signatures) <- c("BiasRR", "BiasFDCmidslope", "BiasFHV", "BiasFLV", "BiasMM")
   
-  results <- list(FDCs = FDCs, signatures=signatures)
+  results <- list(FDCs = FDCs, signatures=signatures, static_plot=plot)
   return(results)
 }
 
