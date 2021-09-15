@@ -194,7 +194,7 @@ FDC_signatures <- function(data, a, plot.p=1, int_func=1) {
   signatures <- matrix(c(biasrr, midslope, fhv, flv, biasmm), ncol=1)
   rownames(signatures) <- c("BiasRR", "BiasFDCmidslope", "BiasFHV", "BiasFLV", "BiasMM")
   
-  results <- list(FDCs = FDCs, signatures=signatures, static_plot=plot)
+  results <- list(FDCs = FDCs, signatures=signatures, plot=ggplotly(plot))
   return(results)
 }
 
