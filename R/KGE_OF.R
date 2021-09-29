@@ -1,6 +1,4 @@
-#' Under development 
-
-KGE_OF <- function(parameters, P, PET, g_v,s_v, Sim.Period, EscObs, Cal.Period,Heat.Period, gru){
+KGE_Sogamoso_DWB <- function(parameters, P, PET, g_v,s_v, Sim.Period, EscObs, Cal.Period,Heat.Period, gru){
   # Vectorizar parámetros
   parameters <- as.vector(parameters)
   
