@@ -124,17 +124,17 @@ Wapaba <- function(p_v, pet_v, g_v, s_v, alpha1_v, alpha2_v, smax_v, k_v, beta_v
     # Calculation of the variables and fluxes for the first time step
     dummy   <- smax_v - s_v
     xo[, 1] <- pet_v[, 1] + dummy
-    x[, 1]  <- xo[, 1] * funFU(PET = p_v[, 1], P = xo[, 1], alpha = alpha1_v)    
-    y[,1] <- p_v[,1] - x[, 1]
+    x[, 1]  <- xo[, 1] * funFU(PET = p_v[, 1], P = xo[, 1], alpha = alpha1_v, inverse=T)    
+    y[,1] <- ifelse(p_v[,1] - x[, 1] <0, 0, p_v[,1] - x[, 1])
     w[,1] <- s_v + x[, 1]
-    aet[, 1] <- pet_v[, 1] * funFU(PET = w[, 1], P = pet_v[, 1], alpha = alpha2_v)
+    aet[, 1] <- pet_v[, 1] * funFU(PET = w[, 1], P = pet_v[, 1], alpha = alpha2_v, inverse = T)
     s[, 1]  <- ifelse((w[, 1] - aet[, 1])>smax_v, smax_v, 
                       ifelse((w[, 1] - aet[, 1])<0,0, (w[, 1] - aet[, 1])))
-    r[, 1]  <- beta_v*y[, 1]
+    r[, 1]  <- beta_v * y[, 1]
     qs[, 1] <- y[, 1] - r[, 1]
-    qb[,1] <- g_v * (1-exp(-1/k_v)) + r[, 1] * (1-(k_v/1)) * (1-exp(-1/k_v))
+    qb[,1] <- g_v * (1-exp(-1/k_v)) + r[, 1] * (1-(k_v/1) * (1-exp(-1/k_v)))
     g[, 1]  <- g_v + r[, 1] - qb[,1]    
-    q_total[, 1] <- qs[, 1] + qs[, 1]
+    q_total[, 1] <- qs[, 1] + qb[, 1]
     
     # Loop defined to calculate the variables and fluxes in the following timesteps
     pb <- txtProgressBar(min = 0, max = nmonths, style = 3)
@@ -143,16 +143,16 @@ Wapaba <- function(p_v, pet_v, g_v, s_v, alpha1_v, alpha2_v, smax_v, k_v, beta_v
       dummy   <- smax_v - s[, (i-1)]
       xo[, i] <- pet_v[, i] + dummy
       x[, i]  <- xo[, i] * funFU(PET = p_v[, i], P = xo[, i], alpha = alpha1_v)    
-      y[,i] <- p_v[,i] - x[, i]
+      y[,i] <- ifelse(p_v[,i] - x[, i] <0, 0, p_v[,i] - x[, i])
       w[,i] <- s_v + x[, i]
       aet[, i] <- pet_v[, i] * funFU(PET = w[, i], P = pet_v[, i], alpha = alpha2_v)
       s[, i]  <- ifelse((w[, 1] - aet[, 1])>smax_v, smax_v, 
                         ifelse((w[, 1] - aet[, 1])<0,0, (w[, 1] - aet[, 1])))
       r[, i]  <- beta_v * y[, i]
       qs[, i] <- y[, i] - r[, i]
-      qb[, i] <- g_v * (1-exp(-1/k_v)) + r[, i] * (1-(k_v/1)) * (1-exp(-1/k_v))
+      qb[,i] <- g_v * (1-exp(-1/k_v)) + r[, i] * (1-(k_v/1) * (1-exp(-1/k_v)))
       g[, i]  <- g_v + r[, i] - qb[, i]    
-      q_total[, i] <- qs[, i] + qs[, i]
+      q_total[, i] <- qs[, i] + qb[, i]
 
       setTxtProgressBar(pb, i)
     }
@@ -181,32 +181,32 @@ Wapaba <- function(p_v, pet_v, g_v, s_v, alpha1_v, alpha2_v, smax_v, k_v, beta_v
     dummy   <- smax_v - s_v
     xo[, 1] <- pet_v[, 1] + dummy
     x[, 1]  <- xo[, 1] * funFU(PET = p_v[, 1], P = xo[, 1], alpha = alpha1_v)    
-    y[,1] <- p_v[,1] - x[, 1]
+    y[,1] <- ifelse(p_v[,1] - x[, 1] <0, 0, p_v[,1] - x[, 1])
     w[,1] <- s_v + x[, 1]
     aet[, 1] <- pet_v[, 1] * funFU(PET = w[, 1], P = pet_v[, 1], alpha = alpha2_v)
     s[, 1]  <- ifelse((w[, 1] - aet[, 1])>smax_v, smax_v, 
                       ifelse((w[, 1] - aet[, 1])<0,0, (w[, 1] - aet[, 1])))
     r[, 1]  <- beta_v*y[, 1]
     qs[, 1] <- y[, 1] - r[, 1]
-    qb[,1] <- g_v * (1-exp(-1/k_v)) + r[, 1] * (1-(k_v/1)) * (1-exp(-1/k_v))
+    qb[,1] <- g_v * (1-exp(-1/k_v)) + r[, 1] * (1-(k_v/1) * (1-exp(-1/k_v)))
     g[, 1]  <- g_v + r[, 1] - qb[,1]    
-    q_total[, 1] <- qs[, 1] + qs[, 1]
+    q_total[, 1] <- qs[, 1] + qb[, 1]
     # Loop defined to calculate the variables and fluxes in the following timesteps
     for(i in 2:nmonths){
       
       dummy   <- smax_v - s[, (i-1)]
       xo[, i] <- pet_v[, i] + dummy
       x[, i]  <- xo[, i] * funFU(PET = p_v[, i], P = xo[, i], alpha = alpha1_v)    
-      y[,i] <- p_v[,i] - x[, i]
+      y[,i] <- ifelse(p_v[,i] - x[, i] <0, 0, p_v[,i] - x[, i])
       w[,i] <- s_v + x[, i]
       aet[, i] <- pet_v[, i] * funFU(PET = w[, i], P = pet_v[, i], alpha = alpha2_v)
       s[, i]  <- ifelse((w[, 1] - aet[, 1])>smax_v, smax_v, 
                         ifelse((w[, 1] - aet[, 1])<0,0, (w[, 1] - aet[, 1])))
       r[, i]  <- beta_v * y[, i]
       qs[, i] <- y[, i] - r[, i]
-      qb[, i] <- g_v * (1-exp(-1/k_v)) + r[, i] * (1-(k_v/1)) * (1-exp(-1/k_v))
+      qb[,i] <- g_v * (1-exp(-1/k_v)) + r[, i] * (1-(k_v/1) * (1-exp(-1/k_v)))
       g[, i]  <- g_v + r[, i] - qb[, i]    
-      q_total[, i] <- qs[, i] + qs[, i]
+      q_total[, i] <- qs[, i] + qb[, i]
     }
   }
   
