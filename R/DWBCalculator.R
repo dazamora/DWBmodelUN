@@ -54,6 +54,7 @@
 #' Pedro Felipe Arboleda Obando <pfarboledao@unal.edu.co> \cr
 #' David Zamora <dazamoraa@unal.edu.co> \cr
 #' Carolina Vega Viviescas <cvegav@unal.edu.co> \cr
+#' Camila Garcia Echeverri <cagarciae@unal.edu.co> \cr
 #' 
 #' Water Resources Engineering Research Group - GIREH
 #' Universidad Nacional de Colombia - sede Bogota
@@ -157,9 +158,10 @@ DWBCalculator <- function(p_v, pet_v, g_v, s_v, alpha1_v, alpha2_v, smax_v, d_v,
       y[, i]  <- w[, i] * funFU(PET = yo[, i], P = w[, i], alpha = alpha2_v)
       r[, i]  <- w[, i] - y[, i]
       aet[, i] <- w[, i] * funFU(PET = pet_v[, i], P = w[, i], alpha = alpha2_v)
-      s[, i]  <- y[, i] - aet[, i]
+      s[, i]  <- ifelse((y[, i] - aet[, i])>smax_v, smax_v, 
+                        ifelse((y[, i] - aet[, i])<0,0, (y[, i] - aet[, i])))
       qb[, i] <- d_v * g[, (i-1)]
-      g[, i] <- (1-d_v) * g_v + r[, i]
+      g[, i] <- (1-d_v) * g[, (i-1)] + r[, i]
       q_total[, i] <- qb[, i] + qd[, i]
       
       setTxtProgressBar(pb, i)
@@ -212,9 +214,10 @@ DWBCalculator <- function(p_v, pet_v, g_v, s_v, alpha1_v, alpha2_v, smax_v, d_v,
       y[, i]  <- w[, i] * funFU(PET = yo[, i], P = w[, i], alpha = alpha2_v)
       r[, i]  <- w[, i] - y[, i]
       aet[, i] <- w[, i] * funFU(PET = pet_v[, i], P = w[, i], alpha = alpha2_v)
-      s[, i]  <- y[, i] - aet[, i]
+      s[, i]  <- ifelse((y[, i] - aet[, i])>smax_v, smax_v, 
+                        ifelse((y[, i] - aet[, i])<0,0, (y[, i] - aet[, i])))
       qb[, i] <- d_v * g[, (i-1)]
-      g[, i] <- (1-d_v) * g_v + r[, i]
+      g[, i] <- (1-d_v) * g[, (i-1)] + r[, i]
       q_total[, i] <- qb[, i] + qd[, i]
     }
   }
