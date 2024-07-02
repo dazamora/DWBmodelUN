@@ -34,13 +34,15 @@
 #' 
 #' 
 buildGRUmaps <- function(gruLoc, parsValues){
-  gruNumber <- raster::cellStats(gruLoc, 'max')
+  # gruNumber <- raster::cellStats(gruLoc, 'max')
+  gruLoc <- terra::rast(gruLoc)
+  gruNumber <- as.numeric(terra::global(gruLoc, 'max', na.rm=T))
   
   if(dim(parsValues)[1] != gruNumber){
     stop("There is a mismatch between the GRU defined in \n the raster file and the table which contains the values") 
   }
   
-  alpha1 <- alpha2 <- smax <- d <- raster::raster(gruLoc)
+  alpha1 <- alpha2 <- smax <- d <- gruLoc
   
   for (i in 1:dim(parsValues)[1]){
     alpha1[gruLoc == i] <- parsValues[i, 1]
@@ -49,10 +51,10 @@ buildGRUmaps <- function(gruLoc, parsValues){
     smax[gruLoc == i] <- parsValues[i, 4]
   }
   
-  alpha1_v <- raster::rasterToPoints(alpha1)[,-c(1,2)]
-  alpha2_v <- raster::rasterToPoints(alpha2)[,-c(1,2)]
-  smax_v <- raster::rasterToPoints(smax)[,-c(1,2)]
-  d_v <- raster::rasterToPoints(d)[,-c(1,2)]
+  alpha1_v <- as.data.frame(alpha1)[,1]
+  alpha2_v <- as.data.frame(alpha2)[,1]
+  smax_v <- as.data.frame(smax)[,1]
+  d_v <- as.data.frame(d)[,1]
   gruMaps <- list(alpha1 = alpha1_v, alpha2 = alpha2_v, d = d_v, smax = smax_v, 
                   alpha1R = alpha1, alpha2R = alpha2, dR = d, smaxR = smax)
   return(gruMaps)
