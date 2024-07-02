@@ -30,6 +30,7 @@
 #' @examples
 #' data(GRU)    
 #' data(param)
+#' GRU <- terra::rast(GRU)
 #' gru_maps <- buildGRUmaps(GRU, param)
 #' 
 #' 
