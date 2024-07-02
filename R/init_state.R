@@ -45,21 +45,21 @@
 #' 
 #' # Example 2
 #' data(In_storage, In_ground)
-#' init <- init_state(stack(In_storage, In_ground))
+#' init <- init_state(c(terra::rast(In_storage), terra::rast(In_ground)))
 #' 
-init_state <- function(raster){
-  if(raster::nlayers(raster) == 2){
-    In_storage <- raster::raster(raster[[1]])
-    In_ground <- raster::raster(raster[[2]])
+init_state <- function(raster_values){
+  if(terra::nlyr(raster_values) == 2){
+    In_storage <- raster_values[[1]]
+    In_ground <- raster_values[[2]]
   } else{
-    if(raster::nlayers(raster) != 2){
+    if(terra::nlyr(raster_values) != 2){
       warning("Strange number of initial state files\n Review files of initial states \n Creation by default from first raster")
-    }
-    In_storage <- raster[[1]] / 2
-    In_ground <- raster[[1]] / 2
   }
-  g_v <- raster::rasterToPoints(In_ground)[ ,-c(1,2)]
-  s_v <- raster::rasterToPoints(In_storage)[ ,-c(1,2)]
+    In_ground <- raster_values[[1]] / 2
+    In_storage <- raster_values[[1]] / 2
+  }
+  g_v <- as.data.frame(In_ground)[,1]
+  s_v <- as.data.frame(In_storage)[,1]
   init <- list(In_storage = s_v, In_ground = g_v)
   return(init)
 }
