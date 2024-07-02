@@ -35,7 +35,6 @@
 #' 
 #' 
 buildGRUmaps <- function(gruLoc, parsValues){
-  gruLoc <- terra::rast(gruLoc)
   gruNumber <- as.numeric(terra::global(gruLoc, 'max', na.rm=T))
   
   if(dim(parsValues)[1] != gruNumber){
