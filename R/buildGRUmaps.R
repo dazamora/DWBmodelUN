@@ -34,7 +34,6 @@
 #' 
 #' 
 buildGRUmaps <- function(gruLoc, parsValues){
-  # gruNumber <- raster::cellStats(gruLoc, 'max')
   gruLoc <- terra::rast(gruLoc)
   gruNumber <- as.numeric(terra::global(gruLoc, 'max', na.rm=T))
   
