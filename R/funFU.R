@@ -18,6 +18,7 @@
 #' @return a value or a vector (depending on which kind of data was introduced for numerator and denominator).
 #'
 #' @author Nicolas Duque Gardeazabal <nduqueg@unal.edu.co>  \cr
+#' Camila Garcia Echeverri <cagarciae@unal.edu.co>  \cr
 #' Pedro Felipe Arboleda Obando <pfarboledao@unal.edu.co>  \cr
 #' Carolina Vega Viviescas <cvegav@unal.edu.co> \cr
 #' David Zamora <dazamoraa@unal.edu.co> \cr
@@ -42,7 +43,19 @@
 #' funFU(PET, P, alpha)
 #' 
 funFU <- function(PET, P, alpha){
+  
+  a <- as.numeric(PET[PET<0])
+  b <- as.numeric(P[P<0])
+  c <- c(a, b)
+  cc <-length(c)
+  if(cc != 0){
+    message("Be careful, you have entered a negative quantity of water")
+  }
+  
   F_FU <- 1 + PET/P - (1 + (PET/P)^(1/(1 - alpha)))^(1 - alpha)
   F_FU[P == 0] <- 1  # it identifies where the limit of the function is not fulfilled and assigns the limit value
+  F_FU[F_FU < 0] <- 0 #When F_FU -Inf, set to 0.
+  F_FU[F_FU > 1] <- 1 #When F_FU >1, set to 1.
+  
   return(F_FU)
 }
