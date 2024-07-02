@@ -17,6 +17,7 @@
 #' @author Nicolas Duque Gardeazabal <nduqueg@unal.edu.co>  \cr
 #' Pedro Felipe Arboleda Obando <pfarboledao@unal.edu.co>  \cr
 #' Carolina Vega Viviescas <cvegav@unal.edu.co>  \cr
+#' Camila Garcia Echeverri <cagarciae@unal.edu.co>  \cr
 #' David Zamora <dazamoraa@unal.edu.co> \cr
 #' 
 #' Water Resources Engineering Research Group - GIREH
@@ -26,6 +27,8 @@
 #'
 #' @examples
 #' data(sogamoso,GRU,basins)
+#' GRU <- terra::rast(GRU)
+#' basins <- terra::vect(basins)
 #' dwb_results <- sogamoso$dwb_results
 #' Run <- dwb_results$q_total
 #' cellBasins <- cellBasins(GRU, basins)
