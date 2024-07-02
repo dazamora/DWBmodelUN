@@ -24,6 +24,7 @@
 #' 
 #' @author 
 #' Pedro Felipe Arboleda Obando <pfarboledao@unal.edu.co>  \cr
+#' Camila Garcia Echeverri <cagarciae@unal.edu.co>  \cr
 #' Nicolas Duque Gardeazabal <nduqueg@unal.edu.co>  \cr
 #' Carolina Vega Viviescas <cvegav@unal.edu.co> \cr
 #' David Zamora <dazamoraa@unal.edu.co> \cr
@@ -39,7 +40,8 @@ Coord_comparison <- function(r1, r2){
   #Verify if r1 is data frame, if it is, convert to raster
   if(is.data.frame(r1)) {
     message("First data file is a data frame - Converting to raster")
-    rummy <- raster::rasterFromXYZ(r1[ ,1:3])
+    # rummy <- raster::rasterFromXYZ(r1[ ,1:3])
+    rummy <- terra::rast(r1[ ,1:3], type="xyz")
     a1 <- r1
     r1 <- rummy
   }
@@ -47,7 +49,8 @@ Coord_comparison <- function(r1, r2){
   #Verify if r2 is data frame, if it is, convert to raster
   if(is.data.frame(r2)) {
     message("Second data file is a data frame - Converting to raster")
-    rummy <- raster::rasterFromXYZ(r2[ ,1:3])
+    # rummy <- raster::rasterFromXYZ(r2[ ,1:3])
+    rummy <- terra::rast(r2[ ,1:3], type="xyz")
     a2 <- r2
     r2 <- rummy
   }
@@ -75,14 +78,19 @@ Coord_comparison <- function(r1, r2){
   }
   ## Rasters are compared in extent, number of layers, and number of row - columns
   ## If those characteristics match, it is said the rasters use the same cell locations.
-  er1 <- raster::extent(r1)
-  er2 <- raster::extent(r2)
+  # er1 <- raster::extent(r1)
+  er1 <- terra::ext(r1)
+  # er2 <- raster::extent(r2)
+  er2 <- terra::ext(r2)
   if(er1 == er2){
     message("Extent verified")
-    if(raster::res(r1)[1] == raster::res(r2)[1] & raster::res(r1)[2] == raster::res(r2)[2]){
+    # if(raster::res(r1)[1] == raster::res(r2)[1] & raster::res(r1)[2] == raster::res(r2)[2]){
+    if(terra::res(r1)[1] == terra::res(r2)[1] & terra::res(r1)[2] == terra::res(r2)[2]){
       message("Resolution verified")
-      if(raster::nlayers(r1) > 1 | raster::nlayers(r2) > 1){
-        if(raster::nlayers(r1) == raster::nlayers(r2)){
+      # if(raster::nlayers(r1) > 1 | raster::nlayers(r2) > 1){
+      if(terra::nlyr(r1) > 1 | terra::nlyr(r2) > 1){
+        # if(raster::nlayers(r1) == raster::nlayers(r2)){
+        if(terra::nlyr(r1) == terra::nlyr(r2)){
           message("Number of layers verified")
           return(TRUE)
         }else{
