@@ -21,6 +21,7 @@
 #' 
 #' @author 
 #' Pedro Felipe Arboleda Obando <pfarboledao@unal.edu.co> \cr
+#' Camila Garcia Echeverri <cagarciae@unal.edu.co> \cr
 #' Nicolas Duque Gardeazabal <nduqueg@unal.edu.co> \cr
 #' Carolina Vega Viviescas <cvegav@unal.edu.co> \cr
 #' David Zamora <dazamoraa@unal.edu.co> \cr
@@ -30,6 +31,8 @@
 #'
 #' @examples
 #' data("GRU","basins")
+#' GRU <- terra::rast(GRU)
+#' basins <- terra::vect(basins)
 #' cellBasins <- cellBasins(GRU, basins)
 #' 
 cellBasins <- function(gruLoc, basins){
@@ -38,13 +41,17 @@ cellBasins <- function(gruLoc, basins){
     warning("Either gruLoc or basins are missing")
   }else{
     # build the raster that consist of the number of each cell
-    cell_table <- raster::rasterToPoints(gruLoc)[ ,c(1,2)]
+    cell_table <- terra::crds(gruLoc, df=FALSE, na.rm=TRUE, na.all=FALSE)
     cell_table <- cbind(cell_table, seq(from = 1,to = nrow(cell_table), by = 1))
-    cells <- raster::rasterFromXYZ(cell_table, crs = raster::crs(gruLoc))
+    cells <- terra::rast(cell_table,  type="xyz")
+    crs(cells) <-  as.character(terra::crs(gruLoc))
     
     # extract the cells that are within each basin
-    cell_basins <- raster::extract(cells, basins, na.rm = T)
-    if(is.character(basins@data[[2]])) names(cell_basins) <- basins[[2]]
+    cell_basins <- lapply(1:length(basins), function(x){
+      terra::extract(cells, basins[x,], na.rm = T)[,2]})
+    if(is.character(as.data.frame(basins)[[2]])){
+      names(cell_basins) <- basins[[2]][,1]
+      } 
       
     return(list(cellBasins = cell_basins, cellTable = cell_table))
       
