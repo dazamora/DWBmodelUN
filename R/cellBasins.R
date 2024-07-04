@@ -44,7 +44,7 @@ cellBasins <- function(gruLoc, basins){
     cell_table <- terra::crds(gruLoc, df=FALSE, na.rm=TRUE, na.all=FALSE)
     cell_table <- cbind(cell_table, seq(from = 1,to = nrow(cell_table), by = 1))
     cells <- terra::rast(cell_table,  type="xyz")
-    crs(cells) <-  as.character(terra::crs(gruLoc))
+    terra::crs(cells) <-  as.character(terra::crs(gruLoc))
     
     # extract the cells that are within each basin
     cell_basins <- lapply(1:length(basins), function(x){
