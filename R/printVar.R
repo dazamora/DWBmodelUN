@@ -39,7 +39,7 @@
 #' coord_sys <- "+init=epsg:4326"
 #' r <- dwb_results[[3]][,1:20]
 #' printVar(r, cells, var_name = "r", coord_sys, dates, as = "NetCDF", path_var = tempdir(),
-#'  var_longname="r output", unit="mm", zname="Month")
+#' var_longname="r output", unit="mm", zname="Month")
 #' 
 printVar <- function(variable, coor_cells, var_name, coord_sys, dates, as, path_var= "",
                      var_longname="", unit="", zname=""){
@@ -52,20 +52,19 @@ printVar <- function(variable, coor_cells, var_name, coord_sys, dates, as, path_
     terra::rast(cbind(coor_cells[,-3], variable[,x]), type="xyz"))
   names(var_r) <- dates
   var_r <- terra::rast(var_r)
-  crs(var_r) <- crs(coord_sys)
+  terra::crs(var_r) <- terra::crs(coord_sys)
   
   if (as == 'raster'){
     # prints each time step in GTiff format, in the specified directory
     for (i in 1:(terra::nlyr(var_r))){
       terra::writeRaster(var_r[[i]], filename = paste(path_var,"/", var_name, "_", as.character(dates[i]), ".tif", sep = ""), overwrite = TRUE)
     }
-  }
-  if (as == 'NetCDF'){
+  } else if (as == 'NetCDF'){
     terra::time(var_r) <- dates
     terra::writeCDF(var_r, filename = paste(path_var, "/",var_name, ".nc", sep = ""), 
                     longname=var_longname, unit=unit, zname = zname,
                     overwrite = TRUE)
-  }else{ 
+  }else{
     stop("Invalid file extension")
   }
 }

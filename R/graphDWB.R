@@ -89,7 +89,7 @@ graphDWB <- function(var, tp, main, ...){
     if (nvar > 1){
       warning('Only the first variable in the list will be used')
     }
-    plot <- dygraphs::dygraph(var[[1]], ylab = paste(names(var)[1], "[mm/mth]", sep =" "), main = main, ...)
+    plot <- dygraphs::dygraph(var[[1]], ylab = paste(names(var)[1], "[mm/month]", sep =" "), main = main, ...)
     plot <- dygraphs::dySeries(dygraph = plot, "V1", label = names(var)[1], strokeWidth = 1.7, color= "#2c7fb8")
     plot <- dygraphs::dyLegend(dygraph = plot, show = "follow", hideOnMouseOut = FALSE)
     plot <- dygraphs::dyRangeSelector(dygraph = plot)
@@ -100,7 +100,7 @@ graphDWB <- function(var, tp, main, ...){
     } else if (nvar > 2){
       warning('Only the first two variables in the list will be compared')
     } 
-    plot <- dygraphs::dygraph(cbind(var[[1]], var[[2]]), ylab = "[mm/mth]", main = main, ...)
+    plot <- dygraphs::dygraph(cbind(var[[1]], var[[2]]), ylab = "[mm/month]", main = main, ...)
     plot <- dygraphs::dySeries(dygraph = plot, "var[[1]]", label = names(var)[1], strokeWidth = 1.7,  color= "#ef8a62")
     plot <- dygraphs::dySeries(dygraph = plot, "var[[2]]", label = names(var)[2], strokeWidth = 1.7, color= "#404040", 
                                drawPoints = TRUE, pointSize = 2)
@@ -120,10 +120,10 @@ graphDWB <- function(var, tp, main, ...){
     plot.1 <- dygraphs::dySeries(dygraph = plot.1, "V1", label = names(var)[1], strokeWidth = 1.7, axis = "y", color= "#2c7fb8")
     plot.1 <- dygraphs::dyLegend(dygraph = plot.1, show = "follow", width = 210, hideOnMouseOut = FALSE)
     plot.1 <- dygraphs::dyBarChart(dygraph = plot.1)
-    plot.1 <- dygraphs::dyAxis(dygraph = plot.1, name = "y", label = "P [mm/mth]", valueRange = c(max(var[[1]] + 50, na.rm = TRUE),0))
+    plot.1 <- dygraphs::dyAxis(dygraph = plot.1, name = "y", label = "P [mm/month]", valueRange = c(max(var[[1]] + 50, na.rm = TRUE),0))
     
     var.2 <- var[[2]]; var.3 <- var[[3]]
-    plot.2 <- dygraphs::dygraph(cbind(var.2, var.3), ylab = "Runoff [mm/mth]", group = "A", height = 300, width = "100%", ...)
+    plot.2 <- dygraphs::dygraph(cbind(var.2, var.3), ylab = "Runoff [mm/month]", group = "A", height = 300, width = "100%", ...)
     plot.2 <- dygraphs::dySeries(dygraph = plot.2, "var.2", label = names(var)[2], strokeWidth = 1.7,  color= "#ef8a62")
     plot.2 <- dygraphs::dySeries(dygraph = plot.2, "var.3", label = names(var)[3], strokeWidth = 1.7, color= "#404040", 
                                  drawPoints = TRUE, pointSize = 2)
@@ -144,15 +144,15 @@ graphDWB <- function(var, tp, main, ...){
     plot.1 <- dygraphs::dySeries(dygraph = plot.1,name = "V1", label = names(var)[1], axis = "y", color = "#2c7fb8") 
     plot.1 <- dygraphs::dyLegend(dygraph = plot.1, show = "follow", width = 210, hideOnMouseOut = FALSE)
     plot.1 <- dygraphs::dyBarChart(dygraph = plot.1) 
-    plot.1 <- dygraphs::dyAxis(dygraph = plot.1, name = "y", label = "P [mm/mth]", valueRange = c(max(var[[1]] + 50, na.rm = TRUE), 0)) 
+    plot.1 <- dygraphs::dyAxis(dygraph = plot.1, name = "y", label = "P [mm/month]", valueRange = c(max(var[[1]] + 50, na.rm = TRUE), 0)) 
     
     plot.2 <- dygraphs::dygraph(var[[2]], group = "A", height = 140, width = "100%", ...)
     plot.2 <- dygraphs::dySeries(dygraph = plot.2, "V1", label = names(var)[2], strokeWidth = 1.7, axis = "y", color= "#1a9850")
     plot.2 <- dygraphs::dyLegend(dygraph = plot.2, show = "follow", width = 210, hideOnMouseOut = FALSE)
     plot.2 <- dygraphs::dyBarChart(dygraph = plot.2)
-    plot.2 <- dygraphs::dyAxis(dygraph = plot.2, name = "y", label = "ET [mm/mth]", valueRange = c(0, max(var[[2]] + 50, na.rm = TRUE)))
+    plot.2 <- dygraphs::dyAxis(dygraph = plot.2, name = "y", label = "ET [mm/month]", valueRange = c(0, max(var[[2]] + 50, na.rm = TRUE)))
     
-    plot.3 <- dygraphs::dygraph(var[[3]], ylab = "Runoff [mm/mth]", group = "A", height = 225, width = "100%", ...) 
+    plot.3 <- dygraphs::dygraph(var[[3]], ylab = "Runoff [mm/month]", group = "A", height = 225, width = "100%", ...) 
     plot.3 <- dygraphs::dySeries(dygraph = plot.3, "V1", label = names(var)[3], strokeWidth = 1.7,  color= "#ef8a62") 
     plot.3 <- dygraphs::dyLegend(dygraph = plot.3, show = "follow", width = 210, hideOnMouseOut = FALSE) 
     plot.3 <-  dygraphs::dyRangeSelector(dygraph = plot.3, height = 25)

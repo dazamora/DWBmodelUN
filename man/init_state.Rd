@@ -4,7 +4,7 @@
 \alias{init_state}
 \title{Initial conditions of the model}
 \usage{
-init_state(raster)
+init_state(raster_values)
 }
 \arguments{
 \item{raster}{It could be a raster containing the maximum storage in the root zone or two raster with the initial conditions of storage}
@@ -29,7 +29,7 @@ init <- init_state(gru_maps$smaxR)
 
 # Example 2
 data(In_storage, In_ground)
-init <- init_state(stack(In_storage, In_ground))
+init <- init_state(c(terra::rast(In_storage), terra::rast(In_ground)))
 
 }
 \references{
@@ -42,6 +42,7 @@ development and testing. Journal of Hydrology", 360(1-4),
 }
 \author{
 Nicolas Duque Gardeazabal <nduqueg@unal.edu.co> \cr
+Camila García Echeverri <cagarciae@unal.edu.co> \cr 
 Pedro Felipe Arboleda <pfarboledao@unal.edu.co> \cr
 Carolina Vega Viviescas <cvegav@unal.edu.co> \cr
 David Zamora <dazamoraa@unal.edu.co> \cr

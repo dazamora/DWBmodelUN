@@ -43,9 +43,12 @@
 #' 
 #' # Load geographic info of GRU and basins where calibration will be performed
 #' data(GRU,basins)
+#' GRU <- terra::rast(GRU)
+#' basins <- terra::vect(basins)
 #' cellBasins <- cellBasins(GRU, basins)
 #' 
 #' # Establish the initial modeling conditions
+#' data(param)
 #' GRU.maps <- buildGRUmaps(GRU, param)
 #' init <- init_state(GRU.maps$smaxR)
 #' g_v <- init$In_ground
@@ -78,7 +81,7 @@
 #' 
 #' parameters <- as.vector(parameters)
 #' # Transform the parameters to the format that the model needs
-#' param <- matrix(parameters, nrow = raster::cellStats(GRU,stat="max"))  
+#' param <- matrix(parameters, nrow = as.numeric(terra::global(GRU, "max", na.rm=T)))  
 #' 
 #' # Construction of parameter maps from values by GRU
 #' GRU.maps <- buildGRUmaps(GRU, param)

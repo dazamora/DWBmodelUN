@@ -4,7 +4,18 @@
 \alias{printVar}
 \title{Print or write variables of interest}
 \usage{
-printVar(variable, coor_cells, var_name, coord_sys, dates, as, path_var = "")
+printVar(
+  variable,
+  coor_cells,
+  var_name,
+  coord_sys,
+  dates,
+  as,
+  path_var = "",
+  var_longname = "",
+  unit = "",
+  zname = ""
+)
 }
 \arguments{
 \item{variable}{corresponds to the results of a specific variable of the DWBCalculator.}
@@ -21,6 +32,10 @@ create the results in raster format, this is done from the data frames which con
 \item{as}{option to print the results as independent 'raster' (\emph{\code{.tif}}) or in a 'NetCDF' file (\emph{\code{.nc}}).}
 
 \item{path_var}{path of the directory where one wants to print the files}
+
+\item{var_longname}{extended name of the variable that will be printed as NetCDF}
+
+\item{unit}{unit name of the variable that will be printed as NetCDF}
 }
 \value{
 It saves in a folder previously created a set of raster files with the results of the 
@@ -33,10 +48,11 @@ This function allows to print or write some of the variables simulated by the DW
 data(sogamoso)
 dwb_results <- sogamoso$dwb_results
 data(cells)
-dates <- seq(as.Date("2001-01-01"), as.Date("2010-12-01"), by="month")
+dates <- seq(as.Date("2001-01-01"), as.Date("2010-12-01"), by="month")[1:20]
 coord_sys <- "+init=epsg:4326"
 r <- dwb_results[[3]][,1:20]
-printVar(r, cells, var_name = "r", coord_sys, dates, as = "NetCDF", path_var = tempdir())
+printVar(r, cells, var_name = "r", coord_sys, dates, as = "NetCDF", path_var = tempdir(),
+var_longname="r output", unit="mm", zname="Month")
 
 }
 \author{
