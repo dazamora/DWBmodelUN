@@ -1,5 +1,6 @@
-#' subject to review by CRAN
-#'
+#' @name 
+#' DWBCalculator
+#' 
 #' @title
 #' DDS algorithm to calibrate the model with approximation of uncertainty
 #'
@@ -22,6 +23,7 @@
 #' 
 #' @author Nicolas Duque Gardeazabal <nduqueg@unal.edu.co>  \cr
 #' Carlos Fuentes Cabrejo <cafeuntesc@unal.edu.co>  \cr
+#' Camila García Echeverri <cagarciae@unal.edu.co>  \cr
 #' 
 #' 
 #' Water Resources Engineering Research Group - GIREH
