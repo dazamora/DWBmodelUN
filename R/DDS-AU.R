@@ -1,5 +1,5 @@
 #' @name 
-#' DWBCalculator
+#' DDS-AU
 #' 
 #' @title
 #' DDS algorithm to calibrate the model with approximation of uncertainty
