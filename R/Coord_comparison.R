@@ -10,10 +10,12 @@
 #' from two different rasters stacks, and let to know if they are using the same geographical information,
 #' or if a new set-up should be done.
 #' 
-#' @param r1 raster or data frame. If it is a data frame, it should contain in the first two columns, the X, Y 
+#' @param r1 raster (\code{SpatRaster} from \pkg{terra}, or an object convertible to it, such as a \code{RasterLayer})
+#' or data frame. If it is a data frame, it should contain in the first two columns, the X, Y
 #' coordinates for every point, in GEOGRAPHIC COORDINATES, the third column and so on should have the variable values,
 #' and optionally, the header should have the date, using the format \code{\%m/\%Y}.
-#' @param r2 raster or data frame. If it is a data frame, it should contain in the first two columns, the X, Y 
+#' @param r2 raster (\code{SpatRaster} from \pkg{terra}, or an object convertible to it, such as a \code{RasterLayer})
+#' or data frame. If it is a data frame, it should contain in the first two columns, the X, Y
 #' coordinates for every point, in GEOGRAPHIC COORDINATES, the third column and so on should have the variable values,
 #' and optionally, the header should have the date, using the format \code{\%m/\%Y}.
 #'
@@ -36,66 +38,140 @@
 #' Coord_comparison(P_sogamoso, PET_sogamoso)
 #' 
 Coord_comparison <- function(r1, r2){
-  #Verify if r1 is data frame, if it is, convert to raster
-  if(is.data.frame(r1)) {
-    message("First data file is a data frame - Converting to raster")
-    rummy <- raster::rasterFromXYZ(r1[ ,1:3])
-    a1 <- r1
-    r1 <- rummy
+  
+  if (missing(r1) || missing(r2)) {
+    stop("Both r1 and r2 must be provided")
   }
   
-  #Verify if r2 is data frame, if it is, convert to raster
-  if(is.data.frame(r2)) {
-    message("Second data file is a data frame - Converting to raster")
-    rummy <- raster::rasterFromXYZ(r2[ ,1:3])
-    a2 <- r2
-    r2 <- rummy
+  if (!requireNamespace("terra", quietly = TRUE)) {
+    stop("The 'terra' package is required. Install it with install.packages('terra').")
   }
   
-  # If the two inputs are data frames, the dates in the headers are compared
-  # Careful!! The model will keep running even if the two headers does not match, but
-  # there will be a warning
-  # This code also compares number of columns. If the first date match, and the number of columns match
-  # the code assumes that the final data match too
-  if(is.data.frame(a2) & is.data.frame(a1)){
-    message("Two data frames - Comparing headers")
-    d1 <- colnames(a1)[-(1:2)]
-    d2 <- colnames(a2)[-(1:2)]
-    if(d1[1] == d2[1]) {
-      message("First date matches")
-      if(d1[length(d1)] == d2[length(d2)]){
-        message("First date and final date match")
-      }else{
-        warning("First date matches, but final date does not match - Please verify")
-      }
-    }else{
-      message("First date does not match according to the header")
-      warning("The model will run, but WARNING - Please verify dates")
+  r1_is_df <- is.data.frame(r1)
+  r2_is_df <- is.data.frame(r2)
+  
+  r1_df <- NULL
+  r2_df <- NULL
+  
+  if (r1_is_df) {
+    message("First data file is a data frame")
+    
+    if (ncol(r1) < 3) {
+      stop("r1 must have at least three columns: x, y, and one value column")
     }
+    
+    r1_df <- r1
+    r1 <- terra::rast(r1[, 1:3], type = "xyz")
+  } else if (!inherits(r1, "SpatRaster")) {
+    r1 <- terra::rast(r1)
   }
-  ## Rasters are compared in extent, number of layers, and number of row - columns
-  ## If those characteristics match, it is said the rasters use the same cell locations.
-  er1 <- raster::extent(r1)
-  er2 <- raster::extent(r2)
-  if(er1 == er2){
-    message("Extent verified")
-    if(raster::res(r1)[1] == raster::res(r2)[1] & raster::res(r1)[2] == raster::res(r2)[2]){
-      message("Resolution verified")
-      if(raster::nlayers(r1) > 1 | raster::nlayers(r2) > 1){
-        if(raster::nlayers(r1) == raster::nlayers(r2)){
-          message("Number of layers verified")
-          return(TRUE)
-        }else{
-          warning("Please verify number of layers in raster")
-          return(FALSE)
-        }
-      }else{return(TRUE)}
-      
-    }else{
-      warning("Please verify raster resolution")
+  
+  if (r2_is_df) {
+    message("Second data file is a data frame")
+    
+    if (ncol(r2) < 3) {
+      stop("r2 must have at least three columns: x, y, and one value column")
+    }
+    
+    r2_df <- r2
+    r2 <- terra::rast(r2[, 1:3], type = "xyz")
+  } else if (!inherits(r2, "SpatRaster")) {
+    r2 <- terra::rast(r2)
+  }
+  
+  if (r1_is_df && r2_is_df) {
+    message("Two data frames - Comparing coordinates and headers")
+    
+    if (nrow(r1_df) != nrow(r2_df)) {
+      warning("The data frames have different numbers of rows")
       return(FALSE)
     }
-  }else{
-    warning("Please verify raster extent")
+    
+    same_coordinates <- isTRUE(all.equal(r1_df[, 1:2], r2_df[, 1:2], check.attributes = FALSE))
+    
+    if (same_coordinates) {
+      message("Coordinates verified")
+    } else {
+      warning("Please verify coordinates")
+      return(FALSE)
+    }
+    
+    d1 <- colnames(r1_df)[-(1:2)]
+    d2 <- colnames(r2_df)[-(1:2)]
+    
+    if (length(d1) != length(d2)) {
+      warning("The data frames have different numbers of value columns")
+      return(FALSE)
+    }
+    
+    if (length(d1) > 0 && length(d2) > 0) {
+      if (d1[1] == d2[1]) {
+        message("First date/header matches")
+      } else {
+        warning("First date/header does not match - Please verify")
+      }
+      
+      if (d1[length(d1)] == d2[length(d2)]) {
+        message("Final date/header matches")
+      } else {
+        warning("Final date/header does not match - Please verify")
+      }
+    }
   }
+  
+  same_extent <- isTRUE(all.equal(
+    as.vector(terra::ext(r1)),
+    as.vector(terra::ext(r2)),
+    tolerance = 1e-9,
+    check.attributes = FALSE
+  ))
+  
+  if (same_extent) {
+    message("Extent verified")
+  } else {
+    warning("Please verify raster extent")
+    return(FALSE)
+  }
+  
+  same_resolution <- isTRUE(all.equal(
+    terra::res(r1),
+    terra::res(r2),
+    tolerance = 1e-9,
+    check.attributes = FALSE
+  ))
+  
+  if (same_resolution) {
+    message("Resolution verified")
+  } else {
+    warning("Please verify raster resolution")
+    return(FALSE)
+  }
+  
+  if (terra::nrow(r1) != terra::nrow(r2) || terra::ncol(r1) != terra::ncol(r2)) {
+    warning("Please verify raster rows and columns")
+    return(FALSE)
+  }
+  
+  message("Rows and columns verified")
+  
+  if (terra::nlyr(r1) != terra::nlyr(r2)) {
+    warning("Please verify number of layers in raster")
+    return(FALSE)
+  }
+  
+  message("Number of layers verified")
+  
+  crs1 <- terra::crs(r1)
+  crs2 <- terra::crs(r2)
+  
+  if (nzchar(crs1) && nzchar(crs2) && crs1 != crs2) {
+    warning("Please verify coordinate reference systems")
+    return(FALSE)
+  }
+  
+  if (nzchar(crs1) && nzchar(crs2)) {
+    message("Coordinate reference system verified")
+  }
+  
+  return(TRUE)
 }

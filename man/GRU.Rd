@@ -16,4 +16,9 @@ GRU
 \description{
 Raster data of Group Response Units in Sogamoso River Basin
 }
+\details{
+The object is stored in the legacy \pkg{raster} format, so the \pkg{raster} package must be
+installed to load it. The functions of \pkg{DWBmodelUN} convert it internally to a \code{SpatRaster};
+to convert it manually use \code{terra::rast(GRU)}.
+}
 \keyword{datasets}

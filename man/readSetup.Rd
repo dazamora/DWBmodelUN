@@ -7,9 +7,9 @@
 readSetup(Read = TRUE, setup)
 }
 \arguments{
-\item{Read}{is a boolean which is used to identify whether the modeller has created its own dataframe in R or
-the setup is read from file previously written in the \code{data} directory. An example of the file is contained in the package.
-The default value is \emph{\code{TRUE}}, meaning that it will read the plain file from the \code{data} directory.}
+\item{Read}{is a boolean which is used to identify whether the example setup included in the package should be
+returned (\emph{\code{TRUE}}, the default value, matching the \code{setup_data} dataset), or whether the modeller
+provides its own setup dataframe through the \code{setup} argument (\emph{\code{FALSE}}).}
 
 \item{setup}{is an optional dataframe that contains the character strings which specifies dates and variables to be printed.
 The first seven rows must be character strings specifying the actions regarding if the modeller requires to print the
@@ -22,9 +22,9 @@ required, those dates are ignored.}
 An organized dataframe which defines the model setup.
 }
 \description{
-This function reads the setup features of the model. These include the dates that define the simulated time period, and also the variables
-that will be printed in individual directories. It reads the information from a \emph{\code{RData}} file, and returns the identified variables in a tailored dataframe.
-Optionally, one can insert the string setup in a dataframe and hence use it in this function.
+This function defines the setup features of the model. These include the dates that define the simulated time period, and also the variables
+that will be printed in individual directories. It returns the identified variables in a tailored dataframe.
+Optionally, one can build the setup as a dataframe and pass it to this function for validation and formatting.
 }
 \examples{
 setup <- readSetup(Read = TRUE)  # run if you would like to upload the example setup

@@ -13,30 +13,49 @@ upForcing(
 }
 \arguments{
 \item{path_p}{is a character string that specifies the directory where the precipitation rasters or
-the csv file are stored. The csv file must have nrows = N° of cells and ncol= N° of time steps.}
+the csv file are stored. The csv file must have nrows = number of cells and ncol = number of time steps.}
 
-\item{path_pet}{is a character string that specifies the location of the potential evapotranspiration rasters or
-the csv file are stored. The csv file must have nrows= N° of cells and ncol= N° of time steps.}
+\item{path_pet}{is a character string that specifies the directory where the potential evapotranspiration rasters or
+the csv file are stored. The csv file must have nrows = number of cells and ncol = number of time steps.}
 
 \item{file_type}{Character string that specifies the forcing file formats, it should be "raster" or "csv",
 the default value is "raster".}
 
-\item{format}{Character string that specifies the format file of the Rasters, possible values are "GTiff"
+\item{format}{Character string that specifies the file format of the rasters, possible values are "GTiff"
 and "NetCDF". Default value is "GTiff".}
 }
 \value{
-a list containing the two objects (P and PET).
+a list containing two data frames (\code{Prec} and \code{PET}). When read from rasters, the first
+two columns of each data frame are the x and y coordinates of the cells, and the remaining columns are
+the time steps.
 }
 \description{
-This function loads the precipitation and evapotranspiration estimates that will be used
-to run or force the DWB model (\code{\link{DWBCalculator}}). If files are in raster format, it saves a variable 
-cointaining the inputs in table format.
+This function loads the precipitation and potential evapotranspiration estimates that will be used
+to run or force the DWB model (\code{\link{DWBCalculator}}). If files are in raster format, they are read with
+the \pkg{terra} package and returned as tables where the first two columns are the cell coordinates.
 }
 \details{
-The character strings that control the location of the forcing files are as default "\emph{./precip/}"
-and "\emph{./pet/}" for precipitation and potential evapotranspiration, but can be change to other directories.
-However, if one's intention is to upload them from NetCDF files, the \bold{strings must be completely changed} to
-a complete path that includes the name and extension of the file.
+The arguments that control the location of the forcing files can point either to a directory that
+contains the raster or csv files, or to a single file. When reading GTiff files from a directory, all files
+with extension \emph{.tif} or \emph{.tiff} are read in alphabetical order, so file names should be consistent
+with the chronological order of the time series. If one's intention is to upload the forcings from NetCDF
+files, the path should preferably be the complete path including the name and extension of the file.
+}
+\examples{
+# Write the example data as GTiff files in a temporal directory and read them back
+data(P_sogamoso, PET_sogamoso)
+dir_p <- file.path(tempdir(), "precip")
+dir_pet <- file.path(tempdir(), "pet")
+dir.create(dir_p, showWarnings = FALSE)
+dir.create(dir_pet, showWarnings = FALSE)
+p_rast <- terra::rast(P_sogamoso[, 1:3], type = "xyz")
+pet_rast <- terra::rast(PET_sogamoso[, 1:3], type = "xyz")
+terra::writeRaster(p_rast, file.path(dir_p, "P_2001_01.tif"), overwrite = TRUE)
+terra::writeRaster(pet_rast, file.path(dir_pet, "PET_2001_01.tif"), overwrite = TRUE)
+meteo <- upForcing(path_p = dir_p, path_pet = dir_pet,
+                   file_type = "raster", format = "GTiff")
+str(meteo)
+
 }
 \author{
 Nicolas Duque Gardeazabal <nduqueg@unal.edu.co> \cr

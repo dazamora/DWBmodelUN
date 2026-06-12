@@ -1,0 +1,56 @@
+url: https://dazamora.github.io/DWBmodelUN/
+
+template:
+  bootstrap: 5
+
+home:
+  title: DWBmodelUN - Dynamic Water Balance model
+  description: >
+    Tool for hydrologic modelling using the Budyko framework and the
+    Dynamic Water Balance model, with the Dynamical Dimension Search
+    algorithm to calibrate the model.
+
+reference:
+- title: Model
+  desc: Core functions of the Dynamic Water Balance model
+  contents:
+  - DWBCalculator
+  - funFU
+  - dds
+- title: Pre-processing
+  desc: Functions to prepare the inputs of the model
+  contents:
+  - readSetup
+  - upForcing
+  - buildGRUmaps
+  - init_state
+  - cellBasins
+  - Coord_comparison
+- title: Post-processing
+  desc: Functions to analyze and export the results
+  contents:
+  - varBasins
+  - printVar
+  - graphDWB
+- title: Data
+  desc: Example datasets of the Sogamoso River Basin
+  contents:
+  - sogamoso
+  - basins
+  - cells
+  - GRU
+  - In_ground
+  - In_storage
+  - P_sogamoso
+  - PET_sogamoso
+  - param
+  - r.cells
+  - setup_data
+  - EscSogObs
+  - simDWB.sogamoso
+  - gru_maps
+
+navbar:
+  structure:
+    left: [intro, reference, articles, news]
+    right: [search, github]

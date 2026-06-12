@@ -14,17 +14,19 @@ create the results in raster format, this is done from the data frames which con
 
 \item{var_name}{name of the variable that will be printed (e.g., q_total, aet, r, qd, qb, s, g)}
 
-\item{coord_sys}{geographic or projected coordinate system.}
+\item{coord_sys}{geographic or projected coordinate system, in any notation accepted by \pkg{terra}
+(e.g., \code{"EPSG:4326"} or a WKT string).}
 
 \item{dates}{dates that were simulated.}
 
-\item{as}{option to print the results as independent 'raster' (\emph{\code{.tif}}) or in a 'NetCDF' file (\emph{\code{.nc}}).}
+\item{as}{option to print the results as independent 'raster' (\emph{\code{.tif}}) files or in a single
+'NetCDF' (\emph{\code{.nc}}) file. Writing NetCDF files requires the \pkg{ncdf4} package.}
 
-\item{path_var}{path of the directory where one wants to print the files}
+\item{path_var}{path of the directory where one wants to print the files. It is created if it does not exist.}
 }
 \value{
-It saves in a folder previously created a set of raster files with the results of the 
-variable of interest.
+It writes in the requested folder a set of raster files (or a NetCDF file) with the results of the
+variable of interest, and returns (invisibly) the written \code{SpatRaster}.
 }
 \description{
 This function allows to print or write some of the variables simulated by the DWB model.
@@ -34,7 +36,7 @@ data(sogamoso)
 dwb_results <- sogamoso$dwb_results
 data(cells)
 dates <- seq(as.Date("2001-01-01"), as.Date("2010-12-01"), by="month")
-coord_sys <- "+init=epsg:4326"
+coord_sys <- "EPSG:4326"
 r <- dwb_results[[3]][,1:20]
 printVar(r, cells, var_name = "r", coord_sys, dates, as = "NetCDF", path_var = tempdir())
 

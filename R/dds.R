@@ -78,7 +78,8 @@
 #' 
 #' parameters <- as.vector(parameters)
 #' # Transform the parameters to the format that the model needs
-#' param <- matrix(parameters, nrow = raster::cellStats(GRU,stat="max"))  
+#' nGRU <- max(terra::values(terra::rast(GRU)), na.rm = TRUE)
+#' param <- matrix(parameters, nrow = nGRU)
 #' 
 #' # Construction of parameter maps from values by GRU
 #' GRU.maps <- buildGRUmaps(GRU, param)
@@ -90,10 +91,11 @@
 #'                               g_v,s_v, alpha1_v, alpha2_v, smax_v,d_v, calibration = TRUE)
 #' Esc.Sogamoso <- varBasins(DWB.sogamoso$q_total, cellBasins$cellBasins)
 #' 
-#' # model evaluation; in case of possible NA results in the simulation, 
-#' # add a conditional assingment to a very high value
+#' # model evaluation; in case of possible NA results in the simulation,
+#' # add a conditional assignment to a very high value
 #' sim <- Esc.Sogamoso$varAverage[Cal.Period - 2, ]
-#' obs <- EscSogObs[Cal.Period - 2, ]
+#' # align the observations with the simulated basins (named by gauge code)
+#' obs <- EscSogObs[Cal.Period - 2, paste0("X", colnames(sim))]
 #' 
 #' if (sum(!is.na(sim)) == prod(dim(sim))){
 #'   numer <- apply((sim - obs)^2, 2, sum, na.rm = TRUE)
@@ -116,70 +118,147 @@
 #'               P=P_sogamoso, PET=PET_sogamoso, g_v=g_v, s_v=s_v, Sim.Period=Sim.Period, 
 #'               EscObs=EscSogObs, Cal.Period=Cal.Period)
 #' 
-dds <- function(xBounds.df, numIter,iniPar=NA, r = 0.2, OBJFUN, ...){
-  # Format xBounds.df colnames
-  colnames(xBounds.df) <- c("min", "max")
-  # Generate initial first guess
-  #xBounds.df<-data.frame(col1 = rep(10,10), col2=rep(100, 10))
-  if (is.na(iniPar[1])){  # identification of initial parameters
-    x_init <- apply(xBounds.df, 1, function(x) runif(1, x[1], x[2]))
-  }else{
-    x_init <- as.numeric(iniPar)
+dds <- function(xBounds.df, numIter, iniPar = NA, r = 0.2, OBJFUN, ...){
+  
+  if (missing(xBounds.df) || ncol(xBounds.df) < 2) {
+    stop("xBounds.df must have at least two columns: lower and upper bounds")
   }
   
-  x_best <- data.frame(x = x_init)
-  x_test <- data.frame(x = x_init)
+  if (missing(numIter) || length(numIter) != 1 || numIter < 1) {
+    stop("numIter must be an integer greater than or equal to 1")
+  }
   
-  # Evaluate first cost function
-  y_init <- OBJFUN(x_init, ...)
-  y_test <- y_init
-  y_best <- y_init
+  if (missing(OBJFUN) || !is.function(OBJFUN)) {
+    stop("OBJFUN must be a function")
+  }
   
-  # Select which entry to peturb at each iteration
+  if (length(r) != 1 || r <= 0 || r > 1) {
+    stop("r must be greater than 0 and lower than or equal to 1")
+  }
+  
+  xBounds.df <- as.data.frame(xBounds.df[, 1:2])
+  colnames(xBounds.df) <- c("min", "max")
+  
+  if (any(!is.finite(as.matrix(xBounds.df)))) {
+    stop("xBounds.df must contain finite numeric bounds")
+  }
+  
+  if (any(xBounds.df$min >= xBounds.df$max)) {
+    stop("Each lower bound must be smaller than its upper bound")
+  }
+  
+  numIter <- as.integer(numIter)
   xDims <- nrow(xBounds.df)
-  Prob <- matrix(1 - log(1:numIter) / log(numIter), ncol = 1) # Returns numIter length list of entries to be peturbed
-  peturbIdx <- apply(t(apply(Prob,1, function(x) as.logical(rbinom(xDims, 1, x)))), 1, which)
-  # identify where it is not changing any parameter and assign one ramdomly
-  Correct.Peturb <- which(unlist(lapply(peturbIdx,sum)) == 0)
-  peturbIdx[Correct.Peturb] <- sample(1:xDims, length(Correct.Peturb), replace = TRUE)
-  
-  # Peturb each entry by N(0,1)*r(x_max - x_min) reflecting if @ boundaries
   sigma <- xBounds.df$max - xBounds.df$min
   
-  pb1 <- txtProgressBar(style = 3)
-  for(i in 2:numIter){
-    setTxtProgressBar(pb1, i/numIter, title = paste(i/numIter,"% of Calibration"))
-    # Set up test x
-    x_test[ ,i] <- as.matrix(x_best)
-    # Get entries we will peturb
-    idx <- peturbIdx[[i]]
-    # Initialize vector of peturbations initially zeros with same length of x so we will add this vector to peturb x
-    peturbVec <- rep(0, nrow(x_test[ ,i]))
-    # Generate the required number of random normal variables
-    N <- rnorm(nrow(x_test[,i]), mean = 0, sd = 1)
-    # Set up vector of peturbations
-    peturbVec[idx] <- r * N[idx] * sigma[idx]
-    # Temporary resulting x value if we peturbed it
-    x_test[,i] <- x_test[,i] + peturbVec  
-    # Find the values in testPeturb that have boundary violations.
-    B.Vio.min.Idx <- which(x_test[ ,i] < xBounds.df$min)
-    B.Vio.max.Idx <- which(x_test[ ,i] > xBounds.df$max)
-    # Correct them by mirroring set them to the minimum or maximum values
-    x_test[B.Vio.min.Idx,i] <- xBounds.df$min[B.Vio.min.Idx] + (xBounds.df$min[B.Vio.min.Idx] - x_test[B.Vio.min.Idx, i])
-    set.min <- B.Vio.min.Idx[x_test[B.Vio.min.Idx, i] > xBounds.df$max[B.Vio.min.Idx]]  # which are still out of bound
-    x_test[set.min, i] <- xBounds.df$min[set.min]
-    x_test[B.Vio.max.Idx,i] <- xBounds.df$max[B.Vio.max.Idx] - (x_test[B.Vio.max.Idx,i] - xBounds.df$max[B.Vio.max.Idx])
-    set.max <- B.Vio.max.Idx[x_test[B.Vio.max.Idx,i] < xBounds.df$min[B.Vio.max.Idx]]
-    x_test[set.max, i]<- xBounds.df$max[set.max]
+  evaluate_objfun <- function(x) {
+    y <- OBJFUN(as.numeric(x), ...)
     
-    # Evaluate objective function
-    y_test[i] <- OBJFUN(x_test[ ,i], ...)
-    y_best <- min(c(y_test[i], y_best))
-    bestIdx <- which.min(c(y_test[i], y_best))
-    x_choices <- cbind(x_test[ ,i], as.matrix(x_best))
-    x_best <- x_choices[ ,bestIdx]
+    if (length(y) != 1) {
+      stop("OBJFUN must return a single scalar value")
+    }
+    
+    if (!is.finite(y) || is.na(y)) {
+      y <- Inf
+    }
+    
+    as.numeric(y)
   }
-  close(pb1)
-  output.list <- list(X_BEST = t(x_best), Y_BEST = y_best, X_TEST = t(x_test), Y_TEST = y_test)
+  
+  reflect_bounds <- function(x) {
+    below <- which(x < xBounds.df$min)
+    if (length(below) > 0) {
+      x[below] <- xBounds.df$min[below] + (xBounds.df$min[below] - x[below])
+      still_below <- below[x[below] > xBounds.df$max[below]]
+      if (length(still_below) > 0) {
+        x[still_below] <- xBounds.df$min[still_below]
+      }
+    }
+    
+    above <- which(x > xBounds.df$max)
+    if (length(above) > 0) {
+      x[above] <- xBounds.df$max[above] - (x[above] - xBounds.df$max[above])
+      still_above <- above[x[above] < xBounds.df$min[above]]
+      if (length(still_above) > 0) {
+        x[still_above] <- xBounds.df$max[still_above]
+      }
+    }
+    
+    pmin(pmax(x, xBounds.df$min), xBounds.df$max)
+  }
+  
+  if (length(iniPar) == 1 && is.na(iniPar)) {
+    x_current <- stats::runif(xDims, min = xBounds.df$min, max = xBounds.df$max)
+  } else {
+    x_current <- as.numeric(iniPar)
+    
+    if (length(x_current) != xDims) {
+      stop("iniPar must have the same length as the number of parameters in xBounds.df")
+    }
+    
+    x_current <- reflect_bounds(x_current)
+  }
+  
+  y_current <- evaluate_objfun(x_current)
+  
+  x_best <- x_current
+  y_best <- y_current
+  
+  X_TEST <- matrix(NA_real_, nrow = numIter, ncol = xDims)
+  X_BEST <- matrix(NA_real_, nrow = numIter, ncol = xDims)
+  Y_TEST <- rep(NA_real_, numIter)
+  Y_BEST <- rep(NA_real_, numIter)
+  
+  X_TEST[1, ] <- x_current
+  X_BEST[1, ] <- x_best
+  Y_TEST[1] <- y_current
+  Y_BEST[1] <- y_best
+  
+  pb <- utils::txtProgressBar(min = 0, max = numIter, style = 3)
+  on.exit(close(pb), add = TRUE)
+  utils::setTxtProgressBar(pb, 1)
+  
+  if (numIter > 1) {
+    for (i in 2:numIter) {
+      
+      prob <- 1 - log(i) / log(numIter)
+      idx <- which(stats::rbinom(xDims, size = 1, prob = prob) == 1)
+      
+      if (length(idx) == 0) {
+        idx <- sample.int(xDims, size = 1)
+      }
+      
+      x_candidate <- x_best
+      perturbation <- rep(0, xDims)
+      perturbation[idx] <- r * stats::rnorm(length(idx)) * sigma[idx]
+      x_candidate <- reflect_bounds(x_candidate + perturbation)
+      
+      y_candidate <- evaluate_objfun(x_candidate)
+      
+      X_TEST[i, ] <- x_candidate
+      Y_TEST[i] <- y_candidate
+      
+      if (y_candidate < y_best) {
+        x_best <- x_candidate
+        y_best <- y_candidate
+      }
+      
+      X_BEST[i, ] <- x_best
+      Y_BEST[i] <- y_best
+      
+      utils::setTxtProgressBar(pb, i)
+    }
+  }
+  
+  colnames(X_TEST) <- paste0("par_", seq_len(xDims))
+  colnames(X_BEST) <- paste0("par_", seq_len(xDims))
+  
+  output.list <- list(
+    X_BEST = X_BEST,
+    Y_BEST = Y_BEST,
+    X_TEST = X_TEST,
+    Y_TEST = Y_TEST
+  )
+  
   return(output.list)
 }

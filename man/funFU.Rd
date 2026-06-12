@@ -10,11 +10,12 @@ funFU(PET, P, alpha)
 \item{PET}{is the variable which will be inserted as the numerator in Fu's function. It can be a value or a numeric vector,
 in which case it must have the same length as the denominator vector.}
 
-\item{P}{is the variable which will be inserted as the numerator in Fu's function. It can be a value or a numeric vector,
+\item{P}{is the variable which will be inserted as the denominator in Fu's function. It can be a value or a numeric vector,
 in which case it must have the same length as the numerator vector.}
 
 \item{alpha}{parameter of Fu's model which controls the evapotranspiration efficiency, yet it is named depending
-on the variables used as numerator and denominator. It must be a unique value of type double.}
+on the variables used as numerator and denominator. It can be a single value of type double or a numeric vector
+with the same length as \code{PET} and \code{P}. Its values must be between 0 and 1.}
 }
 \value{
 a value or a vector (depending on which kind of data was introduced for numerator and denominator).

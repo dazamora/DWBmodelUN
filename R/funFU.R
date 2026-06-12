@@ -10,10 +10,11 @@
 #'
 #' @param PET is the variable which will be inserted as the numerator in Fu's function. It can be a value or a numeric vector,
 #' in which case it must have the same length as the denominator vector.
-#' @param P is the variable which will be inserted as the numerator in Fu's function. It can be a value or a numeric vector,
+#' @param P is the variable which will be inserted as the denominator in Fu's function. It can be a value or a numeric vector,
 #' in which case it must have the same length as the numerator vector.
 #' @param alpha parameter of Fu's model which controls the evapotranspiration efficiency, yet it is named depending
-#' on the variables used as numerator and denominator. It must be a unique value of type double.
+#' on the variables used as numerator and denominator. It can be a single value of type double or a numeric vector
+#' with the same length as \code{PET} and \code{P}. Its values must be between 0 and 1.
 #'
 #' @return a value or a vector (depending on which kind of data was introduced for numerator and denominator).
 #'
@@ -42,7 +43,13 @@
 #' funFU(PET, P, alpha)
 #' 
 funFU <- function(PET, P, alpha){
-  F_FU <- 1 + PET/P - (1 + (PET/P)^(1/(1 - alpha)))^(1 - alpha)
+  phi <- PET / P
+  k <- 1 / (1 - alpha)
+  # for phi > 1 the term (1 + phi^k)^(1/k) is factored as phi * (1 + phi^-k)^(1/k),
+  # which avoids the overflow to Inf when P is much smaller than PET
+  F_FU <- ifelse(phi > 1,
+                 1 + phi - phi * (1 + phi^(-k))^(1/k),
+                 1 + phi - (1 + phi^k)^(1/k))
   F_FU[P == 0] <- 1  # it identifies where the limit of the function is not fulfilled and assigns the limit value
   return(F_FU)
 }

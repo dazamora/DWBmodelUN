@@ -4,13 +4,13 @@
 #' @title
 #' Read the model setup
 #'
-#' @description This function reads the setup features of the model. These include the dates that define the simulated time period, and also the variables
-#' that will be printed in individual directories. It reads the information from a \emph{\code{RData}} file, and returns the identified variables in a tailored dataframe.
-#' Optionally, one can insert the string setup in a dataframe and hence use it in this function.
+#' @description This function defines the setup features of the model. These include the dates that define the simulated time period, and also the variables
+#' that will be printed in individual directories. It returns the identified variables in a tailored dataframe.
+#' Optionally, one can build the setup as a dataframe and pass it to this function for validation and formatting.
 #'
-#' @param Read is a boolean which is used to identify whether the modeller has created its own dataframe in R or
-#' the setup is read from file previously written in the \code{data} directory. An example of the file is contained in the package.
-#' The default value is \emph{\code{TRUE}}, meaning that it will read the plain file from the \code{data} directory.
+#' @param Read is a boolean which is used to identify whether the example setup included in the package should be
+#' returned (\emph{\code{TRUE}}, the default value, matching the \code{setup_data} dataset), or whether the modeller
+#' provides its own setup dataframe through the \code{setup} argument (\emph{\code{FALSE}}).
 #' @param setup is an optional dataframe that contains the character strings which specifies dates and variables to be printed.
 #' The first seven rows must be character strings specifying the actions regarding if the modeller requires to print the
 #' simulated variables. The order is: calibration mode, print variables, print total runoff, print soil moisture, print actual ET, print direct runoff,
@@ -47,22 +47,24 @@
 #' setup <- readSetup(Read = FALSE, table_setup)
 #' 
 readSetup <- function(Read = TRUE, setup){
-  
-  if(!exists("Read") & !exists("setup")){
-    warning("Read and setup parameters are missing")
-  }else{
-    if (Read == TRUE){
-      setup <- data.frame(v1 = c(rep("no", 7), "2001-01-01", "2001-07-01", "2010-12-01", "2007-12-01"),
-                          stringsAsFactors = FALSE)  
-      rownames(setup) <- c("calibration", "print", "print_R", "print_S", "print_AET", "print_Qd",
-                           "print_Qb", "D.ini", "D.ini.cal", "D.end", "D.end.cal")
-    }else{
-      # asigns the dataframe created in the R environment
-      # final date of simulation
-      setup[10,1] <- paste(substr(setup[10, ], 1, 7), "-01", sep = "")  # changes the day speficfied to the first day of the month
-      # final date of calibration
-      setup[11,1] <- paste(substr(setup[11, ], 1, 7), "-01", sep = "")
-    }
-    return(setup)
+
+  if (!is.logical(Read) || length(Read) != 1 || is.na(Read)) {
+    stop("Read must be TRUE or FALSE")
   }
+
+  if (Read) {
+    setup <- data.frame(v1 = c(rep("no", 7), "2001-01-01", "2001-07-01", "2010-12-01", "2007-12-01"),
+                        stringsAsFactors = FALSE)
+    rownames(setup) <- c("calibration", "print", "print_R", "print_S", "print_AET", "print_Qd",
+                         "print_Qb", "D.ini", "D.ini.cal", "D.end", "D.end.cal")
+  } else {
+    if (missing(setup) || !is.data.frame(setup) || nrow(setup) < 11) {
+      stop("When Read = FALSE, setup must be a data frame with at least 11 rows. See the function help for its structure.")
+    }
+
+    setup[10, 1] <- paste(substr(setup[10, 1], 1, 7), "-01", sep = "")
+    setup[11, 1] <- paste(substr(setup[11, 1], 1, 7), "-01", sep = "")
+  }
+
+  return(setup)
 }

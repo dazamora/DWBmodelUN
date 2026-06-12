@@ -78,7 +78,8 @@ NSE_Sogamoso_DWB <- function(parameters, P, PET, g_v,s_v, Sim.Period, EscObs, Ca
 
 parameters <- as.vector(parameters)
 # Transform the parameters to the format that the model needs
-param <- matrix(parameters, nrow = raster::cellStats(GRU,stat="max"))  
+nGRU <- max(terra::values(terra::rast(GRU)), na.rm = TRUE)
+param <- matrix(parameters, nrow = nGRU)
 
 # Construction of parameter maps from values by GRU
 GRU.maps <- buildGRUmaps(GRU, param)

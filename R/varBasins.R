@@ -34,7 +34,22 @@
 #' Runoff.Sogamoso <- varBasins(Run, cellBasins)
 #' 
 varBasins<-function(var, cellBasins){
-  
+
+  if (missing(var) || missing(cellBasins)) {
+    stop("Both var and cellBasins must be provided")
+  }
+
+  if (!is.list(cellBasins) || length(cellBasins) == 0) {
+    stop("cellBasins must be a non-empty list of cell indices")
+  }
+
+  var <- as.matrix(var)
+  cell_index <- unlist(cellBasins)
+
+  if (length(cell_index) > 0 && max(cell_index, na.rm = TRUE) > nrow(var)) {
+    stop("cellBasins contains cell numbers larger than the number of rows in var")
+  }
+
   varAverage <- data.frame(matrix(data=NA, ncol=length(cellBasins), nrow=ncol(var)))
   colnames(varAverage) <- names(cellBasins)
   varCells <- lapply(cellBasins,FUN = function(i,var){ var[i,]}, var)
