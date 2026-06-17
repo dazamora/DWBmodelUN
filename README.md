@@ -9,6 +9,7 @@
 Status](https://travis-ci.com/dazamora/DWBmodelUN.svg?branch=master)](https://travis-ci.com/dazamora/DWBmodelUN)
 [![codecov](https://codecov.io/gh/dazamora/DWBmodelUN/branch/master/graph/badge.svg)](https://codecov.io/gh/dazamora/DWBmodelUN)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3813037.svg)](https://doi.org/10.5281/zenodo.3813037)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/dazamora/DWBmodelUN/master?urlpath=rstudio)
 
 # DWBmodelUN
 

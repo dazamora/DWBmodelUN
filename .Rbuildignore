@@ -6,3 +6,4 @@ README-references.bib
 ^docs$
 ^pkgdown$
 ^\.github$
+^binder$

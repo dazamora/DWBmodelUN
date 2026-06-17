@@ -1,0 +1,11 @@
+# System libraries required to build the spatial R packages (terra, sp, raster)
+# and to knit the vignette inside the Binder container.
+gdal-bin
+proj-bin
+libgdal-dev
+libgeos-dev
+libproj-dev
+libudunits2-dev
+libssl-dev
+libxml2-dev
+pandoc
