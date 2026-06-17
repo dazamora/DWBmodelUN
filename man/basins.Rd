@@ -14,7 +14,7 @@ SpatialPolygonsDataFrame (S4)
 basins
 }
 \description{
-The polygons of the 23 subbasins across the Sogamoso Basin
+The polygons of the 25 subbasins across the Sogamoso Basin
 }
 \details{
 The object is stored in the legacy \pkg{sp} format, so the \pkg{sp} package must be installed

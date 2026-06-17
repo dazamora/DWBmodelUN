@@ -91,10 +91,11 @@ DWB.sogamoso <- DWBCalculator(P_sogamoso[ ,Sim.Period], PET_sogamoso[ ,Sim.Perio
                               g_v,s_v, alpha1_v, alpha2_v, smax_v,d_v, calibration = TRUE)
 Esc.Sogamoso <- varBasins(DWB.sogamoso$q_total, cellBasins$cellBasins)
 
-# model evaluation; in case of possible NA results in the simulation, 
-# add a conditional assingment to a very high value
+# model evaluation; in case of possible NA results in the simulation,
+# add a conditional assignment to a very high value
 sim <- Esc.Sogamoso$varAverage[Cal.Period - 2, ]
-obs <- EscSogObs[Cal.Period - 2, ]
+# align the observations with the simulated basins (named by gauge code)
+obs <- EscSogObs[Cal.Period - 2, paste0("X", colnames(sim))]
 
 if (sum(!is.na(sim)) == prod(dim(sim))){
   numer <- apply((sim - obs)^2, 2, sum, na.rm = TRUE)
