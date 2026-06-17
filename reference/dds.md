@@ -1,0 +1,177 @@
+# DDS algorithm to calibrate the model
+
+This function allows the user to calibrate the DWB or other models with
+the Dynamical Dimension Search (DDS) algorithm (Tolson & Shoemaker,
+2007). As the calibration is performed based on a single value, one
+should average or create a scalar to evaluate the model's performance.
+The evaluation can be made using all the streamflow stations, or other
+variables, between the observed and the simulated values.
+
+## Usage
+
+``` r
+dds(xBounds.df, numIter, iniPar = NA, r = 0.2, OBJFUN, ...)
+```
+
+## Arguments
+
+- xBounds.df:
+
+  must be a dataframe which defines the parameter range for searching,
+  with 1st column as the minimum and 2nd column as the maximum of the
+  parameter space.
+
+- numIter:
+
+  is an integer that defines the total number of simulations so as to
+  calibrate the model.
+
+- iniPar:
+
+  is a vector which contains an optional initial parameter set.
+
+- r:
+
+  is a double between 0 and 1 which defines the range of searching in
+  the DDS algorithm, the default value is 0.2.
+
+- OBJFUN:
+
+  is a function which returns a scalar value which one is trying to
+  minimize. In this case, the scalar is the Objective Function used to
+  evaluate the model performance.
+
+- ...:
+
+  other variables and datasets needed to run the model.
+
+## Value
+
+`outputs.df` is a four entry list, containing `X_BEST`, `Y_BEST`,
+`X_TEST` and `Y_TEST`, as they evolve over `numIter` iterations.
+`X_BEST` and `Y_BEST` are the parameters found by the algorithm,
+parameters which produce a good value of the **Objective Function**
+`Y_BEST`. `X_TEST` and `Y_TEST` are the evaluated parameters and their
+respective performance value.
+
+## Details
+
+dds
+
+## References
+
+Tolson, B. A., & Shoemaker, C. A. (2007). "Dynamically dimensioned
+search algorithm for computationally efficient watershed model
+calibration". Water Resources Research, 43(1), 1-16.
+
+## Author
+
+Nicolas Duque Gardeazabal \<nduqueg@unal.edu.co\>  
+Pedro Felipe Arboleda Obando \<pfarboledao@unal.edu.co\>  
+Carolina Vega Viviescas \<cvegav@unal.edu.co\>  
+David Zamora \<dazamoraa@unal.edu.co\>  
+
+Water Resources Engineering Research Group - GIREH Universidad Nacional
+de Colombia - sede Bogota
+
+## Examples
+
+``` r
+
+# Load P and PET databases
+data(P_sogamoso, PET_sogamoso)
+
+# Verify that the coordinates of the databases match
+Coord_comparison(P_sogamoso, PET_sogamoso)
+#> First data file is a data frame
+#> Second data file is a data frame
+#> Two data frames - Comparing coordinates and headers
+#> Coordinates verified
+#> Warning: First date/header does not match - Please verify
+#> Warning: Final date/header does not match - Please verify
+#> Extent verified
+#> Resolution verified
+#> Rows and columns verified
+#> Number of layers verified
+#> [1] TRUE
+
+# Load geographic info of GRU and basins where calibration will be performed
+data(GRU,basins)
+cellBasins <- cellBasins(GRU, basins)
+#> Warning: gruLoc and basins have different coordinate reference systems. The basins are reprojected to the raster CRS during the extraction, but verify projections before using the results.
+#> Warning: [extract] transforming vector data to the CRS of the raster
+
+# Establish the initial modeling conditions
+GRU.maps <- buildGRUmaps(GRU, param)
+init <- init_state(GRU.maps$smaxR)
+g_v <- init$In_ground
+s_v <- init$In_storage
+rm(init)
+
+# Load general characteristics of modeling
+setup_data <- readSetup(Read = TRUE)
+Dates <- seq(as.Date( gsub('[^0-9.]','',colnames(P_sogamoso)[3]), 
+format = "%Y.%m.%d"), 
+             as.Date(gsub('[^0-9.]','',tail(colnames(P_sogamoso),1)) , 
+             format = "%Y.%m.%d"), by = "month")
+
+# For this calibration exercise, the last date of simulation is 
+# the same as the final date of calibration
+Start.sim <- which(Dates == setup_data[8,1])
+End.sim <- which(Dates == setup_data[10,1])
+# the first two columns of the P and PET are the coordinates of the cells
+Sim.Period <- c(Start.sim:End.sim)+2 
+Start.cal <- which(Dates == setup_data[9,1])
+End.cal <- which(Dates == as.Date("2004-12-01"))
+# the first two columns of the P and PET are the coordinates of the cells
+Cal.Period <- c(Start.cal:End.cal)+2  
+
+#Load observed runoff
+data(EscSogObs)
+
+# Function that runs the DWB model
+NSE_Sogamoso_DWB <- function(parameters, P, PET, g_v,s_v, Sim.Period, EscObs, Cal.Period){
+
+parameters <- as.vector(parameters)
+# Transform the parameters to the format that the model needs
+nGRU <- max(terra::values(terra::rast(GRU)), na.rm = TRUE)
+param <- matrix(parameters, nrow = nGRU)
+
+# Construction of parameter maps from values by GRU
+GRU.maps <- buildGRUmaps(GRU, param)
+alpha1_v <- GRU.maps$alpha1
+alpha2_v <- GRU.maps$alpha2
+smax_v <- GRU.maps$smax
+d_v <- GRU.maps$d
+DWB.sogamoso <- DWBCalculator(P_sogamoso[ ,Sim.Period], PET_sogamoso[ ,Sim.Period],
+                              g_v,s_v, alpha1_v, alpha2_v, smax_v,d_v, calibration = TRUE)
+Esc.Sogamoso <- varBasins(DWB.sogamoso$q_total, cellBasins$cellBasins)
+
+# model evaluation; in case of possible NA results in the simulation,
+# add a conditional assignment to a very high value
+sim <- Esc.Sogamoso$varAverage[Cal.Period - 2, ]
+# align the observations with the simulated basins (named by gauge code)
+obs <- EscSogObs[Cal.Period - 2, paste0("X", colnames(sim))]
+
+if (sum(!is.na(sim)) == prod(dim(sim))){
+  numer <- apply((sim - obs)^2, 2, sum, na.rm = TRUE)
+  demom <- apply((obs - apply(obs, 2, mean, na.rm = TRUE))^2, 2, sum, na.rm = TRUE)
+  nse.cof <- 1 - numer / demom
+} else {
+  nse.cof <- NA
+}
+
+Perf <- (-1)*nse.cof
+if(!is.na(mean(Perf))){ 
+  Mean.Perf <- mean(Perf)
+  } else {Mean.Perf <- 1e100}
+     return(Mean.Perf)
+}
+
+# coupling with the DDS algorithm
+xBounds.df <- data.frame(lower = rep(0, times = 40), upper = rep(c(1, 2000), times = c(30, 10)))
+result <- dds(xBounds.df=xBounds.df, numIter=2, OBJFUN=NSE_Sogamoso_DWB,
+              P=P_sogamoso, PET=PET_sogamoso, g_v=g_v, s_v=s_v, Sim.Period=Sim.Period, 
+              EscObs=EscSogObs, Cal.Period=Cal.Period)
+#>   |                                                                              |                                                                      |   0%  |                                                                              |===================================                                   |  50%  |                                                                              |======================================================================| 100%
+```
