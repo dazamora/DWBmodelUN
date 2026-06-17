@@ -40,7 +40,7 @@ Two physical laws are taken into account in Dynamic Water Balance model
 conservation, DWB is based on the equilibrium of water balance shown in
 equation (1).
 
-<img src="README-fig.1-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="man/figures/README-fig.1-1.png" width="100%" style="display: block; margin: auto;" />
 
 Where \(S_{c}\) is the total stored water in the basin, *P* is the
 precipitation, *ET* is actual evapotranspiration, *R* corresponds to
@@ -62,7 +62,7 @@ evapotranspirated. Zhang et al. (2008) worked on the mathematical
 assumption presented by Baw-Puh (1981) (equation 2) that is a
 continuation of Budyko framework.
 
-<img src="README-fig.2-1.png" width="100%" style="display: block; margin: auto;" />
+<img src="man/figures/README-fig.2-1.png" width="100%" style="display: block; margin: auto;" />
 
 Where \(\alpha\) is a model parameter with an interval of \[0-1\]. Zhang
 et al. (2008) detailed the influence of α parameter on the hydrological
@@ -85,7 +85,7 @@ following processes:
 5.  The total monthly flow is the result of adding base flow and surface
     runoff.
 
-<img src="DWB_diagram.png" width="100%" />
+<img src="man/figures/DWB_diagram.png" width="100%" />
 
 All these processes are done under the Top Down approach consider only
 four parameters are added to the model structure: \(\alpha_{1}\),
