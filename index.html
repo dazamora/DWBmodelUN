@@ -74,10 +74,10 @@
 <h2 id="concepts-behind-dwbmodelun">Concepts behind DWBmodelUN<a class="anchor" aria-label="anchor" href="#concepts-behind-dwbmodelun"></a>
 </h2>
 <p>Two physical laws are taken into account in Dynamic Water Balance model (DWB), mass balance and energy balance. To represent the mass conservation, DWB is based on the equilibrium of water balance shown in equation (1).</p>
-<p><img src="README-fig.1-1.png" width="100%" style="display: block; margin: auto;"></p>
+<p><img src="reference/figures/README-fig.1-1.png" width="100%" style="display: block; margin: auto;"></p>
 <p>Where (S_{c}) is the total stored water in the basin, <em>P</em> is the precipitation, <em>ET</em> is actual evapotranspiration, <em>R</em> corresponds to surface runoff and <em>Q</em> to aquifers recharge. To evaluate the water balance of a basin is necessary to know several kind information like climatic variables, basin physical characteristics and further uniqueness relationships of each study. In the case of water balance models, some information can be replaced by equations and mathematical relations physically based, which makes the models much simpler but functional.</p>
 <p>To represent energy conservation the model includes a conceptualization made by Budyko (1961) where the energy availability influences over the atmospheric water demand which is represented by potential evapotranspiration (<em>PET</em>). The conceptualization also states that the dominant control of the water balance is atmospheric demand and water availability (P), which impose a limit to how much water can be evapotranspirated. Zhang et al. (2008) worked on the mathematical assumption presented by Baw-Puh (1981) (equation 2) that is a continuation of Budyko framework.</p>
-<p><img src="README-fig.2-1.png" width="100%" style="display: block; margin: auto;"></p>
+<p><img src="reference/figures/README-fig.2-1.png" width="100%" style="display: block; margin: auto;"></p>
 <p>Where () is a model parameter with an interval of [0-1]. Zhang et al. (2008) detailed the influence of α parameter on the hydrological response in their model DWB. DWB is a lumped conceptual hydrological model developed for annual and monthly time step. The model inputs are precipitation, potential evapotranspiration and streamflow. In general terms, DWB calculates the streamflow using two tanks and doing the following processes:</p>
 <ol style="list-style-type: decimal">
 <li>Precipitation is partitioned to basin water consumption and basin water yield. When it rains the soil is replenished and part of the rainfall is returned to the atmosphere, this process corresponds to basin water consumption, by the other hand, the remaining rainfall is the basin water yield.</li>
@@ -86,7 +86,7 @@
 <li>The base flow is the result of groundwater storage drainage.</li>
 <li>The total monthly flow is the result of adding base flow and surface runoff.</li>
 </ol>
-<p><img src="DWB_diagram.png" width="100%"></p>
+<p><img src="reference/figures/DWB_diagram.png" width="100%"></p>
 <p>All these processes are done under the Top Down approach consider only four parameters are added to the model structure: (<em>{1}), precipitation catchment efficiency; (), evapotranspiration efficiency; <em>d</em>, groundwater store time constant; (S</em>{max}), maximum water holding capacity of soil store (Zhang et al. (2008)).</p>
 </div>
 <div class="section level2">
