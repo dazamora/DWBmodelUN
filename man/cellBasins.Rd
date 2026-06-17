@@ -7,11 +7,13 @@
 cellBasins(gruLoc, basins)
 }
 \arguments{
-\item{gruLoc}{raster file that was used to build GRUs. In this function will be used to number each cell
+\item{gruLoc}{raster (\code{SpatRaster} from \pkg{terra}, or an object convertible to it, such as a
+\code{RasterLayer}) that was used to build the GRUs. In this function it is used to number each cell
 from West to East and from North to South.}
 
-\item{basins}{a shapefile that is comprised each one of the basins where the modeller wants to know the runoff.
-It must be in the same projection of the gruLoc raster.}
+\item{basins}{polygons (\code{SpatVector} from \pkg{terra}, or an object convertible to it, such as a
+\code{SpatialPolygonsDataFrame}) comprising each one of the basins where the modeller wants to know the runoff.
+It must be in the same projection as the gruLoc raster.}
 }
 \value{
 a list that comprise two dataframes. The first one, the list of cells in each of the basins contained in the shapefile (\code{cellBasins}), 

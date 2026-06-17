@@ -7,7 +7,9 @@
 init_state(raster)
 }
 \arguments{
-\item{raster}{It could be a raster containing the maximum storage in the root zone or two raster with the initial conditions of storage}
+\item{raster}{a single layer raster (\code{SpatRaster} from \pkg{terra}, or an object convertible to it, such as a
+\code{RasterLayer}) containing the maximum storage in the root zone, or a two-layer raster with the initial
+conditions of the soil water storage (first layer) and the groundwater storage (second layer)}
 }
 \value{
 A list containing initial conditions in storage and in ground.
@@ -16,20 +18,20 @@ A list containing initial conditions in storage and in ground.
 This function uploads or creates the initial conditions of the two-state variables present in the DWB model, in raster format.
 }
 \details{
-It requires the raster composed of the Srmax values that were created using the \code{\link{buildGRUmaps}} function
-or two rasters previously created with the initial conditions of the soil water and groundwater storage. If there is only
-be one raster found, the function creates those two rasters using the value of the provide raster reduced by half.
+It requires the raster composed of the Smax values that were created using the \code{\link{buildGRUmaps}} function,
+or a two-layer raster previously created with the initial conditions of the soil water and groundwater storage.
+If only one layer is provided, the function creates the two initial conditions using the values of the provided
+raster reduced by half.
 }
 \examples{
-library(raster)
-
-# Example 1
-data(gru_maps)
+# Example 1: build the initial states from the Smax map
+data(GRU, param)
+gru_maps <- buildGRUmaps(GRU, param)
 init <- init_state(gru_maps$smaxR)
 
-# Example 2
+# Example 2: use two rasters with previously known initial conditions
 data(In_storage, In_ground)
-init <- init_state(stack(In_storage, In_ground))
+init <- init_state(c(terra::rast(In_storage), terra::rast(In_ground)))
 
 }
 \references{

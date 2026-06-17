@@ -7,15 +7,17 @@
 buildGRUmaps(gruLoc, parsValues)
 }
 \arguments{
-\item{gruLoc}{raster file that is comprised by numbers from 1 to the total number of \code{GRUs} that were defined.}
+\item{gruLoc}{raster (\code{SpatRaster} from \pkg{terra}, or an object convertible to it, such as a
+\code{RasterLayer}) that is comprised by numbers from 1 to the total number of \code{GRUs} that were defined.}
 
-\item{parsValues}{data frame that has the values of the four parameters of each \code{GRU}. It must have equal number of
+\item{parsValues}{data frame or matrix that has the values of the four parameters of each \code{GRU}. It must have equal number of
 rows as number of GRU that were defined, and must have four columns which define the \code{alpha1}, \code{alpha2}, \code{d}
-and \code{Smax} parameters.}
+and \code{Smax} parameters, in that order.}
 }
 \value{
-a list which consists of four vectors and four raster, each one of them has the values of a parameter spatialized according with
-the GRU raster layer.
+a list which consists of four vectors (\code{alpha1}, \code{alpha2}, \code{d}, \code{smax}) and four
+\code{SpatRaster} objects (\code{alpha1R}, \code{alpha2R}, \code{dR}, \code{smaxR}), each one of them with the values
+of a parameter spatialized according to the GRU raster layer.
 }
 \description{
 This function builds raster maps for each parameter based on a raster file where the location of the

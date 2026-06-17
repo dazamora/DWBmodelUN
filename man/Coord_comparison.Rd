@@ -7,11 +7,13 @@
 Coord_comparison(r1, r2)
 }
 \arguments{
-\item{r1}{raster or data frame. If it is a data frame, it should contain in the first two columns, the X, Y 
+\item{r1}{raster (\code{SpatRaster} from \pkg{terra}, or an object convertible to it, such as a \code{RasterLayer})
+or data frame. If it is a data frame, it should contain in the first two columns, the X, Y
 coordinates for every point, in GEOGRAPHIC COORDINATES, the third column and so on should have the variable values,
 and optionally, the header should have the date, using the format \code{\%m/\%Y}.}
 
-\item{r2}{raster or data frame. If it is a data frame, it should contain in the first two columns, the X, Y 
+\item{r2}{raster (\code{SpatRaster} from \pkg{terra}, or an object convertible to it, such as a \code{RasterLayer})
+or data frame. If it is a data frame, it should contain in the first two columns, the X, Y
 coordinates for every point, in GEOGRAPHIC COORDINATES, the third column and so on should have the variable values,
 and optionally, the header should have the date, using the format \code{\%m/\%Y}.}
 }

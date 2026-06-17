@@ -2,7 +2,7 @@
 title: "Examples DWB model"
 author: "Camila Garcia and David Zamora"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_document
+output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Examples DWB model}
   %\VignetteEngine{knitr::rmarkdown}
@@ -26,7 +26,8 @@ As a first step, the example starts with loading datasets generated for SRB that
 
 ```{r echo=TRUE, results='hide'}
 library(DWBmodelUN)
-library(raster)
+# Load P and PET databases
+data(P_sogamoso, PET_sogamoso)
 # Verify that the coordinates of the databases match
 Coord_comparison(P_sogamoso, PET_sogamoso)
 # Load geographic info of GRU and parameters per cell
@@ -64,7 +65,6 @@ DWB.sogamoso <- DWBCalculator(P_sogamoso[ ,Sim.Period],
 
 ```{r echo=TRUE, results='hide'}
 library(DWBmodelUN)
-library(raster)
 # Load P and PET databases
 data(P_sogamoso, PET_sogamoso)
 
@@ -106,7 +106,8 @@ NSE_Sogamoso_DWB <- function(parameters, P, PET, g_v,s_v, Sim.Period, EscObs, Ca
   
   parameters <- as.vector(parameters)
   # Transform the parameters to the format that the model needs
-  param <- matrix(parameters, nrow = raster::cellStats(GRU,stat="max"))  
+  nGRU <- max(terra::values(terra::rast(GRU)), na.rm = TRUE)
+  param <- matrix(parameters, nrow = nGRU)
   
   # Construction of parameter maps from values by GRU
   GRU.maps <- buildGRUmaps(GRU, param)
@@ -118,10 +119,11 @@ NSE_Sogamoso_DWB <- function(parameters, P, PET, g_v,s_v, Sim.Period, EscObs, Ca
                                 g_v,s_v, alpha1_v, alpha2_v, smax_v,d_v, calibration = TRUE)
   Esc.Sogamoso <- varBasins(DWB.sogamoso$q_total, cellBasins$cellBasins)
   
-  # model evaluation; in case of possible NA results in the simulation, 
-  # add a conditional assingment to a very high value
+  # model evaluation; in case of possible NA results in the simulation,
+  # add a conditional assignment to a very high value
   sim <- Esc.Sogamoso$varAverage[Cal.Period - 2, ]
-  obs <- EscSogObs[Cal.Period - 2, ]
+  # align the observations with the simulated basins (named by gauge code)
+  obs <- EscSogObs[Cal.Period - 2, paste0("X", colnames(sim))]
   
   if (sum(!is.na(sim)) == prod(dim(sim))){
     numer <- apply((sim - obs)^2, 2, sum, na.rm = TRUE)
@@ -146,13 +148,14 @@ result <- dds(xBounds.df = xBounds.df, numIter=2, OBJFUN=NSE_Sogamoso_DWB,
 ```
 
 ## Interactive graphics to represent outputs from the DWB model
-`graphDWB` is the function in charge of creating the graphical inputs and outputs of **DWBmodelUN**. The function has three types of graphs to be generated:
+`graphDWB` is the function in charge of creating the graphical inputs and outputs of **DWBmodelUN**. The function has four types of graphs to be generated:
 
-1. The first one corresponds to a hydrograph of the precipitation entries. 
-2. The second one generates a combined chart of a rain hydrograph and streamflow hydrograph.
-3. The third one involves the graphic number 3  plus a hydrograph of evapotranspiration.
+1. The first one (`tp = 1`) corresponds to a hydrograph of any continuous variable, such as the precipitation entries.
+2. The second one (`tp = 2`) compares the simulated runoff with the observations.
+3. The third one (`tp = 3`) generates a combined chart with a rain hyetograph and the simulated and observed streamflow hydrographs.
+4. The fourth one (`tp = 4`) adds a hydrograph of evapotranspiration to the previous comparison.
 
-The present example shows how to generate each chart type, using the datasets included in **DWBmodelUN** for the SRB. To draw one of the four chart types it is necessary to load the variables involved in each one, to adjust the input series to a time vector and assign them to a list element. Finally to run `graphDWB`.
+The present example shows how to generate three of the four chart types, using the datasets included in **DWBmodelUN** for the SRB. To draw one of the chart types it is necessary to load the variables involved in each one, to adjust the input series to a time vector and assign them to a list element. Finally to run `graphDWB`.
 
 ### First: Example with precipitation time series
 
@@ -160,7 +163,7 @@ The present example shows how to generate each chart type, using the datasets in
 library(DWBmodelUN)
 library(dygraphs)
 data(P_sogamoso)
-P.est <- ts(c(t(P_sogamoso[1, -2:-1])), star = c(2012, 1), frequency = 12)
+P.est <- ts(c(t(P_sogamoso[1, -2:-1])), start = c(2012, 1), frequency = 12)
 var <- list("Precipitation" = P.est)
  graphDWB(var, tp = 1, main = "Precipitation Lat:7.0 Lon:-72.94")
 ```
@@ -171,9 +174,9 @@ var <- list("Precipitation" = P.est)
 library(DWBmodelUN)
 library(dygraphs)
 data(P_sogamoso, simDWB.sogamoso, EscSogObs)
-P.est <- ts(c(t(P_sogamoso[1, -2:-1])), star = c(2012, 1), frequency = 12)
-runoff.sim <- ts(simDWB.sogamoso[c(131:192) ,1], star = c(2012, 1), frequency = 12)
-runoff.obs <- ts(EscSogObs[c(131:192) ,1] , star = c(2012, 1), frequency = 12)
+P.est <- ts(c(t(P_sogamoso[1, -2:-1])), start = c(2012, 1), frequency = 12)
+runoff.sim <- ts(simDWB.sogamoso[c(131:192) ,1], start = c(2012, 1), frequency = 12)
+runoff.obs <- ts(EscSogObs[c(131:192) ,1] , start = c(2012, 1), frequency = 12)
 var <- list("Precipitation" = P.est,"Runoff.sim" = runoff.sim, "Runoff.obs" = runoff.obs)
 graphDWB(var, tp = 3, main = "DWB results at Sogamoso Basin")
 ```
@@ -184,9 +187,9 @@ graphDWB(var, tp = 3, main = "DWB results at Sogamoso Basin")
 library(DWBmodelUN)
 library(dygraphs)
 data(P_sogamoso, PET_sogamoso, simDWB.sogamoso)
-P <- ts(c(t(P_sogamoso[1, -2:-1])), star = c(2012, 1), frequency = 12)
-PET <- ts(c(t(PET_sogamoso[1, -2:-1])), star = c(2012, 1), frequency = 12)
-runoff.sim <- ts(simDWB.sogamoso[c(131:192), 1], star = c(2012, 1), frequency = 12)
+P <- ts(c(t(P_sogamoso[1, -2:-1])), start = c(2012, 1), frequency = 12)
+PET <- ts(c(t(PET_sogamoso[1, -2:-1])), start = c(2012, 1), frequency = 12)
+runoff.sim <- ts(simDWB.sogamoso[c(131:192), 1], start = c(2012, 1), frequency = 12)
 var <- list("P" = P,"PET" = PET, "Runoff.sim" = runoff.sim)
 graphDWB(var, tp = 4, main = "General Comparison Sogamoso Basin")
 ```

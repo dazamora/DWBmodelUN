@@ -42,128 +42,312 @@
 #' @examples
 #' # Example 1
 #' data(P_sogamoso)
-#' P.est <- ts(c(t(P_sogamoso[1, -2:-1])), star = c(2001, 1), frequency = 12)
+#' P.est <- ts(c(t(P_sogamoso[1, -2:-1])), start = c(2001, 1), frequency = 12)
 #' var <- list("Precipitation" = P.est)
 #' 
 #' graphDWB(var, tp = 1, main = "Precipitation Lat:7.0 Lon:-72.94")
 #' 
 #' # Example 2
 #' data(simDWB.sogamoso, EscSogObs)
-#' runoff.sim <- ts(simDWB.sogamoso[,25], star = c(2001, 1), frequency = 12)
-#' runoff.obs <- ts(EscSogObs[,25] , star = c(2001, 1), frequency = 12)
+#' runoff.sim <- ts(simDWB.sogamoso[,25], start = c(2001, 1), frequency = 12)
+#' runoff.obs <- ts(EscSogObs[,25] , start = c(2001, 1), frequency = 12)
 #' var <- list("Runoff.sim" = runoff.sim, "Runoff.obs" = runoff.obs)
 #' 
 #' graphDWB(var, tp = 2, main = "Runoff at basin closure: Gauge 24067010")
 #' 
 #' # Example 3
 #' data(P_sogamoso, simDWB.sogamoso, EscSogObs)
-#' P.est <- ts(c(t(P_sogamoso[1, 15:110])), star = c(2002, 1), frequency = 12)
-#' runoff.sim <- ts(simDWB.sogamoso[13:108 ,25], star = c(2002, 1), frequency = 12)
-#' runoff.obs <- ts(EscSogObs[13:108 ,25] , star = c(2002, 1), frequency = 12)
+#' P.est <- ts(c(t(P_sogamoso[1, 15:110])), start = c(2002, 1), frequency = 12)
+#' runoff.sim <- ts(simDWB.sogamoso[13:108 ,25], start = c(2002, 1), frequency = 12)
+#' runoff.obs <- ts(EscSogObs[13:108 ,25] , start = c(2002, 1), frequency = 12)
 #' var <- list("Precipitation" = P.est,"Runoff.sim" = runoff.sim, "Runoff.obs" = runoff.obs)
 #' 
 #' graphDWB(var, tp = 3, main = "DWB results at Sogamoso Basin closure point")
 #' 
 #' # Example 4
 #' data(P_sogamoso, PET_sogamoso, simDWB.sogamoso)
-#' P <- ts(c(t(P_sogamoso[1, -2:-1])), star = c(2001, 1), frequency = 12)
-#' PET <- ts(c(t(PET_sogamoso[1, -2:-1])), star = c(2001, 1), frequency = 12)
-#' runoff.sim <- ts(simDWB.sogamoso[ ,25], star = c(2001, 1), frequency = 12)
+#' P <- ts(c(t(P_sogamoso[1, -2:-1])), start = c(2001, 1), frequency = 12)
+#' PET <- ts(c(t(PET_sogamoso[1, -2:-1])), start = c(2001, 1), frequency = 12)
+#' runoff.sim <- ts(simDWB.sogamoso[ ,25], start = c(2001, 1), frequency = 12)
 #' var <- list("P" = P,"PET" = PET, "Runoff.sim" = runoff.sim)
 #' 
 #' graphDWB(var, tp = 4, main = "General Comparison Sogamoso Basin")
 #' 
-graphDWB <- function(var, tp, main, ...){
-  nvar <- length(var)
-  if (nvar == 0){
-    stop('The list must contain at least one time series variable')
-  }
-  # All series must be time series class
-  for(i in 1:nvar){
-    if(class(var[[i]]) != "ts"){
-      warning(paste('The', i, 'variable is not a time series', dQuote(c("ts")) ,'class'))
-    }
-  }; rm(i)
-  # Verification of type of plot
-  if(tp == 1){
-    if (nvar > 1){
-      warning('Only the first variable in the list will be used')
-    }
-    plot <- dygraphs::dygraph(var[[1]], ylab = paste(names(var)[1], "[mm/mth]", sep =" "), main = main, ...)
-    plot <- dygraphs::dySeries(dygraph = plot, "V1", label = names(var)[1], strokeWidth = 1.7, color= "#2c7fb8")
-    plot <- dygraphs::dyLegend(dygraph = plot, show = "follow", hideOnMouseOut = FALSE)
-    plot <- dygraphs::dyRangeSelector(dygraph = plot)
-    
-  } else if (tp == 2){
-    if (nvar < 2){
-      stop('An additional variable is required for this type of graph')
-    } else if (nvar > 2){
-      warning('Only the first two variables in the list will be compared')
-    } 
-    plot <- dygraphs::dygraph(cbind(var[[1]], var[[2]]), ylab = "[mm/mth]", main = main, ...)
-    plot <- dygraphs::dySeries(dygraph = plot, "var[[1]]", label = names(var)[1], strokeWidth = 1.7,  color= "#ef8a62")
-    plot <- dygraphs::dySeries(dygraph = plot, "var[[2]]", label = names(var)[2], strokeWidth = 1.7, color= "#404040", 
-                               drawPoints = TRUE, pointSize = 2)
-    plot <- dygraphs::dyLegend(dygraph = plot, show = "always", width = 400)
-    plot <- dygraphs::dyHighlight(dygraph = plot, highlightCircleSize = 3, highlightSeriesBackgroundAlpha = 0.2,
-                                  hideOnMouseOut = FALSE)
-    plot <- dygraphs::dyRangeSelector(dygraph = plot, height = 30)
-    
-  } else if (tp == 3){
-    if (nvar < 3){
-      stop('An additional variable is required for this type of graph')
-    } else if (nvar > 3){
-      warning('Only the first three variables in the list will be compared, assumed as 1. Precipitation 2. Simulated runoff 3. Observed runoff')
-    } 
-    aux <- c(-0.001, max(var[[1]], na.rm = TRUE))
-    plot.1 <- dygraphs::dygraph(var[[1]], group = "A", height = 150, width = "100%",  main = main, ...)
-    plot.1 <- dygraphs::dySeries(dygraph = plot.1, "V1", label = names(var)[1], strokeWidth = 1.7, axis = "y", color= "#2c7fb8")
-    plot.1 <- dygraphs::dyLegend(dygraph = plot.1, show = "follow", width = 210, hideOnMouseOut = FALSE)
-    plot.1 <- dygraphs::dyBarChart(dygraph = plot.1)
-    plot.1 <- dygraphs::dyAxis(dygraph = plot.1, name = "y", label = "P [mm/mth]", valueRange = c(max(var[[1]] + 50, na.rm = TRUE),0))
-    
-    var.2 <- var[[2]]; var.3 <- var[[3]]
-    plot.2 <- dygraphs::dygraph(cbind(var.2, var.3), ylab = "Runoff [mm/mth]", group = "A", height = 300, width = "100%", ...)
-    plot.2 <- dygraphs::dySeries(dygraph = plot.2, "var.2", label = names(var)[2], strokeWidth = 1.7,  color= "#ef8a62")
-    plot.2 <- dygraphs::dySeries(dygraph = plot.2, "var.3", label = names(var)[3], strokeWidth = 1.7, color= "#404040", 
-                                 drawPoints = TRUE, pointSize = 2)
-    plot.2 <- dygraphs::dyLegend(dygraph = plot.2, show = "follow", width = 210, hideOnMouseOut = FALSE) 
-    plot.2 <- dygraphs::dyHighlight(dygraph = plot.2, highlightCircleSize = 3, highlightSeriesBackgroundAlpha = 0.2,
-                                    hideOnMouseOut = FALSE)
-    plot.2 <- dygraphs::dyRangeSelector(dygraph = plot.2, height = 25)
-    plot <- list(plot.1, plot.2)
-    plot <- htmltools::browsable(htmltools::tagList(plot))
-    
-  } else if (tp == 4){
-    if (nvar < 3){
-      stop('An additional variable is required for this type of graph')
-    } else if (nvar > 3){
-      warning('Only the first three variables in the list will be compared, assumed as 1. Precipitation 2. Evapotranspiration 3. Runoff')
-    }
-    plot.1 <- dygraphs::dygraph(var[[1]], group = "A", height = 160, width = "100%",  main = main, ...) 
-    plot.1 <- dygraphs::dySeries(dygraph = plot.1,name = "V1", label = names(var)[1], axis = "y", color = "#2c7fb8") 
-    plot.1 <- dygraphs::dyLegend(dygraph = plot.1, show = "follow", width = 210, hideOnMouseOut = FALSE)
-    plot.1 <- dygraphs::dyBarChart(dygraph = plot.1) 
-    plot.1 <- dygraphs::dyAxis(dygraph = plot.1, name = "y", label = "P [mm/mth]", valueRange = c(max(var[[1]] + 50, na.rm = TRUE), 0)) 
-    
-    plot.2 <- dygraphs::dygraph(var[[2]], group = "A", height = 140, width = "100%", ...)
-    plot.2 <- dygraphs::dySeries(dygraph = plot.2, "V1", label = names(var)[2], strokeWidth = 1.7, axis = "y", color= "#1a9850")
-    plot.2 <- dygraphs::dyLegend(dygraph = plot.2, show = "follow", width = 210, hideOnMouseOut = FALSE)
-    plot.2 <- dygraphs::dyBarChart(dygraph = plot.2)
-    plot.2 <- dygraphs::dyAxis(dygraph = plot.2, name = "y", label = "ET [mm/mth]", valueRange = c(0, max(var[[2]] + 50, na.rm = TRUE)))
-    
-    plot.3 <- dygraphs::dygraph(var[[3]], ylab = "Runoff [mm/mth]", group = "A", height = 225, width = "100%", ...) 
-    plot.3 <- dygraphs::dySeries(dygraph = plot.3, "V1", label = names(var)[3], strokeWidth = 1.7,  color= "#ef8a62") 
-    plot.3 <- dygraphs::dyLegend(dygraph = plot.3, show = "follow", width = 210, hideOnMouseOut = FALSE) 
-    plot.3 <-  dygraphs::dyRangeSelector(dygraph = plot.3, height = 25)
-    
-    plot <- list(plot.1, plot.2, plot.3)
-    plot <- htmltools::browsable(htmltools::tagList(plot))
-    
-  } else {
-    stop('Wrong type of graph')
+graphDWB <- function(var, tp, main = "", ...){
+  
+  if (!requireNamespace("dygraphs", quietly = TRUE)) {
+    stop("The 'dygraphs' package is required. Install it with install.packages('dygraphs').")
   }
   
-  if(interactive())
+  if (!requireNamespace("htmltools", quietly = TRUE)) {
+    stop("The 'htmltools' package is required. Install it with install.packages('htmltools').")
+  }
+  
+  if (missing(var) || !is.list(var) || length(var) == 0) {
+    stop("var must be a list containing at least one time series variable")
+  }
+  
+  if (missing(tp) || !tp %in% c(1, 2, 3, 4)) {
+    stop("tp must be one of: 1, 2, 3, or 4")
+  }
+  
+  nvar <- length(var)
+  
+  if (is.null(names(var)) || any(names(var) == "")) {
+    names(var) <- paste0("var", seq_along(var))
+  }
+  
+  for (i in seq_len(nvar)) {
+    if (!inherits(var[[i]], "ts")) {
+      stop(paste("Variable", i, "must be a time series object of class 'ts'"))
+    }
+  }
+  
+  make_series <- function(series, series_names) {
+    out <- do.call(cbind, series)
+    colnames(out) <- series_names
+    out
+  }
+  
+  max_plus <- function(x, add = 50) {
+    max(x, na.rm = TRUE) + add
+  }  
+  if (tp == 1) {
+    
+    if (nvar > 1) {
+      warning("Only the first variable in the list will be used")
+    }
+    
+    y_name <- names(var)[1]
+    
+    plot <- dygraphs::dygraph(
+      var[[1]],
+      ylab = paste(y_name, "[mm/mth]"),
+      main = main,
+      ...
+    )
+    
+    plot <- dygraphs::dySeries(
+      dygraph = plot,
+      name = "V1",
+      label = y_name,
+      strokeWidth = 1.7,
+      color = "#2c7fb8"
+    )
+    
+    plot <- dygraphs::dyLegend(plot, show = "follow", hideOnMouseOut = FALSE)
+    plot <- dygraphs::dyRangeSelector(plot)
+    
+  } else if (tp == 2) {
+    
+    if (nvar < 2) {
+      stop("Two variables are required for this type of graph")
+    }
+    
+    if (nvar > 2) {
+      warning("Only the first two variables in the list will be compared")
+    }
+    
+    series_names <- names(var)[1:2]
+    data_plot <- make_series(var[1:2], series_names)
+    
+    plot <- dygraphs::dygraph(
+      data_plot,
+      ylab = "[mm/mth]",
+      main = main,
+      ...
+    )
+    
+    plot <- dygraphs::dySeries(
+      plot,
+      name = series_names[1],
+      label = series_names[1],
+      strokeWidth = 1.7,
+      color = "#ef8a62"
+    )
+    
+    plot <- dygraphs::dySeries(
+      plot,
+      name = series_names[2],
+      label = series_names[2],
+      strokeWidth = 1.7,
+      color = "#404040",
+      drawPoints = TRUE,
+      pointSize = 2
+    )
+    
+    plot <- dygraphs::dyLegend(plot, show = "always", width = 400)
+    plot <- dygraphs::dyHighlight(
+      plot,
+      highlightCircleSize = 3,
+      highlightSeriesBackgroundAlpha = 0.2,
+      hideOnMouseOut = FALSE
+    )
+    plot <- dygraphs::dyRangeSelector(plot, height = 30)
+    
+  } else if (tp == 3) {
+    
+    if (nvar < 3) {
+      stop("Three variables are required for this type of graph")
+    }
+    
+    if (nvar > 3) {
+      warning("Only the first three variables in the list will be compared, assumed as 1. Precipitation 2. Simulated runoff 3. Observed runoff")
+    }
+    
+    p_name <- names(var)[1]
+    runoff_names <- names(var)[2:3]
+    runoff_data <- make_series(var[2:3], runoff_names)
+    
+    plot.1 <- dygraphs::dygraph(
+      var[[1]],
+      group = "A",
+      height = 150,
+      width = "100%",
+      main = main,
+      ...
+    )
+    
+    plot.1 <- dygraphs::dySeries(
+      plot.1,
+      name = "V1",
+      label = p_name,
+      strokeWidth = 1.7,
+      axis = "y",
+      color = "#2c7fb8"
+    )
+    
+    plot.1 <- dygraphs::dyLegend(plot.1, show = "follow", width = 210, hideOnMouseOut = FALSE)
+    plot.1 <- dygraphs::dyBarChart(plot.1)
+    plot.1 <- dygraphs::dyAxis(
+      plot.1,
+      name = "y",
+      label = "P [mm/mth]",
+      valueRange = c(max_plus(var[[1]]), 0)
+    )
+    
+    plot.2 <- dygraphs::dygraph(
+      runoff_data,
+      ylab = "Runoff [mm/mth]",
+      group = "A",
+      height = 300,
+      width = "100%",
+      ...
+    )
+    
+    plot.2 <- dygraphs::dySeries(
+      plot.2,
+      name = runoff_names[1],
+      label = runoff_names[1],
+      strokeWidth = 1.7,
+      color = "#ef8a62"
+    )
+    
+    plot.2 <- dygraphs::dySeries(
+      plot.2,
+      name = runoff_names[2],
+      label = runoff_names[2],
+      strokeWidth = 1.7,
+      color = "#404040",
+      drawPoints = TRUE,
+      pointSize = 2
+    )
+    
+    plot.2 <- dygraphs::dyLegend(plot.2, show = "follow", width = 210, hideOnMouseOut = FALSE)
+    plot.2 <- dygraphs::dyHighlight(
+      plot.2,
+      highlightCircleSize = 3,
+      highlightSeriesBackgroundAlpha = 0.2,
+      hideOnMouseOut = FALSE
+    )
+    plot.2 <- dygraphs::dyRangeSelector(plot.2, height = 25)
+    
+    plot <- htmltools::browsable(htmltools::tagList(plot.1, plot.2))
+    
+  } else if (tp == 4) {
+    
+    if (nvar < 3) {
+      stop("Three variables are required for this type of graph")
+    }
+    
+    if (nvar > 3) {
+      warning("Only the first three variables in the list will be compared, assumed as 1. Precipitation 2. Evapotranspiration 3. Runoff")
+    }
+    
+    plot.1 <- dygraphs::dygraph(
+      var[[1]],
+      group = "A",
+      height = 160,
+      width = "100%",
+      main = main,
+      ...
+    )
+    
+    plot.1 <- dygraphs::dySeries(
+      plot.1,
+      name = "V1",
+      label = names(var)[1],
+      axis = "y",
+      color = "#2c7fb8"
+    )
+    
+    plot.1 <- dygraphs::dyLegend(plot.1, show = "follow", width = 210, hideOnMouseOut = FALSE)
+    plot.1 <- dygraphs::dyBarChart(plot.1)
+    plot.1 <- dygraphs::dyAxis(
+      plot.1,
+      name = "y",
+      label = "P [mm/mth]",
+      valueRange = c(max_plus(var[[1]]), 0)
+    )
+    
+    plot.2 <- dygraphs::dygraph(
+      var[[2]],
+      group = "A",
+      height = 140,
+      width = "100%",
+      ...
+    )
+    
+    plot.2 <- dygraphs::dySeries(
+      plot.2,
+      name = "V1",
+      label = names(var)[2],
+      strokeWidth = 1.7,
+      axis = "y",
+      color = "#1a9850"
+    )
+    
+    plot.2 <- dygraphs::dyLegend(plot.2, show = "follow", width = 210, hideOnMouseOut = FALSE)
+    plot.2 <- dygraphs::dyBarChart(plot.2)
+    plot.2 <- dygraphs::dyAxis(
+      plot.2,
+      name = "y",
+      label = "ET [mm/mth]",
+      valueRange = c(0, max_plus(var[[2]]))
+    )
+    
+    plot.3 <- dygraphs::dygraph(
+      var[[3]],
+      ylab = "Runoff [mm/mth]",
+      group = "A",
+      height = 225,
+      width = "100%",
+      ...
+    )
+    
+    plot.3 <- dygraphs::dySeries(
+      plot.3,
+      name = "V1",
+      label = names(var)[3],
+      strokeWidth = 1.7,
+      color = "#ef8a62"
+    )
+    
+    plot.3 <- dygraphs::dyLegend(plot.3, show = "follow", width = 210, hideOnMouseOut = FALSE)
+    plot.3 <- dygraphs::dyRangeSelector(plot.3, height = 25)
+    
+    plot <- htmltools::browsable(htmltools::tagList(plot.1, plot.2, plot.3))
+  }
+  
   return(plot)
 }

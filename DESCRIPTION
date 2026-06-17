@@ -1,8 +1,9 @@
 Package: DWBmodelUN
 Title: Dynamic Water Balance a Hydrological Model 
-Version: 1.0.0
+Version: 2.0.0
 Authors@R: c(person("Nicolas", "Duque", email = "nduqueg@unal.edu.co", comment = c(ORCID = "0000-0002-2631-8573"), role = c("aut")),
              person("Carolina", "Vega", email = "cvegav@unal.edu.co", comment = c(ORCID = "0000-0001-7138-0862"), role = c("aut")),
+             person("Jeffer", "Cañon", email = "jcanon@ideam.gov.co", role = c("aut")),
              person("Pedro", "Arboleda", email = "pfarboledao@unal.edu.co", comment = c(ORCID = "0000-0002-7620-825X"), role = c("aut")),
              person("David", "Zamora", email = "dazamoraa@unal.edu.co", comment = c(ORCID = "0000-0002-2256-7054"), role = c("aut", "cre")),
              person("Camila", "Garcia", email = "cagarciae@unal.edu.co", comment = c(ORCID = "0000-0001-8227-7684"), role = c("cot")))
@@ -14,20 +15,21 @@ Description: A tool to hydrologic modelling using the Budyko
     the structure of the model.
     See Zhang, L., N., Potter, K., Hickel, Y., Zhang, Q., Shao (2008) <DOI:10.1016/j.jhydrol.2008.07.021> "Water balance modeling over variable time scales based on the Budyko framework - Model development and testing", Journal of Hydrology, 360, 117–131.
     See Tolson, B., C., Shoemaker (2007) <DOI:10.1029/2005WR004723> "Dynamically dimensioned search algorithm for computationally efficient watershed model calibration", Water Resources Research, 43, 1–16.
-Depends: R (>= 3.4)
-Imports: 
+Depends: R (>= 3.5)
+Imports:
     dygraphs,
     htmltools,
-    ncdf4,
-    raster,
-    rgdal
-Suggests: 
+    terra
+Suggests:
     hydroGOF,
     knitr,
-    rmarkdown
+    ncdf4,
+    raster,
+    rmarkdown,
+    sp
 License: GPL-2
 BugReports: https://github.com/dazamora/DWBmodelUN/issues
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.1
 VignetteBuilder: knitr
+Config/roxygen2/version: 8.0.0

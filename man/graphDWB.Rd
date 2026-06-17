@@ -4,7 +4,7 @@
 \alias{graphDWB}
 \title{Graph for DWB model results}
 \usage{
-graphDWB(var, tp, main, ...)
+graphDWB(var, tp, main = "", ...)
 }
 \arguments{
 \item{var}{It is a list that contains a time series of type \code{\link{ts}} which you want to graph. \cr
@@ -38,33 +38,33 @@ It has three types of graphs: \cr
 \examples{
 # Example 1
 data(P_sogamoso)
-P.est <- ts(c(t(P_sogamoso[1, -2:-1])), star = c(2001, 1), frequency = 12)
+P.est <- ts(c(t(P_sogamoso[1, -2:-1])), start = c(2001, 1), frequency = 12)
 var <- list("Precipitation" = P.est)
 
 graphDWB(var, tp = 1, main = "Precipitation Lat:7.0 Lon:-72.94")
 
 # Example 2
 data(simDWB.sogamoso, EscSogObs)
-runoff.sim <- ts(simDWB.sogamoso[,25], star = c(2001, 1), frequency = 12)
-runoff.obs <- ts(EscSogObs[,25] , star = c(2001, 1), frequency = 12)
+runoff.sim <- ts(simDWB.sogamoso[,25], start = c(2001, 1), frequency = 12)
+runoff.obs <- ts(EscSogObs[,25] , start = c(2001, 1), frequency = 12)
 var <- list("Runoff.sim" = runoff.sim, "Runoff.obs" = runoff.obs)
 
 graphDWB(var, tp = 2, main = "Runoff at basin closure: Gauge 24067010")
 
 # Example 3
 data(P_sogamoso, simDWB.sogamoso, EscSogObs)
-P.est <- ts(c(t(P_sogamoso[1, 15:110])), star = c(2002, 1), frequency = 12)
-runoff.sim <- ts(simDWB.sogamoso[13:108 ,25], star = c(2002, 1), frequency = 12)
-runoff.obs <- ts(EscSogObs[13:108 ,25] , star = c(2002, 1), frequency = 12)
+P.est <- ts(c(t(P_sogamoso[1, 15:110])), start = c(2002, 1), frequency = 12)
+runoff.sim <- ts(simDWB.sogamoso[13:108 ,25], start = c(2002, 1), frequency = 12)
+runoff.obs <- ts(EscSogObs[13:108 ,25] , start = c(2002, 1), frequency = 12)
 var <- list("Precipitation" = P.est,"Runoff.sim" = runoff.sim, "Runoff.obs" = runoff.obs)
 
 graphDWB(var, tp = 3, main = "DWB results at Sogamoso Basin closure point")
 
 # Example 4
 data(P_sogamoso, PET_sogamoso, simDWB.sogamoso)
-P <- ts(c(t(P_sogamoso[1, -2:-1])), star = c(2001, 1), frequency = 12)
-PET <- ts(c(t(PET_sogamoso[1, -2:-1])), star = c(2001, 1), frequency = 12)
-runoff.sim <- ts(simDWB.sogamoso[ ,25], star = c(2001, 1), frequency = 12)
+P <- ts(c(t(P_sogamoso[1, -2:-1])), start = c(2001, 1), frequency = 12)
+PET <- ts(c(t(PET_sogamoso[1, -2:-1])), start = c(2001, 1), frequency = 12)
+runoff.sim <- ts(simDWB.sogamoso[ ,25], start = c(2001, 1), frequency = 12)
 var <- list("P" = P,"PET" = PET, "Runoff.sim" = runoff.sim)
 
 graphDWB(var, tp = 4, main = "General Comparison Sogamoso Basin")

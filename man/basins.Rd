@@ -14,7 +14,12 @@ SpatialPolygonsDataFrame (S4)
 basins
 }
 \description{
-The polygons of the 23 subbasins across the Sogamoso Basin
+The polygons of the 25 subbasins across the Sogamoso Basin
+}
+\details{
+The object is stored in the legacy \pkg{sp} format, so the \pkg{sp} package must be installed
+to load it. The functions of \pkg{DWBmodelUN} convert it internally to a \code{SpatVector};
+to convert it manually use \code{terra::vect(basins)}.
 }
 \references{
 Duque-Gardeazabal, N. (2018). Estimation of rainfall fields in data scarce colombian watersheds,

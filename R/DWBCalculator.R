@@ -109,117 +109,125 @@
 #'                     
 DWBCalculator <- function(p_v, pet_v, g_v, s_v, alpha1_v, alpha2_v, smax_v, d_v, calibration = FALSE){
   
-  if (!calibration){
-    # total number of cells and time steps to be simulated
-    ncells <- NROW(p_v)
-    nmonths <- NCOL(p_v)
-    
-    # ---- Set the object variables with NA values ----
-    M.result <- matrix(nrow = ncells, ncol = nmonths) 
-    xo <- M.result  # demand limit of rainfall retention
-    x  <- M.result  # rainfall retention
-    qd <- M.result  # surface runoff
-    w  <- M.result  # water availability
-    yo <- M.result  # demand limit of evapotranspiration opportunity
-    y  <- M.result  # evapotranspiration opportunity
-    r  <- M.result  # Groundwater recharge
-    aet <- M.result # actual evapotranspiration
-    s  <- M.result  # soil moisture storage
-    qb <- M.result  # base flow
-    g  <- M.result  # groundwater storage
-    q_total <- M.result  # total runoff
-    
-    # Calculation of the variables and fluxes for the first time step
-    dummy   <- smax_v - s_v
-    xo[, 1] <- dummy + pet_v[, 1]
-    x[, 1]  <- p_v[, 1] * funFU(PET = xo[, 1], P = p_v[, 1], alpha = alpha1_v)
-    qd[, 1] <- p_v[, 1] - x[, 1]
-    w[, 1]  <- x[, 1] + s_v
-    yo[, 1] <- pet_v[, 1] + smax_v
-    y[, 1]  <- w[, 1] * funFU(PET = yo[, 1], P = w[, 1], alpha = alpha2_v)
-    r[, 1]  <- w[, 1] - y[, 1]
-    aet[, 1] <- w[, 1] * funFU(PET = pet_v[, 1], P = w[, 1], alpha = alpha2_v)
-    s[, 1]  <- y[, 1] - aet[, 1]
-    qb[, 1] <- d_v * g_v
-    g[, 1]  <- (1 - d_v) * g_v + r[, 1]
-    q_total[, 1] <- qb[, 1] + qd[, 1]
-    
-    # Loop defined to calculate the variables and fluxes in the following timesteps
-    pb <- txtProgressBar(min = 0, max = nmonths, style = 3)
-    for(i in 2:nmonths){
-      
-      dummy   <- smax_v - s[, (i-1)]
-      xo[, i] <- dummy + pet_v[, i]
-      x[, i]  <- p_v[, i] * funFU(PET = xo[, i], P = p_v[, i], alpha = alpha1_v)
-      qd[, i] <- p_v[, i] - x[, i]
-      w[, i]  <- x[, i] + s[, (i-1)]
-      yo[, i] <- pet_v[, i] + smax_v
-      y[, i]  <- w[, i] * funFU(PET = yo[, i], P = w[, i], alpha = alpha2_v)
-      r[, i]  <- w[, i] - y[, i]
-      aet[, i] <- w[, i] * funFU(PET = pet_v[, i], P = w[, i], alpha = alpha2_v)
-      s[, i]  <- y[, i] - aet[, i]
-      qb[, i] <- d_v * g[, (i-1)]
-      g[, i] <- (1-d_v) * g_v + r[, i]
-      q_total[, i] <- qb[, i] + qd[, i]
-      
-      setTxtProgressBar(pb, i)
-    }
-    close(pb) 
-  }else if(calibration){
-    # total number of cells and time steps to be simulated
-    ncells <- NROW(p_v)
-    nmonths <- NCOL(p_v)
-    
-    # ---- Set the object variables with NA values ----
-    M.result <- matrix(nrow = ncells, ncol = nmonths) 
-    xo <- M.result  # demand limit of rainfall retention
-    x  <- M.result  # rainfall retention
-    qd <- M.result  # surface runoff
-    w  <- M.result  # water availability
-    yo <- M.result  # demand limit of evapotranspiration opportunity
-    y  <- M.result  # evapotranspiration opportunity
-    r  <- M.result  # Groundwater recharge
-    aet <- M.result # actual evapotranspiration
-    s  <- M.result  # soil moisture storage
-    qb <- M.result  # base flow
-    g  <- M.result  # groundwater storage
-    q_total <- M.result  # total runoff
-    
-    # Calculation of the variables and fluxes for the first time step
-    dummy   <- smax_v - s_v
-    xo[, 1] <- dummy + pet_v[, 1]
-    x[, 1]  <- p_v[, 1] * funFU(PET = xo[, 1], P = p_v[, 1], alpha = alpha1_v)
-    qd[, 1] <- p_v[, 1] - x[, 1]
-    w[, 1]  <- x[, 1] + s_v
-    yo[, 1] <- pet_v[, 1] + smax_v
-    y[, 1]  <- w[, 1] * funFU(PET = yo[, 1], P = w[, 1], alpha = alpha2_v)
-    r[, 1]  <- w[, 1] - y[, 1]
-    aet[, 1] <- w[, 1] * funFU(PET = pet_v[, 1], P = w[, 1], alpha = alpha2_v)
-    s[, 1]  <- y[, 1] - aet[, 1]
-    qb[, 1] <- d_v * g_v
-    g[, 1]  <- (1 - d_v) * g_v + r[, 1]
-    q_total[, 1] <- qb[, 1] + qd[, 1]
-    
-    # Loop defined to calculate the variables and fluxes in the following timesteps
-    for(i in 2:nmonths){
-      
-      dummy   <- smax_v - s[, (i-1)]
-      xo[, i] <- dummy + pet_v[, i]
-      x[, i]  <- p_v[, i] * funFU(PET = xo[, i], P = p_v[, i], alpha = alpha1_v)
-      qd[, i] <- p_v[, i] - x[, i]
-      w[, i]  <- x[, i] + s[, (i-1)]
-      yo[, i] <- pet_v[, i] + smax_v
-      y[, i]  <- w[, i] * funFU(PET = yo[, i], P = w[, i], alpha = alpha2_v)
-      r[, i]  <- w[, i] - y[, i]
-      aet[, i] <- w[, i] * funFU(PET = pet_v[, i], P = w[, i], alpha = alpha2_v)
-      s[, i]  <- y[, i] - aet[, i]
-      qb[, i] <- d_v * g[, (i-1)]
-      g[, i] <- (1-d_v) * g_v + r[, i]
-      q_total[, i] <- qb[, i] + qd[, i]
+  p_v <- as.matrix(p_v)
+  pet_v <- as.matrix(pet_v)
+  
+  if (!is.numeric(p_v) || !is.numeric(pet_v)) {
+    stop("p_v and pet_v must be numeric matrices or data frames with numeric columns")
+  }
+  
+  if (!all(dim(p_v) == dim(pet_v))) {
+    stop("p_v and pet_v must have the same number of rows and columns")
+  }
+  
+  ncells <- nrow(p_v)
+  nmonths <- ncol(p_v)
+  
+  check_length <- function(x, name) {
+    if (length(x) != ncells) {
+      stop(paste(name, "must have the same length as the number of cells in p_v and pet_v"))
     }
   }
   
-  #---- return ----
-  dwb_aux <- list(q_total = q_total, aet = aet, r = r, qd = qd, qb = qb, s = s, g = g)
+  check_length(g_v, "g_v")
+  check_length(s_v, "s_v")
+  check_length(alpha1_v, "alpha1_v")
+  check_length(alpha2_v, "alpha2_v")
+  check_length(smax_v, "smax_v")
+  check_length(d_v, "d_v")
+  
+  if (any(p_v < 0, na.rm = TRUE)) {
+    stop("p_v must be greater than or equal to zero")
+  }
+  
+  if (any(pet_v < 0, na.rm = TRUE)) {
+    stop("pet_v must be greater than or equal to zero")
+  }
+  
+  if (any(alpha1_v <= 0 | alpha1_v >= 1, na.rm = TRUE)) {
+    stop("alpha1_v must contain values greater than 0 and lower than 1")
+  }
+  
+  if (any(alpha2_v <= 0 | alpha2_v >= 1, na.rm = TRUE)) {
+    stop("alpha2_v must contain values greater than 0 and lower than 1")
+  }
+  
+  if (any(smax_v <= 0, na.rm = TRUE)) {
+    stop("smax_v must contain values greater than zero")
+  }
+  
+  if (any(d_v < 0 | d_v > 1, na.rm = TRUE)) {
+    stop("d_v must contain values between 0 and 1")
+  }
+  
+  M.result <- matrix(NA_real_, nrow = ncells, ncol = nmonths)
+  
+  xo <- M.result
+  x <- M.result
+  qd <- M.result
+  w <- M.result
+  yo <- M.result
+  y <- M.result
+  r <- M.result
+  aet <- M.result
+  s <- M.result
+  qb <- M.result
+  g <- M.result
+  q_total <- M.result
+  
+  dummy <- smax_v - s_v
+  xo[, 1] <- dummy + pet_v[, 1]
+  x[, 1] <- p_v[, 1] * funFU(PET = xo[, 1], P = p_v[, 1], alpha = alpha1_v)
+  qd[, 1] <- p_v[, 1] - x[, 1]
+  w[, 1] <- x[, 1] + s_v
+  yo[, 1] <- pet_v[, 1] + smax_v
+  y[, 1] <- w[, 1] * funFU(PET = yo[, 1], P = w[, 1], alpha = alpha2_v)
+  r[, 1] <- w[, 1] - y[, 1]
+  aet[, 1] <- w[, 1] * funFU(PET = pet_v[, 1], P = w[, 1], alpha = alpha2_v)
+  # the storage is non-negative by definition; the lower bound removes negative values
+  # of the order of the floating point precision that otherwise produce NaN in funFU
+  s[, 1] <- pmax(y[, 1] - aet[, 1], 0)
+  qb[, 1] <- d_v * g_v
+  g[, 1] <- (1 - d_v) * g_v + r[, 1]
+  q_total[, 1] <- qb[, 1] + qd[, 1]
+  
+  if (!calibration && nmonths > 1) {
+    pb <- txtProgressBar(min = 0, max = nmonths, style = 3)
+    on.exit(close(pb), add = TRUE)
+  }
+  
+  if (nmonths > 1) {
+    for(i in 2:nmonths){
+      
+      dummy <- smax_v - s[, i - 1]
+      xo[, i] <- dummy + pet_v[, i]
+      x[, i] <- p_v[, i] * funFU(PET = xo[, i], P = p_v[, i], alpha = alpha1_v)
+      qd[, i] <- p_v[, i] - x[, i]
+      w[, i] <- x[, i] + s[, i - 1]
+      yo[, i] <- pet_v[, i] + smax_v
+      y[, i] <- w[, i] * funFU(PET = yo[, i], P = w[, i], alpha = alpha2_v)
+      r[, i] <- w[, i] - y[, i]
+      aet[, i] <- w[, i] * funFU(PET = pet_v[, i], P = w[, i], alpha = alpha2_v)
+      s[, i] <- pmax(y[, i] - aet[, i], 0)
+      qb[, i] <- d_v * g[, i - 1]
+      g[, i] <- (1 - d_v) * g[, i - 1] + r[, i]
+      q_total[, i] <- qb[, i] + qd[, i]
+      
+      if (!calibration) {
+        setTxtProgressBar(pb, i)
+      }
+    }
+  }
+  
+  dwb_aux <- list(
+    q_total = q_total,
+    aet = aet,
+    r = r,
+    qd = qd,
+    qb = qb,
+    s = s,
+    g = g
+  )
+  
   return(dwb_aux)
 }
