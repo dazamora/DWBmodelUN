@@ -3,7 +3,6 @@ output: github_document
 bibliography: "`r here::here('README-references.bib')`"
 header-includes:
   - \usepackage{color}
-  - \usepackage{amsmath}
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
