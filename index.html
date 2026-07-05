@@ -62,11 +62,8 @@
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>Installing the latest stable version from CRAN:</p>
+<p>Currently, you can install the version under development from <a href="https://github.com/dazamora/DWBmodelUN" class="external-link">Github</a>, using these commands:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"DWBmodelUN"</span><span class="op">)</span></span></code></pre></div>
-<p>Or, you can install the version under development from <a href="https://github.com/dazamora/DWBmodelUN" class="external-link">Github</a>, using these commands:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"dazamora/DWBmodelUN"</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -75,10 +72,10 @@
 </h2>
 <p>Two physical laws are taken into account in Dynamic Water Balance model (DWB), mass balance and energy balance. To represent the mass conservation, DWB is based on the equilibrium of water balance shown in equation (1).</p>
 <p><img src="reference/figures/README-fig.1-1.png" width="100%" style="display: block; margin: auto;"></p>
-<p>Where (S_{c}) is the total stored water in the basin, <em>P</em> is the precipitation, <em>ET</em> is actual evapotranspiration, <em>R</em> corresponds to surface runoff and <em>Q</em> to aquifers recharge. To evaluate the water balance of a basin is necessary to know several kind information like climatic variables, basin physical characteristics and further uniqueness relationships of each study. In the case of water balance models, some information can be replaced by equations and mathematical relations physically based, which makes the models much simpler but functional.</p>
+<p>Where <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>S</mi><mi>c</mi></msub><annotation encoding="application/x-tex">S_{c}</annotation></semantics></math> is the total stored water in the basin, <em>P</em> is the precipitation, <em>ET</em> is actual evapotranspiration, <em>R</em> corresponds to surface runoff and <em>Q</em> to aquifers recharge. To evaluate the water balance of a basin is necessary to know several kind information like climatic variables, basin physical characteristics and further uniqueness relationships of each study. In the case of water balance models, some information can be replaced by equations and mathematical relations physically based, which makes the models much simpler but functional.</p>
 <p>To represent energy conservation the model includes a conceptualization made by Budyko (1961) where the energy availability influences over the atmospheric water demand which is represented by potential evapotranspiration (<em>PET</em>). The conceptualization also states that the dominant control of the water balance is atmospheric demand and water availability (P), which impose a limit to how much water can be evapotranspirated. Zhang et al. (2008) worked on the mathematical assumption presented by Baw-Puh (1981) (equation 2) that is a continuation of Budyko framework.</p>
 <p><img src="reference/figures/README-fig.2-1.png" width="100%" style="display: block; margin: auto;"></p>
-<p>Where () is a model parameter with an interval of [0-1]. Zhang et al. (2008) detailed the influence of α parameter on the hydrological response in their model DWB. DWB is a lumped conceptual hydrological model developed for annual and monthly time step. The model inputs are precipitation, potential evapotranspiration and streamflow. In general terms, DWB calculates the streamflow using two tanks and doing the following processes:</p>
+<p>Where <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math> is a model parameter with an interval of [0-1]. Zhang et al. (2008) detailed the influence of α parameter on the hydrological response in their model DWB. DWB is a lumped conceptual hydrological model developed for annual and monthly time step. The model inputs are precipitation, potential evapotranspiration and streamflow. In general terms, DWB calculates the streamflow using two tanks and doing the following processes:</p>
 <ol style="list-style-type: decimal">
 <li>Precipitation is partitioned to basin water consumption and basin water yield. When it rains the soil is replenished and part of the rainfall is returned to the atmosphere, this process corresponds to basin water consumption, by the other hand, the remaining rainfall is the basin water yield.</li>
 <li>Total water available for evapotranspiration is divided into water remaining in the soil storage and actual evapotranspiration.</li>
@@ -87,7 +84,7 @@
 <li>The total monthly flow is the result of adding base flow and surface runoff.</li>
 </ol>
 <p><img src="reference/figures/DWB_diagram.png" width="100%"></p>
-<p>All these processes are done under the Top Down approach consider only four parameters are added to the model structure: (<em>{1}), precipitation catchment efficiency; (), evapotranspiration efficiency; <em>d</em>, groundwater store time constant; (S</em>{max}), maximum water holding capacity of soil store (Zhang et al. (2008)).</p>
+<p>All these processes are done under the Top Down approach consider only four parameters are added to the model structure: <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>α</mi><mn>1</mn></msub><annotation encoding="application/x-tex">\alpha_{1}</annotation></semantics></math>, precipitation catchment efficiency; <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>, evapotranspiration efficiency; <em>d</em>, groundwater store time constant; <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><msub><mi>S</mi><mrow><mi>m</mi><mi>a</mi><mi>x</mi></mrow></msub><annotation encoding="application/x-tex">S_{max}</annotation></semantics></math>, maximum water holding capacity of soil store (Zhang et al. (2008)).</p>
 </div>
 <div class="section level2">
 <h2 id="dwbmodelun-functions">DWBmodelUN functions<a class="anchor" aria-label="anchor" href="#dwbmodelun-functions"></a>
@@ -163,21 +160,21 @@
 <div class="section level2">
 <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
 </h2>
-<div id="refs" class="references">
-<div id="ref-baw1981">
-<p>Baw-Puh, Fu. 1981. “On the Calculation of the Evaporation from Land Surface [J].” <em>Chinese Journal of Atmospheric Sciences</em> 1.</p>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-baw1981" class="csl-entry">
+Baw-Puh, Fu. 1981. “On the Calculation of the Evaporation from Land Surface [j].” <em>Chinese Journal of Atmospheric Sciences</em> 1.
 </div>
-<div id="ref-budyko1961">
-<p>Budyko, Mikhail Ivanovich. 1961. “The Heat Balance of the Earth’s Surface.” <em>Soviet Geography</em> 2 (4): 3–13.</p>
+<div id="ref-budyko1961" class="csl-entry">
+Budyko, Mikhail Ivanovich. 1961. “The Heat Balance of the Earth’s Surface.” <em>Soviet Geography</em> 2 (4): 3–13.
 </div>
-<div id="ref-Duque2018">
-<p>Duque, Nicolás. 2018. “Estimación de Campos de Precipitación En Cuencas Hidrográficas Colombianas Con Escasez de Datos, Combinando Datos Teledetectados Y de Estaciones En Tierra, Utilizando Funciones de Kernel.” Master’s thesis, Universidad Nacional de Colombia - Sede Bogotá. <a href="https://repositorio.unal.edu.co/handle/unal/71663" class="external-link uri">https://repositorio.unal.edu.co/handle/unal/71663</a>.</p>
+<div id="ref-Duque2018" class="csl-entry">
+Duque, Nicolás. 2018. “Estimación de Campos de Precipitación En Cuencas Hidrográficas Colombianas Con Escasez de Datos, Combinando Datos Teledetectados y de Estaciones En Tierra, Utilizando Funciones de Kernel.” Master’s thesis, Universidad Nacional de Colombia - Sede Bogotá. <a href="https://repositorio.unal.edu.co/handle/unal/71663" class="external-link uri">https://repositorio.unal.edu.co/handle/unal/71663</a>.
 </div>
-<div id="ref-Tolson2007">
-<p>Tolson, Bryan A, and Christine A Shoemaker. 2007. “Dynamically dimensioned search algorithm for computationally efficient watershed model calibration” 43: 1–16. <a href="https://doi.org/10.1029/2005WR004723" class="external-link uri">https://doi.org/10.1029/2005WR004723</a>.</p>
+<div id="ref-Tolson2007" class="csl-entry">
+Tolson, Bryan A, and Christine A Shoemaker. 2007. “<span class="nocase">Dynamically dimensioned search algorithm for computationally efficient watershed model calibration</span>” 43: 1–16. <a href="https://doi.org/10.1029/2005WR004723" class="external-link uri">https://doi.org/10.1029/2005WR004723</a>.
 </div>
-<div id="ref-Zhang2008">
-<p>Zhang, Lu, Nick Potter, Klaus Hickel, Yongqiang Zhang, and Quanxi Shao. 2008. “Water balance modeling over variable time scales based on the Budyko framework - Model development and testing.” <em>Journal of Hydrology</em> 360 (1-4): 117–31. <a href="https://doi.org/10.1016/j.jhydrol.2008.07.021" class="external-link uri">https://doi.org/10.1016/j.jhydrol.2008.07.021</a>.</p>
+<div id="ref-Zhang2008" class="csl-entry">
+Zhang, Lu, Nick Potter, Klaus Hickel, Yongqiang Zhang, and Quanxi Shao. 2008. “<span class="nocase">Water balance modeling over variable time scales based on the Budyko framework - Model development and testing</span>.” <em>Journal of Hydrology</em> 360 (1-4): 117–31. <a href="https://doi.org/10.1016/j.jhydrol.2008.07.021" class="external-link uri">https://doi.org/10.1016/j.jhydrol.2008.07.021</a>.
 </div>
 </div>
 </div>

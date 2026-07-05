@@ -8,14 +8,7 @@ calibrate the model and analyze the outputs.
 
 ## Installation
 
-Installing the latest stable version from CRAN:
-
-``` r
-
-install.packages("DWBmodelUN")
-```
-
-Or, you can install the version under development from
+Currently, you can install the version under development from
 [Github](https://github.com/dazamora/DWBmodelUN), using these commands:
 
 ``` r
@@ -33,7 +26,7 @@ equation (1).
 
 ![](reference/figures/README-fig.1-1.png)
 
-Where (S\_{c}) is the total stored water in the basin, *P* is the
+Where $`S_{c}`$ is the total stored water in the basin, *P* is the
 precipitation, *ET* is actual evapotranspiration, *R* corresponds to
 surface runoff and *Q* to aquifers recharge. To evaluate the water
 balance of a basin is necessary to know several kind information like
@@ -55,8 +48,8 @@ continuation of Budyko framework.
 
 ![](reference/figures/README-fig.2-1.png)
 
-Where () is a model parameter with an interval of \[0-1\]. Zhang et
-al. (2008) detailed the influence of α parameter on the hydrological
+Where $`\alpha`$ is a model parameter with an interval of \[0-1\]. Zhang
+et al. (2008) detailed the influence of α parameter on the hydrological
 response in their model DWB. DWB is a lumped conceptual hydrological
 model developed for annual and monthly time step. The model inputs are
 precipitation, potential evapotranspiration and streamflow. In general
@@ -79,10 +72,10 @@ following processes:
 ![](reference/figures/DWB_diagram.png)
 
 All these processes are done under the Top Down approach consider only
-four parameters are added to the model structure: (*{1}), precipitation
-catchment efficiency; (), evapotranspiration efficiency; *d*,
-groundwater store time constant; (S*{max}), maximum water holding
-capacity of soil store (Zhang et al. (2008)).
+four parameters are added to the model structure: $`\alpha_{1}`$,
+precipitation catchment efficiency; $`\alpha`$, evapotranspiration
+efficiency; *d*, groundwater store time constant; $`S_{max}`$, maximum
+water holding capacity of soil store (Zhang et al. (2008)).
 
 ## DWBmodelUN functions
 
@@ -177,14 +170,14 @@ hydrological modelling.
 ## References
 
 Baw-Puh, Fu. 1981. “On the Calculation of the Evaporation from Land
-Surface \[J\].” *Chinese Journal of Atmospheric Sciences* 1.
+Surface \[j\].” *Chinese Journal of Atmospheric Sciences* 1.
 
 Budyko, Mikhail Ivanovich. 1961. “The Heat Balance of the Earth’s
 Surface.” *Soviet Geography* 2 (4): 3–13.
 
 Duque, Nicolás. 2018. “Estimación de Campos de Precipitación En Cuencas
 Hidrográficas Colombianas Con Escasez de Datos, Combinando Datos
-Teledetectados Y de Estaciones En Tierra, Utilizando Funciones de
+Teledetectados y de Estaciones En Tierra, Utilizando Funciones de
 Kernel.” Master’s thesis, Universidad Nacional de Colombia - Sede
 Bogotá. <https://repositorio.unal.edu.co/handle/unal/71663>.
 
