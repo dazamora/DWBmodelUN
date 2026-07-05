@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">DWBmodelUN</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">2.0.1</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,6 +36,15 @@
       <small>Source: <a href="https://github.com/dazamora/DWBmodelUN/blob/master/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="2.0.1" id="dwbmodelun-201">DWBmodelUN 2.0.1<a class="anchor" aria-label="anchor" href="#dwbmodelun-201"></a></h2>
+<div class="section level3">
+<h3 id="cran-resubmission-fixes-2-0-1">CRAN resubmission fixes<a class="anchor" aria-label="anchor" href="#cran-resubmission-fixes-2-0-1"></a></h3>
+<ul><li>
+<code><a href="../reference/graphDWB.html">graphDWB()</a></code> no longer opens a web browser in non-interactive sessions. For the composed graphs (<code>tp = 3</code> and <code>tp = 4</code>) the returned object is now only wrapped in <code><a href="https://rstudio.github.io/htmltools/reference/browsable.html" class="external-link">htmltools::browsable()</a></code> when <code><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive()</a></code> is <code>TRUE</code>, so <code>R CMD check</code> examples and vignette builds no longer trigger a browser call. Interactive use and the knitted vignette keep rendering the dygraphs as before.</li>
+<li>Replaced the retired Travis CI badge with a GitHub Actions R-CMD-check badge and updated the dead thesis URL (bdigital.unal.edu.co, host no longer resolving) to its current location on repositorio.unal.edu.co, in the README, the vignette and the bibliography.</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="2.0.0" id="dwbmodelun-200">DWBmodelUN 2.0.0<a class="anchor" aria-label="anchor" href="#dwbmodelun-200"></a></h2>
 <div class="section level3">

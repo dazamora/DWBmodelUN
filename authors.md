@@ -22,11 +22,11 @@ Source:
 [`DESCRIPTION`](https://github.com/dazamora/DWBmodelUN/blob/master/DESCRIPTION)
 
 Duque N, Vega C, Cañon J, Arboleda P, Zamora D (2026). *DWBmodelUN:
-Dynamic Water Balance a Hydrological Model*. R package version 2.0.0.
+Dynamic Water Balance a Hydrological Model*. R package version 2.0.1.
 
     @Manual{,
       title = {DWBmodelUN: Dynamic Water Balance a Hydrological Model},
       author = {Nicolas Duque and Carolina Vega and Jeffer Cañon and Pedro Arboleda and David Zamora},
       year = {2026},
-      note = {R package version 2.0.0},
+      note = {R package version 2.0.1},
     }

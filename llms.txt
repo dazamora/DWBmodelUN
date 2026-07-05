@@ -186,7 +186,7 @@ Duque, Nicolás. 2018. “Estimación de Campos de Precipitación En Cuencas
 Hidrográficas Colombianas Con Escasez de Datos, Combinando Datos
 Teledetectados Y de Estaciones En Tierra, Utilizando Funciones de
 Kernel.” Master’s thesis, Universidad Nacional de Colombia - Sede
-Bogotá. <http://bdigital.unal.edu.co/71663/>.
+Bogotá. <https://repositorio.unal.edu.co/handle/unal/71663>.
 
 Tolson, Bryan A, and Christine A Shoemaker. 2007. “Dynamically
 dimensioned search algorithm for computationally efficient watershed

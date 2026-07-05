@@ -1,5 +1,23 @@
 # Changelog
 
+## DWBmodelUN 2.0.1
+
+### CRAN resubmission fixes
+
+- [`graphDWB()`](https://dazamora.github.io/DWBmodelUN/reference/graphDWB.md)
+  no longer opens a web browser in non-interactive sessions. For the
+  composed graphs (`tp = 3` and `tp = 4`) the returned object is now
+  only wrapped in
+  [`htmltools::browsable()`](https://rstudio.github.io/htmltools/reference/browsable.html)
+  when [`interactive()`](https://rdrr.io/r/base/interactive.html) is
+  `TRUE`, so `R CMD check` examples and vignette builds no longer
+  trigger a browser call. Interactive use and the knitted vignette keep
+  rendering the dygraphs as before.
+- Replaced the retired Travis CI badge with a GitHub Actions R-CMD-check
+  badge and updated the dead thesis URL (bdigital.unal.edu.co, host no
+  longer resolving) to its current location on repositorio.unal.edu.co,
+  in the README, the vignette and the bibliography.
+
 ## DWBmodelUN 2.0.0
 
 ### Breaking changes
