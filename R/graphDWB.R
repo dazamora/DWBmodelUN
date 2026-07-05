@@ -262,7 +262,10 @@ graphDWB <- function(var, tp, main = "", ...){
     )
     plot.2 <- dygraphs::dyRangeSelector(plot.2, height = 25)
     
-    plot <- htmltools::browsable(htmltools::tagList(plot.1, plot.2))
+    plot <- htmltools::tagList(plot.1, plot.2)
+    if (interactive()) {
+      plot <- htmltools::browsable(plot)
+    }
     
   } else if (tp == 4) {
     
@@ -346,7 +349,10 @@ graphDWB <- function(var, tp, main = "", ...){
     plot.3 <- dygraphs::dyLegend(plot.3, show = "follow", width = 210, hideOnMouseOut = FALSE)
     plot.3 <- dygraphs::dyRangeSelector(plot.3, height = 25)
     
-    plot <- htmltools::browsable(htmltools::tagList(plot.1, plot.2, plot.3))
+    plot <- htmltools::tagList(plot.1, plot.2, plot.3)
+    if (interactive()) {
+      plot <- htmltools::browsable(plot)
+    }
   }
   
   return(plot)

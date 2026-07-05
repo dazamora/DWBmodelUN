@@ -7,3 +7,4 @@ README-references.bib
 ^pkgdown$
 ^\.github$
 ^binder$
+^cran-comments\.md$
