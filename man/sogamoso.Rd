@@ -6,7 +6,7 @@
 \title{Sogamoso River Basin data}
 \format{
 The list contains
-\itemize{
+\describe{
   \item{basins:}{Shapefile featuring subbasins across the Sogamoso Basin.}
   \item{cells:}{Data frame (3 columns by 677 rows), cells coordinates and its ID number.}
   \item{dwb_results:}{List, it contains the DWB model's outputs in matrix format, q_total- total runoff,

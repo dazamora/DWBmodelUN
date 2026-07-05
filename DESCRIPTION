@@ -7,7 +7,7 @@ Authors@R: c(person("Nicolas", "Duque", email = "nduqueg@unal.edu.co", comment =
              person("Pedro", "Arboleda", email = "pfarboledao@unal.edu.co", comment = c(ORCID = "0000-0002-7620-825X"), role = c("aut")),
              person("David", "Zamora", email = "dazamoraa@unal.edu.co", comment = c(ORCID = "0000-0002-2256-7054"), role = c("aut", "cre")),
              person("Camila", "Garcia", email = "cagarciae@unal.edu.co", comment = c(ORCID = "0000-0001-8227-7684"), role = c("cot")))
-Description: A tool to hydrologic modelling using the Budyko 
+Description: A tool for hydrologic modelling using the Budyko 
     framework and the Dynamic Water Balance model with Dynamical Dimension
     Search algorithm to calibrate the model and analyze the outputs from
     interactive graphics. It allows to calculate the water availability
@@ -33,3 +33,4 @@ Encoding: UTF-8
 LazyData: true
 VignetteBuilder: knitr
 Config/roxygen2/version: 8.0.0
+RoxygenNote: 7.3.1
