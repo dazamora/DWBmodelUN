@@ -17,6 +17,11 @@
   badge and updated the dead thesis URL (bdigital.unal.edu.co, host no
   longer resolving) to its current location on repositorio.unal.edu.co,
   in the README, the vignette and the bibliography.
+- Fixed the `sogamoso` dataset documentation: the `\format` section used
+  `\itemize` with labelled items, which produced “Lost braces in ” notes
+  under the current `R CMD check`; it now uses `\describe`.
+- Updated the codecov badge link to its current address (app.codecov.io)
+  to avoid a permanent-redirect URL note.
 
 ## DWBmodelUN 2.0.0
 

@@ -48,36 +48,63 @@
 
     <div class="section level2">
     <h2 id="format">Format<a class="anchor" aria-label="anchor" href="#format"></a></h2>
-    <p>The list contains</p><ul><li><p>basins:Shapefile featuring subbasins across the Sogamoso Basin.</p></li>
-<li><p>cells:Data frame (3 columns by 677 rows), cells coordinates and its ID number.</p></li>
-<li><p>dwb_results:List, it contains the DWB model's outputs in matrix format, q_total- total runoff,
+    <p>The list contains</p><dl><dt>basins:</dt>
+<dd><p>Shapefile featuring subbasins across the Sogamoso Basin.</p></dd>
+
+  <dt>cells:</dt>
+<dd><p>Data frame (3 columns by 677 rows), cells coordinates and its ID number.</p></dd>
+
+  <dt>dwb_results:</dt>
+<dd><p>List, it contains the DWB model's outputs in matrix format, q_total- total runoff,
         aet- actual evapotranspiration, r- recharge, qd- Surface runoff, qd- baseflow,
-        s- soil storage, g- groundwater storage.</p></li>
-<li><p>GRU:Raster, it represents the ten (10) Grouped Response Units across the Sogamoso River Basin.</p></li>
-<li><p>In_ground:Raster, initial conditions in the groundwater storage.</p></li>
-<li><p>In_storage:Raster, initial conditions in the soil storage.</p></li>
-<li><p>P_sogamoso:Data frame, it should represent the cells in each row, and the precipitation
+        s- soil storage, g- groundwater storage.</p></dd>
+
+  <dt>GRU:</dt>
+<dd><p>Raster, it represents the ten (10) Grouped Response Units across the Sogamoso River Basin.</p></dd>
+
+  <dt>In_ground:</dt>
+<dd><p>Raster, initial conditions in the groundwater storage.</p></dd>
+
+  <dt>In_storage:</dt>
+<dd><p>Raster, initial conditions in the soil storage.</p></dd>
+
+  <dt>P_sogamoso:</dt>
+<dd><p>Data frame, it should represent the cells in each row, and the precipitation
         info. by month in each column. The cell rank should match the cell ID in the cells data frame. The
-        first two columns are the coordinates of the cells</p></li>
-<li><p>param:Data frame, it should represent a GRU in each row, and parameter values in each
-        column. GRU rank should match the GRU number used in the GRU raster.</p></li>
-<li><p>PET_sogamoso:Data frame, it contains evapotranspiration data, representing the cells in each row,
+        first two columns are the coordinates of the cells</p></dd>
+
+  <dt>param:</dt>
+<dd><p>Data frame, it should represent a GRU in each row, and parameter values in each
+        column. GRU rank should match the GRU number used in the GRU raster.</p></dd>
+
+  <dt>PET_sogamoso:</dt>
+<dd><p>Data frame, it contains evapotranspiration data, representing the cells in each row,
                  and the evapotranspiration info. by month in each column.
                  The cell rank should match the cell ID in the cells data frame.The
-                 first two columns are the coordinates of the cells</p></li>
-<li><p>r.cells:Raster, data frame Cells converted to raster format.</p></li>
-<li><p>setup_data:Data frame, it contains the set-up and printing options to run the DWBmodelUN.
+                 first two columns are the coordinates of the cells</p></dd>
+
+  <dt>r.cells:</dt>
+<dd><p>Raster, data frame Cells converted to raster format.</p></dd>
+
+  <dt>setup_data:</dt>
+<dd><p>Data frame, it contains the set-up and printing options to run the DWBmodelUN.
    It consists of 11 parameters: the first seven are configurations of orders whose values can be
    'yes' or 'no', indicating 1) If the model must be calibrated,
    2) If the variables must be saved in raster format and which variables 3) R - Total runoff ,
    4) S - Soil moisture storage, 5) AET - Actual evapotranspiration, 6) Qd - Surface runoff ,
    and 7) Qb - Base flow.  The last four variables are dates and refer to the times of the
-   input series, and the start and end times of the simulation and calibration of the model.</p></li>
-<li><p>EscSogObs:Data frame, it contains runoff time series measured at 32 stations within the basin.
-   These gauges belong to the IDEAM monitoring network.</p></li>
-<li><p>simDWB.sogamoso:Data frame, it contains simulated runoff time series at the same 32
-   stations within the basin.</p></li>
-</ul></div>
+   input series, and the start and end times of the simulation and calibration of the model.</p></dd>
+
+   <dt>EscSogObs:</dt>
+<dd><p>Data frame, it contains runoff time series measured at 32 stations within the basin.
+   These gauges belong to the IDEAM monitoring network.</p></dd>
+
+   <dt>simDWB.sogamoso:</dt>
+<dd><p>Data frame, it contains simulated runoff time series at the same 32
+   stations within the basin.</p></dd>
+
+
+</dl></div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>

@@ -43,6 +43,8 @@
 <ul><li>
 <code><a href="../reference/graphDWB.html">graphDWB()</a></code> no longer opens a web browser in non-interactive sessions. For the composed graphs (<code>tp = 3</code> and <code>tp = 4</code>) the returned object is now only wrapped in <code><a href="https://rstudio.github.io/htmltools/reference/browsable.html" class="external-link">htmltools::browsable()</a></code> when <code><a href="https://rdrr.io/r/base/interactive.html" class="external-link">interactive()</a></code> is <code>TRUE</code>, so <code>R CMD check</code> examples and vignette builds no longer trigger a browser call. Interactive use and the knitted vignette keep rendering the dygraphs as before.</li>
 <li>Replaced the retired Travis CI badge with a GitHub Actions R-CMD-check badge and updated the dead thesis URL (bdigital.unal.edu.co, host no longer resolving) to its current location on repositorio.unal.edu.co, in the README, the vignette and the bibliography.</li>
+<li>Fixed the <code>sogamoso</code> dataset documentation: the <code>\format</code> section used <code>\itemize</code> with labelled items, which produced “Lost braces in ” notes under the current <code>R CMD check</code>; it now uses <code>\describe</code>.</li>
+<li>Updated the codecov badge link to its current address (app.codecov.io) to avoid a permanent-redirect URL note.</li>
 </ul></div>
 </div>
     <div class="section level2">
