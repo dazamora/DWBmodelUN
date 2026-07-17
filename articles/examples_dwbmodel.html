@@ -61,7 +61,7 @@
                         <h4 data-toc-skip class="author">Camila Garcia
 and David Zamora</h4>
             
-            <h4 data-toc-skip class="date">2026-07-05</h4>
+            <h4 data-toc-skip class="date">2026-07-17</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/dazamora/DWBmodelUN/blob/master/vignettes/examples_dwbmodel.Rmd" class="external-link"><code>vignettes/examples_dwbmodel.Rmd</code></a></small>
       <div class="d-none name"><code>examples_dwbmodel.Rmd</code></div>
@@ -87,6 +87,8 @@ system of the input data are verified. The last step is to run
 streamflow simulated.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">DWBmodelUN</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Loading required package: raster</span></span>
+<span><span class="co">#&gt; Loading required package: sp</span></span>
 <span><span class="co"># Load P and PET databases</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">P_sogamoso</span>, <span class="va">PET_sogamoso</span><span class="op">)</span></span>
 <span><span class="co"># Verify that the coordinates of the databases match</span></span>
@@ -107,7 +109,6 @@ streamflow simulated.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">GRU</span>, <span class="va">param</span><span class="op">)</span></span>
 <span><span class="co"># Construction of parameter maps from values by GRU</span></span>
 <span><span class="va">GRU.maps</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/buildGRUmaps.html">buildGRUmaps</a></span><span class="op">(</span><span class="va">GRU</span>, <span class="va">param</span><span class="op">)</span></span>
-<span><span class="co">#&gt; Loading required namespace: raster</span></span>
 <span><span class="va">alpha1_v</span> <span class="op">&lt;-</span> <span class="va">GRU.maps</span><span class="op">$</span><span class="va">alpha1</span></span>
 <span><span class="va">alpha2_v</span> <span class="op">&lt;-</span> <span class="va">GRU.maps</span><span class="op">$</span><span class="va">alpha2</span></span>
 <span><span class="va">smax_v</span> <span class="op">&lt;-</span> <span class="va">GRU.maps</span><span class="op">$</span><span class="va">smax</span></span>
@@ -337,7 +338,7 @@ model calibration” 43: 1–16.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>

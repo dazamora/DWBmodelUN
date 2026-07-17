@@ -45,6 +45,7 @@
 <li>Replaced the retired Travis CI badge with a GitHub Actions R-CMD-check badge and updated the dead thesis URL (bdigital.unal.edu.co, host no longer resolving) to its current location on repositorio.unal.edu.co, in the README, the vignette and the bibliography.</li>
 <li>Fixed the <code>sogamoso</code> dataset documentation: the <code>\format</code> section used <code>\itemize</code> with labelled items, which produced “Lost braces in ” notes under the current <code>R CMD check</code>; it now uses <code>\describe</code>.</li>
 <li>Updated the codecov badge link to its current address (app.codecov.io) to avoid a permanent-redirect URL note.</li>
+<li>Moved <code>raster</code> and <code>sp</code> from Suggests to Depends. The bundled example datasets are stored as <code>raster</code>/<code>sp</code> S4 objects, so these packages must be attached for <code><a href="https://rdrr.io/r/utils/data.html" class="external-link">data()</a></code> to load them; declaring them only in Suggests caused a <code>checking data for non-ASCII characters</code> WARNING on the CRAN checks.</li>
 </ul></div>
 </div>
     <div class="section level2">
@@ -105,7 +106,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>

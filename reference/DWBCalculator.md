@@ -179,7 +179,6 @@ Coord_comparison(P_sogamoso, PET_sogamoso)
 data(GRU, param)
 # Construction of parameter maps from values by GRU
 GRU.maps <- buildGRUmaps(GRU, param)
-#> Loading required namespace: raster
 alpha1_v <- GRU.maps$alpha1
 alpha2_v <- GRU.maps$alpha2
 smax_v <- GRU.maps$smax

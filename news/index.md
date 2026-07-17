@@ -22,6 +22,11 @@
   under the current `R CMD check`; it now uses `\describe`.
 - Updated the codecov badge link to its current address (app.codecov.io)
   to avoid a permanent-redirect URL note.
+- Moved `raster` and `sp` from Suggests to Depends. The bundled example
+  datasets are stored as `raster`/`sp` S4 objects, so these packages
+  must be attached for [`data()`](https://rdrr.io/r/utils/data.html) to
+  load them; declaring them only in Suggests caused a
+  `checking data for non-ASCII characters` WARNING on the CRAN checks.
 
 ## DWBmodelUN 2.0.0
 
