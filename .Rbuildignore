@@ -8,3 +8,5 @@ README-references.bib
 ^\.github$
 ^binder$
 ^cran-comments\.md$
+^\.positai$
+^\.claude$

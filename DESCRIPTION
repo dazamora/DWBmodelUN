@@ -15,7 +15,10 @@ Description: A tool for hydrologic modelling using the Budyko
     the structure of the model.
     See Zhang, L., N., Potter, K., Hickel, Y., Zhang, Q., Shao (2008) <DOI:10.1016/j.jhydrol.2008.07.021> "Water balance modeling over variable time scales based on the Budyko framework - Model development and testing", Journal of Hydrology, 360, 117–131.
     See Tolson, B., C., Shoemaker (2007) <DOI:10.1029/2005WR004723> "Dynamically dimensioned search algorithm for computationally efficient watershed model calibration", Water Resources Research, 43, 1–16.
-Depends: R (>= 3.5)
+Depends:
+    R (>= 3.5),
+    raster,
+    sp
 Imports:
     dygraphs,
     htmltools,
@@ -24,9 +27,7 @@ Suggests:
     hydroGOF,
     knitr,
     ncdf4,
-    raster,
-    rmarkdown,
-    sp
+    rmarkdown
 License: GPL-2
 BugReports: https://github.com/dazamora/DWBmodelUN/issues
 Encoding: UTF-8
