@@ -1,3 +1,6 @@
+#' @importClassesFrom raster RasterLayer
+#' @importClassesFrom sp SpatialPolygonsDataFrame
+#' 
 #' @title Sogamoso River Basin data
 #'
 #' @format  The list contains
